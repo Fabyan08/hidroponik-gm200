@@ -34,4 +34,13 @@ Route::get('/pelatihan', function () {
     return view('pelatihan');
 })->name('pelatihan');
 
+// middleware dashboard owner
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/owner', function () {
+        return view('dashboard/index');
+    })->name('dashboard');
+    // Profile
+    Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile.index');
+});
+
 require __DIR__ . '/auth.php';
