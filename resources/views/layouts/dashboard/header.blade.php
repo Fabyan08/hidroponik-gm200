@@ -17,11 +17,18 @@
     <link rel="stylesheet"
         href="{{ asset('assets-stisla/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
+    {{-- Modul Datatable --}}
+    <link rel="stylesheet" href="{{ asset('assets-stisla/modules/datatables/datatables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets-stisla/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets-stisla/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets-stisla/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-stisla/css/components.css') }}">
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -130,7 +137,7 @@
                                         <i class="fas fa-code"></i>
                                     </div>
                                     <div class="dropdown-item-desc">
-                                        Template update is available now!
+                                        Template update is available now!!!!!!
                                         <div class="time text-primary">2 Min Ago</div>
                                     </div>
                                 </a>
@@ -177,7 +184,7 @@
                         </div>
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
-                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            class="nav-link dropdown-toggle flex items-center nav-link-lg nav-link-user">
                             <img alt="image" src="{{ asset('assets-stisla/img/avatar/avatar-1.png') }}"
                                 class="rounded-circle mr-1">
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>

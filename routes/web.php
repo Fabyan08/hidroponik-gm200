@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
     // Profile
     Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+    Route::get('/manajemen-admin', [AdminController::class, 'index'])->name('manajemen-admin.index');
 });
 
 require __DIR__ . '/auth.php';
