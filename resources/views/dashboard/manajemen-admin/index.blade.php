@@ -17,7 +17,11 @@
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ Tambah
                     Data</a>
             </div>
-
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -26,40 +30,43 @@
                                 <table class="table table-striped" id="table-1">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
-                                                #
-                                            </th>
-                                            <th>Task Name</th>
-                                            <th>Progress</th>
-                                            <th>Members</th>
-                                            <th>Due Date</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="text-center">#</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            <th>No HP</th>
+                                            <th>Alamat</th>
+                                            <th>Edit</th>
+                                            <th>Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">
-                                                1
-                                            </td>
-                                            <td>Create a mobile app</td>
-                                            <td class="align-middle">
-                                                <div class="progress" data-height="4" data-toggle="tooltip"
-                                                    title="100%">
-                                                    <div class="progress-bar bg-success" data-width="100%"></div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <img alt="image" src="assets/img/avatar/avatar-5.png"
-                                                    class="rounded-circle" width="35" data-toggle="tooltip"
-                                                    title="Wildan Ahdian">
-                                            </td>
-                                            <td>2018-01-20</td>
-                                            <td>
-                                                <div class="badge badge-success">Completed</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-                                        </tr>
+                                        @foreach ($data as $admin)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $admin->name }}</td>
+                                                <td>{{ $admin->email }}</td>
+                                                <td>{{ $admin->phone }}</td>
+                                                <td>{{ $admin->address }}</td>
+
+                                                <td>
+                                                    <a href="#" data-toggle="modal"
+                                                        data-target="#modal-edit-{{ $admin->id }}"
+                                                        class="btn btn-warning btn-sm">Edit</a>
+                                                </td>
+
+                                                <td>
+                                                    <form action="{{ route('admin.destroy', $admin->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Yakin hapus admin ini?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -72,38 +79,127 @@
     </section>
 </div>
 
-{{-- Modal --}}
-
+{{-- Modal Tambah --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="">
+
+            <form action="{{ route('admin.store') }}" method="POST">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambahkan Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
                     <div class="form-group">
-                        <label for="name">Nama</label>
-                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama">
+                        <label>Nama</label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name') }}"
+                            placeholder="Masukkan nama">
+                        <p class="text-danger">{{ $errors->first('name') }}</p>
                     </div>
+
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                            placeholder="Masukkan email">
+                        <p class="text-danger">{{ $errors->first('email') }}</p>
                     </div>
+
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Masukkan password">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                        <p class="text-danger">{{ $errors->first('password') }}</p>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+
+                    <div class="form-group">
+                        <label>Nomor HP</label>
+                        <input type="text" name="phone" class="form-control" value="{{ old('phone') }}"
+                            placeholder="Masukkan nomor telepon">
+                        <p class="text-danger">{{ $errors->first('phone') }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea name="address" class="form-control" placeholder="Masukkan alamat">{{ old('address') }}</textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
         </div>
     </div>
 </div>
+
+{{-- Modal Edit --}}
+@foreach ($data as $admin)
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-edit-{{ $admin->id }}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <form action="{{ route('admin.update', $admin->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Admin</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" name="name" class="form-control"
+                                value="{{ old('name', $admin->name) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control"
+                                value="{{ old('email', $admin->email) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password (Opsional)</label>
+                            <input type="password" name="password" class="form-control"
+                                placeholder="Kosongkan jika tidak diubah">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nomor HP</label>
+                            <input type="text" name="phone" class="form-control"
+                                value="{{ old('phone', $admin->phone) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <textarea name="address" class="form-control">{{ old('address', $admin->address) }}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+@endforeach
 @include('layouts.dashboard.footer')

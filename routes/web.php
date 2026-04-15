@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdmminController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile.index');
 
     Route::get('/manajemen-admin', [AdminController::class, 'index'])->name('manajemen-admin.index');
+    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+    Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
+
+    // Manajemen produk
+    Route::get('/manajemen-produk', [ProdukController::class, 'index'])->name('manajemen-produk.index');
+    Route::post('/produk/store', [ProdukController::class, 'store'])->name('product.store');
+    Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('product.update');
+    Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('product.destroy');
 });
 
 require __DIR__ . '/auth.php';

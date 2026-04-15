@@ -17,18 +17,13 @@
 
     <div class="max-w-6xl mx-auto reveal" style="transition-delay: 200ms;">
         <div class="relative rounded-[2rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-            <img src="https://images.unsplash.com/photo-1588614611586-2582845ac5e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                alt="Kebun GM 200" class="w-full h-full object-cover">
+            <img src="{{ asset('img/tentang.jpeg') }}" alt="Kebun GM 200" class="w-full h-full object-cover">
             <div
                 class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent flex flex-col justify-end p-8 md:p-12">
                 <div class="flex items-center gap-4 text-white">
-                    <div
-                        class="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center text-2xl shadow-lg animate-pulse">
-                        <i class="fa-solid fa-play ml-1"></i>
-                    </div>
+
                     <div>
-                        <p class="font-bold text-lg">Lihat Kebun Kami</p>
-                        <p class="text-sm opacity-80">Video Tour 2 Menit</p>
+                        <p class="font-bold text-lg"> Kebun Kami</p>
                     </div>
                 </div>
             </div>
@@ -122,90 +117,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-
-<section class="py-24 px-6 bg-white">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-sm font-extrabold text-emerald-500 tracking-wider uppercase mb-2">Pakar Kami</h2>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900">Belajar Langsung dari <span
-                    class="text-gradient">Ahlinya</span></h3>
-            <p class="text-gray-600 mt-4">Tim di balik suburnya kebun GM 200 dan para mentor yang siap membimbing
-                Anda.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="group reveal cursor-pointer text-center">
-                <div
-                    class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-emerald-50 shadow-lg group-hover:border-emerald-300 transition-colors duration-300">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Mentor"
-                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
-                </div>
-                <h4 class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Budi
-                    Pratama</h4>
-                <p class="text-sm text-emerald-500 font-semibold mb-3">Head of Agronomy & Co-Founder</p>
-                <p class="text-gray-500 text-sm px-4">Spesialis nutrisi tanaman. Memiliki pengalaman 10 tahun di
-                    industri agrikultur modern.</p>
-
-                <div
-                    class="mt-4 flex justify-center gap-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-linkedin-in text-sm"></i></a>
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-instagram text-sm"></i></a>
-                </div>
-            </div>
-
-            <div class="group reveal cursor-pointer text-center" style="transition-delay: 100ms;">
-                <div
-                    class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-emerald-50 shadow-lg group-hover:border-emerald-300 transition-colors duration-300">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Mentor"
-                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
-                </div>
-                <h4 class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Rina
-                    Wijaya</h4>
-                <p class="text-sm text-emerald-500 font-semibold mb-3">Lead Mentor Academy</p>
-                <p class="text-gray-500 text-sm px-4">Mengembangkan kurikulum pelatihan yang mudah dipahami oleh
-                    pemula hingga ahli.</p>
-                <div
-                    class="mt-4 flex justify-center gap-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-linkedin-in text-sm"></i></a>
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-instagram text-sm"></i></a>
-                </div>
-            </div>
-
-            <div class="group reveal cursor-pointer text-center" style="transition-delay: 200ms;">
-                <div
-                    class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-emerald-50 shadow-lg group-hover:border-emerald-300 transition-colors duration-300">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Mentor"
-                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
-                </div>
-                <h4 class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Ahmad
-                    Fauzi</h4>
-                <p class="text-sm text-emerald-500 font-semibold mb-3">Business Strategy & Sales</p>
-                <p class="text-gray-500 text-sm px-4">Membantu ratusan alumni pelatihan membangun bisnis hidroponik
-                    yang *profitable*.</p>
-                <div
-                    class="mt-4 flex justify-center gap-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-linkedin-in text-sm"></i></a>
-                    <a href="#"
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-500 hover:text-white transition-colors"><i
-                            class="fa-brands fa-instagram text-sm"></i></a>
-                </div>
-            </div>
         </div>
     </div>
 </section>
