@@ -81,6 +81,7 @@
         // ========================
         // START KERANJANG
         // ========================
+        let isCartOpen = false;
 
         function getCart() {
             return JSON.parse(localStorage.getItem('cart')) || [];
@@ -151,22 +152,22 @@
 
             if (!overlay) return;
 
-            let isOpen = overlay.classList.contains('w-[350px]');
+            isCartOpen = !isCartOpen;
 
-            if (isOpen) {
-                overlay.classList.remove('w-[350px]');
-                overlay.classList.add('w-0');
-
-                backdrop.classList.add('hidden');
-
-                if (floating) floating.classList.remove('hidden');
-            } else {
+            if (isCartOpen) {
                 overlay.classList.remove('w-0');
                 overlay.classList.add('w-[350px]');
 
                 backdrop.classList.remove('hidden');
 
                 if (floating) floating.classList.add('hidden');
+            } else {
+                overlay.classList.remove('w-[350px]');
+                overlay.classList.add('w-0');
+
+                backdrop.classList.add('hidden');
+
+                if (floating) floating.classList.remove('hidden');
             }
         }
 
@@ -182,15 +183,17 @@
             // update jumlah item
             if (countEl) countEl.innerText = cart.length;
 
-            // show/hide floating
             if (floating) {
-                if (cart.length > 0) {
-                    floating.classList.remove('hidden');
-                } else {
+                if (isCartOpen) {
                     floating.classList.add('hidden');
+                } else {
+                    if (cart.length > 0) {
+                        floating.classList.remove('hidden');
+                    } else {
+                        floating.classList.add('hidden');
+                    }
                 }
             }
-
             if (!container) return;
 
             let total = 0;
@@ -285,6 +288,8 @@
                 revealOnScroll.observe(el);
             });
         }
+
+
     </script>
 
     </html>

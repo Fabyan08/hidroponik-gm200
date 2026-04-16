@@ -12,4 +12,5 @@ class ProdukCustomerController extends Controller
         $product = Product::findOrFail($id);
         return view('detail-produk', compact('product'));
     }
+
 }

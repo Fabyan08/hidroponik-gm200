@@ -3,14 +3,17 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\ArtikelCustomerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProdukCustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
+use App\Models\Article;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     $data = Product::latest()->take(4)->get();
@@ -33,12 +36,33 @@ Route::get('/tentang-kami', function () {
 })->name('tentang-kami');
 
 Route::get('/produk', function () {
-    return view('produk');
+    $data = Product::latest()->get();
+
+    return view('produk', compact('data'));
 })->name('produk');
 
 Route::get('/artikel', function () {
-    return view('artikel');
-})->name('artikel');
+
+    // 1. Ambil 1 artikel terbaru
+    $latest = Article::orderBy('id', 'desc')->first();
+    // 2. Tambahin slug ke latest
+    if ($latest) {
+        $latest->slug = Str::slug($latest->title);
+    }
+
+    // 3. Ambil sisanya (kecuali yang terbaru)
+    $data = Article::where('id', '!=', $latest->id)
+        ->orderBy('id', 'desc')
+        ->get()
+        ->map(function ($item) {
+            $item->slug = Str::slug($item->title);
+            return $item;
+        });
+
+    return view('artikel', compact('latest', 'data'));
+});
+
+Route::get('/artikel/{slug}', [ArtikelCustomerController::class, 'show'])->name('artikel.show');
 
 Route::get('/pelatihan', function () {
     return view('pelatihan');

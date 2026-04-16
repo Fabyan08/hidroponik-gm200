@@ -15,8 +15,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // GLOBAL ADD TO CART (BISA DIPANGGIL DARI SEMUA HALAMAN)
+        window.addToCartGlobal = function(product) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            let existing = cart.find(item => item.id === product.id);
+
+            if (existing) {
+                existing.qty += product.qty;
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            if (typeof renderCart === 'function') {
+                renderCart();
+            }
+        }
         tailwind.config = {
             theme: {
                 extend: {
@@ -174,23 +192,23 @@
                     Beranda
                 </a>
 
-                <a href="tentang-kami"
-                    class="{{ request()->is('tentang-kami') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
+                <a href="/tentang-kami"
+                    class="{{ request()->is('tentang-kami', 'tentang-kami/*') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
                     Tentang Kami
                 </a>
 
-                <a href="produk"
-                    class="{{ request()->is('produk') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
+                <a href="/produk"
+                    class="{{ request()->is('produk', 'produk/*') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
                     Produk
                 </a>
 
-                <a href="artikel"
-                    class="{{ request()->is('artikel') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
+                <a href="/artikel"
+                    class="{{ request()->is('artikel', 'artikel/*') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
                     Artikel
                 </a>
 
-                <a href="pelatihan"
-                    class="{{ request()->is('pelatihan') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
+                <a href="/pelatihan"
+                    class="{{ request()->is('pelatihan', 'pelatihan/*') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
                     Pelatihan
                 </a>
                 <a href="https://wa.me/6281234567890"
@@ -211,16 +229,18 @@
 
             <a href="/" class="block {{ request()->is('/') ? 'text-emerald-500' : '' }}">
                 Beranda
-            </a> <a href="tentang-kami" class="block {{ request()->is('tentang-kami') ? 'text-emerald-500' : '' }}">
+            </a> <a href="/tentang-kami"
+                class="block {{ request()->is('tentang-kami', 'tentang-kami/*') ? 'text-emerald-500' : '' }}">
                 Tentang Kami
             </a>
-            <a href="produk" class="block {{ request()->is('produk') ? 'text-emerald-500' : '' }}">
+            <a href="/produk" class="block {{ request()->is('produk', 'produk/*') ? 'text-emerald-500' : '' }}">
                 Produk
             </a>
-            <a href="artikel" class="block {{ request()->is('artikel') ? 'text-emerald-500' : '' }}">
+            <a href="/artikel" class="block {{ request()->is('artikel', 'artikel/*') ? 'text-emerald-500' : '' }}">
                 Artikel
             </a>
-            <a href="pelatihan" class="block {{ request()->is('pelatihan') ? 'text-emerald-500' : '' }}">
+            <a href="/pelatihan"
+                class="block {{ request()->is('pelatihan', 'pelatihan/*') ? 'text-emerald-500' : '' }}">
                 Pelatihan
             </a>
 

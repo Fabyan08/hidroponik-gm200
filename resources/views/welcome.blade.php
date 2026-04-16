@@ -174,14 +174,6 @@
                                         / {{ $item->unit }}
                                     </span>
                                 </div>
-
-                                <!-- tombol cart tetap -->
-                                <button type="button"
-                                    onclick="event.preventDefault(); addToCart({{ $item->id }}, '{{ $item->name }}', {{ $item->price }}, '{{ $item->unit }}')"
-                                    class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition flex items-center justify-center">
-                                    +
-                                </button>
-
                             </div>
                         </div>
 
