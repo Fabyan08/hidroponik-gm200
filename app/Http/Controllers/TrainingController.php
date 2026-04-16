@@ -11,6 +11,11 @@ class TrainingController extends Controller
     public function index()
     {
         $data = Training::all();
+        // jumlah pendaftar
+        foreach ($data as $training) {
+            $training->registrations_count = TrainingRegistrations::where('training_id', $training->id)->count();
+        }
+
         return view('dashboard.manajemen-pelatihan.index', compact('data'));
     }
 
@@ -84,5 +89,18 @@ class TrainingController extends Controller
         return view('dashboard.manajemen-pelatihan.detail', compact('data', 'registrations'));
     }
 
+    public function destroyPendaftar($id)
+    {
+        TrainingRegistrations::findOrFail($id)->delete();
+        return back()->with('success', 'Pendaftar berhasil dihapus');
+    }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $training = Training::findOrFail($id);
+        $training->status = $request->status;
+        $training->save();
+
+        return back()->with('success', 'Status pelatihan berhasil diubah');
+    }
 }

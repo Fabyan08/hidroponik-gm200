@@ -5,6 +5,8 @@ use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +75,18 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/pelatihan/update/{id}', [TrainingController::class, 'update'])->name('pelatihan.update');
     Route::delete('/pelatihan/delete/{id}', [TrainingController::class, 'destroy'])->name('pelatihan.destroy');
     Route::get('/manajemen-pelatihan/{id}', [TrainingController::class, 'show'])->name('pelatihan.show');
+
+    // Ubah status pelatihan
+    Route::put('/pelatihan/update-status/{id}', [TrainingController::class, 'updateStatus'])->name('pelatihan.updateStatus');
+
+    // Pendaftar Pelatihan
+    Route::delete('/pendaftar/delete/{id}', [TrainingController::class, 'destroyPendaftar'])->name('pendaftar.destroy');
+
+    // Manajemen Review
+    Route::get('/manajemen-review', [ReviewController::class, 'index'])->name('manajemen-review.index');
+
+    // Manajemen Sosmed
+    Route::get('/manajemen-medsos', [SosmedController::class, 'index'])->name('manajemen-medsos.index');
 });
 
 require __DIR__ . '/auth.php';

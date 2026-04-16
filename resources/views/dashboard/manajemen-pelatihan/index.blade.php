@@ -40,7 +40,6 @@
                                             <th>Pendaftar</th>
                                             <th>Gambar</th>
                                             <th>Detail</th>
-                                            <th>Edit</th>
                                             <th>Hapus</th>
                                         </tr>
                                     </thead>
@@ -50,7 +49,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
-                                                    @if ($training->status == 'buka')
+                                                    @if ($training->status == 'Aktif')
                                                         <span class="badge badge-success">Aktif</span>
                                                     @else
                                                         <span class="badge badge-danger">Tidak Aktif</span>
@@ -61,7 +60,7 @@
                                                 <td>{{ $training->date }}</td>
                                                 <td>{{ $training->location }}</td>
                                                 <td>{{ $training->quota }}</td>
-                                                <td>PENDAFTAR LOADING</td>
+                                                <td>{{ $training->registrations_count }}</td>
                                                 <td>
                                                     <img src="{{ asset('storage/' . $training->image) }}"
                                                         width="60">
@@ -73,12 +72,6 @@
                                                     </a>
                                                 </td>
 
-                                                <td>
-                                                    <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                        data-target="#modalEdit-{{ $training->id }}">
-                                                        Edit
-                                                    </button>
-                                                </td>
 
                                                 <td>
                                                     <form action="{{ route('pelatihan.destroy', $training->id) }}"

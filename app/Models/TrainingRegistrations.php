@@ -17,7 +17,6 @@ class TrainingRegistrations extends Model
         'institusi',
     ];
 
-    // 🔥 Relasi ke Training
     public function training()
     {
         return $this->belongsTo(Training::class, 'training_id');

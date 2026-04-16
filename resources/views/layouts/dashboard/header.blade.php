@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="{{ asset('assets-stisla/modules/datatables/datatables.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('assets-stisla/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets-stisla/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets-stisla/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets-stisla/css/style.css') }}">
@@ -54,72 +55,7 @@
                         <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
                                     class="fas fa-search"></i></a></li>
                     </ul>
-                    <div class="search-element">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                            data-width="250">
-                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                        <div class="search-backdrop"></div>
-                        <div class="search-result">
-                            <div class="search-header">
-                                Histories
-                            </div>
-                            <div class="search-item">
-                                <a href="#">How to hack NASA using CSS</a>
-                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                            </div>
-                            <div class="search-item">
-                                <a href="#">Kodinger.com</a>
-                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                            </div>
-                            <div class="search-item">
-                                <a href="#">#Stisla</a>
-                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-                            </div>
-                            <div class="search-header">
-                                Result
-                            </div>
-                            <div class="search-item">
-                                <a href="#">
-                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-3-50.png"
-                                        alt="product">
-                                    oPhone S9 Limited Edition
-                                </a>
-                            </div>
-                            <div class="search-item">
-                                <a href="#">
-                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-2-50.png"
-                                        alt="product">
-                                    Drone X2 New Gen-7
-                                </a>
-                            </div>
-                            <div class="search-item">
-                                <a href="#">
-                                    <img class="mr-3 rounded" width="30" src="assets/img/products/product-1-50.png"
-                                        alt="product">
-                                    Headphone Blitz
-                                </a>
-                            </div>
-                            <div class="search-header">
-                                Projects
-                            </div>
-                            <div class="search-item">
-                                <a href="#">
-                                    <div class="search-icon bg-danger text-white mr-3">
-                                        <i class="fas fa-code"></i>
-                                    </div>
-                                    Stisla Admin Template
-                                </a>
-                            </div>
-                            <div class="search-item">
-                                <a href="#">
-                                    <div class="search-icon bg-primary text-white mr-3">
-                                        <i class="fas fa-laptop"></i>
-                                    </div>
-                                    Create a new Homepage Design
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
                 </form>
                 <ul class="navbar-nav navbar-right">
 
@@ -127,9 +63,7 @@
                             class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
                         <div class="dropdown-menu dropdown-list dropdown-menu-right">
                             <div class="dropdown-header">Notifications
-                                <div class="float-right">
-                                    <a href="#">Mark All As Read</a>
-                                </div>
+
                             </div>
                             <div class="dropdown-list-content dropdown-list-icons">
                                 <a href="#" class="dropdown-item dropdown-item-unread">
@@ -178,9 +112,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="dropdown-footer text-center">
-                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                            </div>
+
                         </div>
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
@@ -193,16 +125,8 @@
                             <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
-                            <a href="features-activities.html" class="dropdown-item has-icon">
-                                <i class="fas fa-bolt"></i> Activities
-                            </a>
-                            <a href="features-settings.html" class="dropdown-item has-icon">
-                                <i class="fas fa-cog"></i> Settings
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
+
+                            
                         </div>
                     </li>
                 </ul>
@@ -217,7 +141,6 @@
                     </div>
                     <ul class="sidebar-menu">
 
-                        <!-- DASHBOARD (SEMUA ROLE) -->
                         <li>
                             <a class="nav-link {{ request()->is('dashboard') ? 'text-success' : '' }}"
                                 href="/dashboard">
@@ -230,42 +153,42 @@
                             <li class="menu-header">Owner Menu</li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-admin') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-admin', 'manajemen-admin/*') ? 'text-success' : '' }}"
                                     href="/manajemen-admin">
                                     <i class="fas fa-user-cog"></i> <span>Manajemen Admin</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produk') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-produk', 'manajemen-produk/*') ? 'text-success' : '' }}"
                                     href="/manajemen-produk">
                                     <i class="fas fa-box"></i> <span>Manajemen Produk</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-artikel') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-artikel', 'manajemen-artikel/*') ? 'text-success' : '' }}"
                                     href="/manajemen-artikel">
                                     <i class="fas fa-newspaper"></i> <span>Manajemen Artikel</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-pelatihan') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-pelatihan', 'manajemen-pelatihan/*') ? 'text-success' : '' }}"
                                     href="/manajemen-pelatihan">
                                     <i class="fas fa-chalkboard-teacher"></i> <span>Manajemen Pelatihan</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-review') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-review', 'manajemen-review/*') ? 'text-success' : '' }}"
                                     href="/manajemen-review">
                                     <i class="fas fa-star"></i> <span>Manajemen Review</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-medsos') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-medsos', 'manajemen-medsos/*') ? 'text-success' : '' }}"
                                     href="/manajemen-medsos">
                                     <i class="fas fa-share-alt"></i> <span>Manajemen Medsos</span>
                                 </a>
