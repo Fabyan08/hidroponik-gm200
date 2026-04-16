@@ -114,7 +114,44 @@
 </head>
 
 <body class="antialiased relative">
+    <!-- FLOATING CART -->
+    <div id="floatingCart"
+        class="fixed bottom-6 left-6 w-14 h-14  bg-emerald-500 text-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hidden z-[9999]">
 
+        <i class="fas fa-shopping-cart text-lg"></i>
+
+        <!-- badge -->
+        <span id="cartCount"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+            0
+        </span>
+    </div>
+    <div id="cartBackdrop" class="fixed inset-0 bg-black/40 hidden z-[9997]" onclick="toggleCart()"></div>
+    <!-- OVERLAY CART -->
+    <div id="cartOverlay"
+        class="fixed top-0 left-0 h-full w-0 bg-white z-[9998] shadow-xl overflow-hidden transition-all duration-300">
+
+        <div class="p-6 flex flex-col h-full">
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-lg">Keranjang</h2>
+                <button onclick="toggleCart()" class="text-xl font-bold">✕</button>
+            </div>
+
+            <!-- ITEMS -->
+            <div id="cartItems" class="flex-1 overflow-y-auto space-y-4"></div>
+
+            <!-- FOOTER -->
+            <div class="border-t pt-4">
+                <p class="font-bold mb-2">Total: <span id="cartTotal">Rp 0</span></p>
+                <button class="w-full bg-emerald-500 text-white py-3 rounded-xl">
+                    Checkout
+                </button>
+            </div>
+
+        </div>
+    </div>
     <div class="glow-blob bg-emerald-200 w-[500px] h-[500px] top-[-10%] left-[-10%]"></div>
     <div class="glow-blob bg-green-100 w-[400px] h-[400px] top-[40%] right-[-5%]"></div>
     <div class="glow-blob bg-teal-100 w-[600px] h-[600px] bottom-[10%] left-[20%]"></div>

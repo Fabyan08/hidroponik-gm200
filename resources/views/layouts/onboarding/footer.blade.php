@@ -71,39 +71,220 @@
             </div>
         </div>
     </footer>
+    <div id="floatingCart"
+        class="fixed bottom-6 left-6 bg-emerald-500 text-white px-5 py-3 rounded-full shadow-lg hidden cursor-pointer">
 
+        🛒 <span id="cartCount">0</span> item
+    </div>
     </body>
     <script>
-        // Efek transparan/solid pada Navbar saat scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                navbar.classList.add('bg-white/90', 'shadow-md');
-                navbar.classList.remove('bg-white/50', 'border-transparent');
+        // ========================
+        // START KERANJANG
+        // ========================
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // UPDATE QTY (DETAIL PAGE)
+        function updateQty(change) {
+            let input = document.getElementById('qtyInput');
+            if (!input) return;
+
+            let value = parseInt(input.value);
+            value += change;
+
+            if (value < 1) value = 1;
+
+            input.value = value;
+        }
+
+        // ADD TO CART
+        function addToCart() {
+            let qtyInput = document.getElementById('qtyInput');
+            if (!qtyInput) return;
+
+            let qty = parseInt(qtyInput.value);
+
+            let cart = getCart();
+
+            let product = {
+                id: {{ isset($product) ? $product->id : 'null' }},
+                name: "{{ isset($product) ? $product->name : '' }}",
+                price: {{ isset($product) ? $product->price : 0 }},
+                qty: qty
+            };
+
+            // 🔥 cegah produk kosong di halaman lain
+            if (!product.id) return;
+
+            let existing = cart.find(item => item.id === product.id);
+
+            if (existing) {
+                existing.qty += qty;
             } else {
-                navbar.classList.remove('bg-white/90', 'shadow-md');
+                cart.push(product);
+            }
+
+            saveCart(cart);
+            renderCart();
+        }
+
+        // FLOATING BUTTON CLICK (AMAN)
+        document.addEventListener("DOMContentLoaded", function() {
+            renderCart();
+
+            let floatingBtn = document.getElementById('floatingCart');
+            if (floatingBtn) {
+                floatingBtn.onclick = toggleCart;
             }
         });
 
-        // Efek animasi scroll (Reveal)
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
+        function toggleCart() {
+            let overlay = document.getElementById('cartOverlay');
+            let backdrop = document.getElementById('cartBackdrop');
+            let floating = document.getElementById('floatingCart');
 
-        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
+            if (!overlay) return;
+
+            let isOpen = overlay.classList.contains('w-[350px]');
+
+            if (isOpen) {
+                overlay.classList.remove('w-[350px]');
+                overlay.classList.add('w-0');
+
+                backdrop.classList.add('hidden');
+
+                if (floating) floating.classList.remove('hidden');
+            } else {
+                overlay.classList.remove('w-0');
+                overlay.classList.add('w-[350px]');
+
+                backdrop.classList.remove('hidden');
+
+                if (floating) floating.classList.add('hidden');
+            }
+        }
+
+        // RENDER CART
+        function renderCart() {
+            let container = document.getElementById('cartItems');
+            let countEl = document.getElementById('cartCount');
+            let totalEl = document.getElementById('cartTotal');
+            let floating = document.getElementById('floatingCart');
+
+            let cart = getCart();
+
+            // update jumlah item
+            if (countEl) countEl.innerText = cart.length;
+
+            // show/hide floating
+            if (floating) {
+                if (cart.length > 0) {
+                    floating.classList.remove('hidden');
+                } else {
+                    floating.classList.add('hidden');
+                }
+            }
+
+            if (!container) return;
+
+            let total = 0;
+            container.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+
+                container.innerHTML += `
+            <div class="flex justify-between items-center border-b pb-2">
+                <div>
+                    <p class="font-bold">${item.name}</p>
+                    <p class="text-sm text-gray-500">Rp ${formatRupiah(item.price)}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="changeQty(${index}, -1)">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${index}, 1)">+</button>
+                </div>
+            </div>
+            `;
+            });
+
+            if (totalEl) totalEl.innerText = "Rp " + formatRupiah(total);
+        }
+
+        // CHANGE QTY DI CART (FIX BUG)
+        function changeQty(index, change) {
+            let cart = getCart();
+
+            cart[index].qty += change;
+
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+
+            saveCart(cart);
+            renderCart();
+        }
+
+        // FORMAT RUPIAH
+        function formatRupiah(angka) {
+            return angka.toLocaleString('id-ID');
+        }
+
+        // INIT (WAJIB!)
+        document.addEventListener("DOMContentLoaded", function() {
+            renderCart();
+        });
+
+        // ========================
+        // END KERANJANG
+        // ========================
+
+
+        // ========================
+        // NAVBAR SCROLL (FIX ERROR)
+        // ========================
+        let navbar = document.getElementById('navbar');
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('bg-white/90', 'shadow-md');
+                    navbar.classList.remove('bg-white/50', 'border-transparent');
+                } else {
+                    navbar.classList.remove('bg-white/90', 'shadow-md');
                 }
             });
-        }, revealOptions);
+        }
 
-        revealElements.forEach(el => {
-            revealOnScroll.observe(el);
-        });
+        // ========================
+        // REVEAL SCROLL
+        // ========================
+        const revealElements = document.querySelectorAll('.reveal');
+
+        if (revealElements.length > 0) {
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+        }
     </script>
 
     </html>

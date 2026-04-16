@@ -21,7 +21,8 @@ class ProdukController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'image' => 'nullable|image'
+            'image' => 'nullable|image',
+            'unit' => 'required|string',
         ]);
 
         $imagePath = null;
@@ -36,12 +37,13 @@ class ProdukController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'image' => $imagePath,
+            'unit' => $request->unit,
         ]);
 
         return back()->with('success', 'Produk berhasil ditambahkan');
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -51,7 +53,8 @@ class ProdukController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'image' => 'nullable|image'
+            'image' => 'nullable|image',
+            'unit' => 'required|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -63,6 +66,7 @@ class ProdukController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'unit' => $request->unit,
         ]);
 
         return back()->with('success', 'Produk berhasil diupdate');

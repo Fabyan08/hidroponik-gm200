@@ -4,14 +4,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukCustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = Product::latest()->take(4)->get();
+    return view('welcome', compact('data'));
 });
 
 Route::get('/dashboard', function () {
@@ -40,6 +43,8 @@ Route::get('/artikel', function () {
 Route::get('/pelatihan', function () {
     return view('pelatihan');
 })->name('pelatihan');
+
+Route::get('/produk/{id}', [ProdukCustomerController::class, 'show'])->name('produk.show');
 
 // middleware dashboard owner
 Route::middleware(['auth'])->group(function () {

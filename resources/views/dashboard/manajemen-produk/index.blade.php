@@ -35,6 +35,7 @@
                                             <th>Deskripsi</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
+                                            <th>Jenis</th>
                                             <th>Gambar</th>
                                             <th class="text-center">Edit</th>
                                             <th class="text-center">Hapus</th>
@@ -53,6 +54,7 @@
                                                 <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
 
                                                 <td>{{ $product->stock }}</td>
+                                                <td>{{ $product->unit }}</td>
 
                                                 <td>
                                                     @if ($product->image)
@@ -145,6 +147,21 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Jenis</label>
+                        <select name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror ">
+                            <option value="ikat">ikat</option>
+                            <option value="kg">kg</option>
+                            <option value="gram">gram</option>
+                            <option value="pack">pack</option>
+                            <option value="buah">buah</option>
+                            <option value="ons">ons</option>
+                        </select>
+                        </select>
+                        @error('unit')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="form-group">
                         <label>Gambar</label>
@@ -207,6 +224,21 @@
                             <label>Stok</label>
                             <input type="number" name="stock" class="form-control"
                                 value="{{ old('stock', $product->stock) }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Jenis</label>
+                            <select name="unit" id="unit" class="form-control">
+                                <option value="ikat" {{ $product->unit == 'ikat' ? 'selected' : '' }}>ikat
+                                </option>
+                                <option value="kg" {{ $product->unit == 'kg' ? 'selected' : '' }}>kg</option>
+                                <option value="gram" {{ $product->unit == 'gram' ? 'selected' : '' }}>gram
+                                </option>
+                                <option value="pack" {{ $product->unit == 'pack' ? 'selected' : '' }}>pack
+                                </option>
+                                <option value="buah" {{ $product->unit == 'buah' ? 'selected' : '' }}>buah
+                                </option>
+                                <option value="ons" {{ $product->unit == 'ons' ? 'selected' : '' }}>ons</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

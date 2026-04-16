@@ -137,96 +137,58 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div
-                class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal">
-                <div class="h-56 overflow-hidden relative p-4 bg-emerald-50">
-                    <img src="https://images.unsplash.com/photo-1622205313162-be1d5712a43f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Selada Romaine" class="w-full h-full object-cover rounded-2xl shadow-sm">
+
+            @foreach ($data as $item)
+                <a href="{{ route('produk.show', $item->id) }}" class="block group">
+
                     <div
-                        class="absolute top-6 right-6 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        Terlaris</div>
-                </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">Selada Romaine</h4>
-                    <p class="text-sm text-gray-500 mb-4">Renyah, manis, cocok untuk salad.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div>
-                            <span class="text-xl font-extrabold text-emerald-600">Rp 15.000</span>
-                            <span class="text-xs text-gray-400">/ 250g</span>
-                        </div>
-                        <button
-                            class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition-colors flex items-center justify-center">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        class="bg-white rounded-3xl overflow-hidden shadow border hover:-translate-y-2 transition cursor-pointer">
 
-            <div class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal"
-                style="transition-delay: 100ms;">
-                <div class="h-56 overflow-hidden relative p-4 bg-emerald-50">
-                    <img src="https://images.unsplash.com/photo-1599388836569-8f0a06af0602?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Pakcoy" class="w-full h-full object-cover rounded-2xl shadow-sm">
-                </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">Pakcoy Super</h4>
-                    <p class="text-sm text-gray-500 mb-4">Batang besar, daun hijau segar tanpa ulat.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div>
-                            <span class="text-xl font-extrabold text-emerald-600">Rp 12.000</span>
-                            <span class="text-xs text-gray-400">/ 250g</span>
-                        </div>
-                        <button
-                            class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition-colors flex items-center justify-center">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        <div class="h-56 overflow-hidden relative p-4 bg-emerald-50">
+                            <img src="{{ asset('storage/' . $item->image) }}"
+                                class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition">
 
-            <div class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal"
-                style="transition-delay: 200ms;">
-                <div class="h-56 overflow-hidden relative p-4 bg-emerald-50">
-                    <img src="https://images.unsplash.com/photo-1524174099499-d5c22f0c7fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Kale Curly" class="w-full h-full object-cover rounded-2xl shadow-sm">
-                </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">Kale Curly</h4>
-                    <p class="text-sm text-gray-500 mb-4">Superfood kaya antioksidan dan serat.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div>
-                            <span class="text-xl font-extrabold text-emerald-600">Rp 25.000</span>
-                            <span class="text-xs text-gray-400">/ 200g</span>
+                            @if ($loop->first)
+                                <div
+                                    class="absolute top-6 right-6 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full">
+                                    Terlaris
+                                </div>
+                            @endif
                         </div>
-                        <button
-                            class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition-colors flex items-center justify-center">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal"
-                style="transition-delay: 300ms;">
-                <div class="h-56 overflow-hidden relative p-4 bg-emerald-50">
-                    <img src="https://images.unsplash.com/photo-1628157732276-8dc40d6c5c06?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Bayam Merah" class="w-full h-full object-cover rounded-2xl shadow-sm">
-                </div>
-                <div class="p-6">
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">Bayam Merah</h4>
-                    <p class="text-sm text-gray-500 mb-4">Tinggi zat besi, sempurna untuk MPASI.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div>
-                            <span class="text-xl font-extrabold text-emerald-600">Rp 14.000</span>
-                            <span class="text-xs text-gray-400">/ 250g</span>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">
+                                {{ $item->name }}
+                            </h4>
+
+                            <p class="text-sm text-gray-500 mb-4">
+                                {{ $item->description }}
+                            </p>
+
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t">
+                                <div>
+                                    <span class="text-xl font-extrabold text-emerald-600">
+                                        Rp {{ number_format($item->price, 0, ',', '.') }}
+                                    </span>
+                                    <span class="text-xs text-gray-400">
+                                        / {{ $item->unit }}
+                                    </span>
+                                </div>
+
+                                <!-- tombol cart tetap -->
+                                <button type="button"
+                                    onclick="event.preventDefault(); addToCart({{ $item->id }}, '{{ $item->name }}', {{ $item->price }}, '{{ $item->unit }}')"
+                                    class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition flex items-center justify-center">
+                                    +
+                                </button>
+
+                            </div>
                         </div>
-                        <button
-                            class="w-10 h-10 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white transition-colors flex items-center justify-center">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+
                     </div>
-                </div>
-            </div>
+                </a>
+            @endforeach
+
         </div>
     </div>
 </section>
