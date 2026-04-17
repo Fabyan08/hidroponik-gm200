@@ -5,6 +5,7 @@ use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ArtikelCustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderCustomerController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProdukCustomerController;
@@ -80,8 +81,8 @@ Route::get('/pelatihan/{id}', [TrainingCustomerController::class, 'show'])->name
 Route::get('/produk/{id}', [ProdukCustomerController::class, 'show'])->name('produk.show');
 
 // Checkout
-Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [OrderController::class, 'store']);
+Route::get('/checkout', [OrderCustomerController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [OrderCustomerController::class, 'store']);
 
 Route::post('/pelatihan/daftar/{id}', [TrainingCustomerController::class, 'store'])->name('pelatihan.daftar');
 
@@ -144,7 +145,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     // Manajemen pemesanan
-    Route::get('/manajemen-pemesanan', [ProdukController::class, 'index'])->name('manajemen-pemesanan.index');
+    Route::get('/manajemen-pemesanan', [OrderController::class, 'index'])->name('manajemen-pemesanan.index');
+    Route::get('/manajemen-pemesanan/{id}', [OrderController::class, 'show'])->name('manajemen-pemesanan.show');
 });
 
 
