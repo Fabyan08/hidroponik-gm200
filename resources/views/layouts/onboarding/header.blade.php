@@ -178,7 +178,7 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
 
             <!-- Logo -->
-            <a href="#" class="text-xl md:text-2xl font-extrabold flex items-center gap-2">
+            <a href="/" class="text-xl md:text-2xl font-extrabold flex items-center gap-2">
                 <i class="fa-solid fa-leaf text-emerald-500 text-2xl md:text-3xl"></i>
                 <span class="text-gray-900 tracking-tight">
                     GM <span class="text-emerald-500">200</span>

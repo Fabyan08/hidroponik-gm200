@@ -100,7 +100,6 @@
             <span class="text-gray-900 font-bold truncate hidden sm:inline">{{ $data->title }}</span>
         </div>
 
-        <!-- Layout 2 Kolom -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
             <!-- Kolom Kiri: Detail Konten (Span 8) -->
@@ -178,7 +177,6 @@
                         <!-- Progress Bar Kuota -->
                         @php
                             $quota = $data->quota;
-                            $booked = 0; // sementara
                             $sisa = $quota - $booked;
                             $percent = $quota > 0 ? ($booked / $quota) * 100 : 0;
                         @endphp
@@ -205,18 +203,6 @@
 
                         </div>
 
-                        <!-- CTA Buttons -->
-                        <div class="flex flex-col gap-3">
-                            <button onclick="daftarPelatihan()"
-                                class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-                                Daftar Sekarang <i class="fa-solid fa-arrow-right text-sm"></i>
-                            </button>
-                            <button onclick="bagikanLink()"
-                                class="w-full py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-bold text-sm transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-share-nodes"></i> Bagikan Info Kelas
-                            </button>
-                        </div>
-
                     </div>
 
                     <!-- Card Bantuan -->
@@ -232,52 +218,171 @@
             </div>
 
         </div>
+        @if (session('success'))
+            <div class="bg-green-500 text-white p-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+            <div class="lg:col-span-7">
+                <form action="{{ route('pelatihan.daftar', $data->id) }}" method="POST" class="space-y-8">
+                    @csrf
+                    <!-- Section 1: Informasi Kontak -->
+                    <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                        <h3
+                            class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
+                            <span
+                                class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
+                                    class="fa-regular fa-id-badge"></i></span>
+                            Informasi Kontak
+                        </h3>
+
+                        <div class="space-y-5">
+                            <div>
+                                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap
+                                    <span class="text-red-500">*</span></label>
+                                <div class="relative input-group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fa-regular fa-user text-gray-400 input-icon transition-colors"></i>
+                                    </div>
+                                    <input type="text" id="name" name="name" required
+                                        placeholder="Contoh: Budi Santoso"
+                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <!-- Field: Phone -->
+                                <div>
+                                    <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">No.
+                                        WhatsApp <span class="text-red-500">*</span></label>
+                                    <div class="relative input-group">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i
+                                                class="fa-brands fa-whatsapp text-gray-400 input-icon transition-colors"></i>
+                                        </div>
+                                        <input type="number" id="phone" name="phone" required
+                                            placeholder="0812xxxx"
+                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                    </div>
+                                </div>
+
+                                <!-- Field: Email -->
+                                <div>
+                                    <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Alamat
+                                        Email <span class="text-red-500">*</span></label>
+                                    <div class="relative input-group">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i
+                                                class="fa-regular fa-envelope text-gray-400 input-icon transition-colors"></i>
+                                        </div>
+                                        <input type="email" id="email" name="email" required
+                                            placeholder="email@contoh.com"
+                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Alamat & Catatan -->
+                    <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                        <h3
+                            class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
+                            <span
+                                class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
+                                    class="fa-solid fa-location-dot"></i></span>
+                            Informasi Diri
+                        </h3>
+
+                        <div class="space-y-5">
+                            <!-- Field: Address (Textarea) -->
+                            <div>
+                                <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Pekerjaan
+                                    <span class="text-red-500">*</span></label>
+                                <div class="relative input-group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i
+                                            class="fa-solid fa-briefcase text-gray-400 input-icon transition-colors"></i>
+                                    </div>
+                                    <input type="text" id="pekerjaan" name="pekerjaan" required
+                                        placeholder="Ibu Rumah Tangga"
+                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                </div>
+                            </div>
+
+                            <!-- Field: Note (Textarea) -->
+                            <div>
+                                <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Institusi
+                                    <span class="text-red-500">*</span></label>
+                                <div class="relative input-group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fa-solid fa-building text-gray-400 input-icon transition-colors"></i>
+                                    </div>
+                                    <input type="text" id="institusi" name="institusi" required
+                                        placeholder="- jika tidak memmiliki"
+                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button (Mobile Only - Hidden on Desktop) -->
+                    <div class="lg:hidden">
+                        <button type="submit" form="checkoutForm" id="mobileSubmitBtn"
+                            class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
+                            <span class="btnText">Daftar Pelatihan</span>
+                            <i class="fa-solid fa-arrow-right btnIcon"></i>
+                            <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+            </div>
+
+            <div class="lg:col-span-5 relative">
+                <div class="lg:sticky lg:top-28">
+                    <div class="glass-card rounded-[2rem] p-6 shadow-xl">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Daftar Pelatihan</h3>
+                        <!-- Submit Button (Desktop) -->
+                        <button type="submit" id="desktopSubmitBtn"
+                            class="hidden lg:flex w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 items-center justify-center gap-2">
+                            <span class="btnText">Daftar Pelatihan</span>
+                            <i class="fa-solid fa-arrow-right btnIcon"></i>
+                            <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </button>
+                        </form>
+                        <p class="text-center text-[10px] text-gray-400 mt-4 flex justify-center items-center gap-1">
+                            <i class="fa-solid fa-lock text-emerald-500"></i> Data Anda dilindungi dan dienkripsi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
 </main>
 
 
 <!-- Toast Container -->
 <div id="toastContainer"
     class="fixed top-24 left-1/2 transform -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none"></div>
-<script>
-    function daftarPelatihan() {
-        document.getElementById("modalDaftar").classList.remove("hidden");
-    }
 
-    function closeModal() {
-        document.getElementById("modalDaftar").classList.add("hidden");
-    }
-
-    document.getElementById("formPelatihan").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const data = {
-            training_id: document.getElementById("training_id").value,
-            name: document.getElementById("nama").value,
-            email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
-            pekerjaan: document.getElementById("pekerjaan").value,
-            institusi: document.getElementById("institusi").value,
-        };
-
-        fetch("/pelatihan/daftar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(res => {
-                alert("Berhasil daftar!");
-                closeModal();
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Error!");
-            });
-    });
-</script>
 
 @include('layouts.onboarding.footer')
