@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -33,7 +34,8 @@ class OrderController extends Controller
     public function invoice($id)
     {
         $order = Order::with('items.product')->findOrFail($id);
+        $review = Review::where('order_id', $id)->first();
 
-        return view('dashboard.admin.manajemen-pemesanan.invoice', compact('order'));
+        return view('dashboard.admin.manajemen-pemesanan.invoice', compact('order', 'review'));
     }
 }

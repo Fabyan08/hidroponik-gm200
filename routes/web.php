@@ -15,19 +15,51 @@ use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TrainingCustomerController;
 use App\Models\Article;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Training;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 Route::get('/', function () {
     $data = Product::latest()->take(4)->get();
-    return view('welcome', compact('data'));
+    $pelatihan = Training::latest()->take(2)->get();
+    $artikel = Article::latest()->take(3)->get();
+
+    $review = Review::where('tampil', 'ya')
+        ->latest()
+        ->take(3)
+        ->get();
+    return view('welcome', compact('data', 'pelatihan', 'artikel', 'review'));
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard/index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+
+//     $totalOrder = Order::count();
+//     dd("anjay");
+//     $totalRevenue = Order::where('status', '!=', 'dibatalkan')
+//         ->sum('total_price');
+
+//     $totalSold = OrderItem::sum('quantity');
+
+//     $sales = Order::select(
+//         DB::raw('MONTH(order_date) as month'),
+//         DB::raw('SUM(total_price) as total')
+//     )
+//         ->groupBy('month')
+//         ->orderBy('month')
+//         ->pluck('total');
+//     return view('dashboard.index', compact(
+//         'totalOrder',
+//         'totalRevenue',
+//         'totalSold',
+//         'sales'
+//     ));
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,14 +80,11 @@ Route::get('/produk', function () {
 
 Route::get('/artikel', function () {
 
-    // 1. Ambil 1 artikel terbaru
     $latest = Article::orderBy('id', 'desc')->first();
-    // 2. Tambahin slug ke latest
     if ($latest) {
         $latest->slug = Str::slug($latest->title);
     }
 
-    // 3. Ambil sisanya (kecuali yang terbaru)
     $data = Article::where('id', '!=', $latest->id)
         ->orderBy('id', 'desc')
         ->get()
@@ -89,7 +118,36 @@ Route::post('/pelatihan/daftar/{id}', [TrainingCustomerController::class, 'store
 // middleware dashboard owner
 Route::middleware(['auth', 'role:owner,admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard/index');
+        $admin = User::where('role', 'admin')->first();
+
+        $totalOrder = Order::count();
+        $totalRevenue = Order::where('status', '!=', 'dibatalkan')
+            ->sum('total_price');
+
+        $totalSold = OrderItem::sum('quantity');
+
+        $salesData = array_fill(1, 12, 0);
+
+        $orders = Order::select(
+            DB::raw('MONTH(order_date) as month'),
+            DB::raw('SUM(total_price) as total')
+        )
+            ->groupBy('month')
+            ->get();
+
+        foreach ($orders as $o) {
+            $salesData[$o->month] = $o->total;
+        }
+
+        $sales = array_values($salesData);
+
+        return view('dashboard.index', compact(
+            'totalOrder',
+            'totalRevenue',
+            'totalSold',
+            'sales',
+            'admin'
+        ));
     })->name('dashboard');
 
     // Profile
@@ -130,6 +188,7 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
 
     // Manajemen Review
     Route::get('/manajemen-review', [ReviewController::class, 'index'])->name('manajemen-review.index');
+    Route::put('/review/{id}/status', [ReviewController::class, 'updateStatus'])->name('manajemen-review.updateStatus');
 
     // Manajemen Sosmed
     Route::get('/manajemen-medsos', [SosmedController::class, 'index'])->name('manajemen-medsos.index');
@@ -152,6 +211,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('manajemen-pemesanan.invoice');
 Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+
 
 require __DIR__ . '/auth.php';
 

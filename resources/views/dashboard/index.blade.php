@@ -8,6 +8,7 @@
             <h1>Dashboard</h1>
         </div>
 
+
         <div class="section-body">
             <h2 class="section-title">
                 Hi, {{ auth()->user()->name ?? 'Owner GM200' }} 👋
@@ -28,7 +29,7 @@
                                 <h4>Total Order</h4>
                             </div>
                             <div class="card-body">
-                                120
+                                {{ $totalOrder }}
                             </div>
                         </div>
                     </div>
@@ -44,8 +45,7 @@
                                 <h4>Pendapatan</h4>
                             </div>
                             <div class="card-body">
-                                Rp 8.500.000
-                            </div>
+                                Rp {{ number_format($totalRevenue) }} </div>
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,7 @@
                                 <h4>Produk Terjual</h4>
                             </div>
                             <div class="card-body">
-                                350
-                            </div>
+                                {{ $totalSold }} </div>
                         </div>
                     </div>
                 </div>
@@ -93,27 +92,18 @@
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
-                    label: 'Penjualan',
-                    data: [1200000, 1900000, 3000000, 2500000, 3200000, 4000000],
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4
-                },
-                {
-                    label: 'Target',
-                    data: [1500000, 2000000, 2500000, 3000000, 3500000, 4500000],
-                    borderWidth: 2,
-                    borderDash: [5, 5],
-                    fill: false
-                }
-            ]
+                label: 'Penjualan',
+                data: @json($sales),
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }]
         },
         options: {
             responsive: true,
         }
     });
 </script>
-
 @include('layouts.dashboard.footer')

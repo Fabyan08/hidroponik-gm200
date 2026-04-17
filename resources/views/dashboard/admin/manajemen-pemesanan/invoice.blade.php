@@ -70,7 +70,14 @@
 </head>
 
 <body class="antialiased relative min-h-screen flex flex-col items-center py-10 px-4 sm:px-6">
+    @php
+        $canEditReview = false;
 
+        if ($review) {
+            $created = \Carbon\Carbon::parse($review->created_at);
+            $canEditReview = $created->diffInHours(now()) <= 24;
+        }
+    @endphp
     <!-- Background Aksen Atas (Meniru referensi tapi dengan warna Emerald) -->
     <div class="absolute top-0 left-0 w-full h-96 bg-emerald-500 rounded-b-full z-0 print-bg-transparent"></div>
 
@@ -146,6 +153,14 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
                             {{ $order->status }}
                         </span>
                     </p>
+                    <p class="text-sm text-gray-600 mt-2">
+                        Review:
+                        @if ($review)
+                            <span class="text-green-600 font-bold">Sudah</span>
+                        @else
+                            <span class="text-gray-400">Belum</span>
+                        @endif
+                    </p>
                 </div>
             </div>
 
@@ -193,7 +208,14 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
             @php
                 $subtotal = $order->items->sum(fn($i) => $i->price * $i->quantity);
             @endphp
+            @if (session('success'))
+                <div id="successAlert"
+                    class="fixed bottom-6 left-6 bg-emerald-500 text-white px-6 py-3 rounded-xl shadow-xl z-50 transition-all duration-500 opacity-0 translate-y-4">
 
+                    <i class="fas fa-check-circle mr-2"></i>
+                    {{ session('success') }}
+                </div>
+            @endif
             <!-- Total Perhitungan -->
             <div class="px-6 sm:px-8 space-y-3 mb-8">
                 <div class="flex justify-end items-center gap-8 text-sm">
@@ -226,11 +248,21 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
     </div>
 
     <!-- FLOATING REVIEW BUTTON -->
-    <button onclick="openReview()"
-        class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
 
-        <i class="fas fa-star text-xl"></i>
-    </button>
+    @if (!$review)
+        <!-- BELUM REVIEW -->
+        <button onclick="openReview()"
+            class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
+            <i class="fas fa-star text-xl"></i>
+        </button>
+    @elseif ($canEditReview)
+        <!-- SUDAH REVIEW (MASIH BISA EDIT) -->
+        <button onclick="openReview()"
+            class="fixed bottom-6 right-6 bg-yellow-500 hover:bg-yellow-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
+            <i class="fas fa-edit text-xl"></i>
+        </button>
+    @endif
+
     <!-- REVIEW OVERLAY -->
     <div id="reviewOverlay" class="fixed inset-0 bg-black/40 hidden z-50 flex items-center justify-center">
 
@@ -240,50 +272,68 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
                 <h3 class="font-bold text-lg">Beri Review</h3>
                 <button onclick="closeReview()">✕</button>
             </div>
-
             <form action="{{ route('review.store') }}" method="POST">
                 @csrf
 
-                <!-- HIDDEN ORDER ID -->
                 <input type="hidden" name="order_id" value="{{ $order->id }}">
 
-                <!-- NAMA -->
-                <input type="text" name="name" value="{{ $order->name }}"
-                    class="w-full mb-3 border rounded-lg p-2" placeholder="Nama">
+                <input type="text" name="name" value="{{ $review->name ?? $order->name }}"
+                    class="w-full mb-3 border rounded-lg p-2">
 
-                <!-- PHONE -->
-                <input type="text" name="phone" value="{{ $order->phone }}"
-                    class="w-full mb-3 border rounded-lg p-2" placeholder="No HP">
+                <input type="text" name="phone" value="{{ $review->phone ?? $order->phone }}"
+                    class="w-full mb-3 border rounded-lg p-2">
 
-                <!-- RATING -->
-                <div class="mb-3">
-                    <label class="text-sm">Rating</label>
-                    <select name="rating" class="w-full border rounded-lg p-2">
-                        <option value="5">⭐⭐⭐⭐⭐</option>
-                        <option value="4">⭐⭐⭐⭐</option>
-                        <option value="3">⭐⭐⭐</option>
-                        <option value="2">⭐⭐</option>
-                        <option value="1">⭐</option>
-                    </select>
-                </div>
+                <select name="rating" class="w-full border rounded-lg p-2 mb-3">
+                    @for ($i = 5; $i >= 1; $i--)
+                        <option value="{{ $i }}"
+                            {{ isset($review) && $review->rating == $i ? 'selected' : '' }}>
+                            {{ str_repeat('⭐', $i) }}
+                        </option>
+                    @endfor
+                </select>
 
-                <!-- REVIEW -->
-                <textarea name="review" class="w-full border rounded-lg p-2 mb-3" placeholder="Tulis review..."></textarea>
+                <textarea name="review" placeholder="Berikan testimonimu..." class="w-full border rounded-lg p-2 mb-3">{{ $review->review ?? '' }}</textarea>
 
-                <!-- TAMPIL -->
                 <input type="hidden" name="tampil" value="ya">
 
-                <!-- BUTTON -->
-                <button class="w-full bg-emerald-500 text-white py-2 rounded-lg">
-                    Kirim Review
-                </button>
+                @if ($review && !$canEditReview)
+                    <div class="text-red-500 text-sm mb-2">
+                        ❌ Review sudah tidak bisa diedit (lebih dari 24 jam)
+                    </div>
+                @endif
 
+                <button class="w-full bg-emerald-500 text-white py-2 rounded-lg"
+                    {{ $review && !$canEditReview ? 'disabled' : '' }}>
+                    Simpan Review
+                </button>
             </form>
 
         </div>
     </div>
+
 </body>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const alertBox = document.getElementById('successAlert');
+
+        if (alertBox) {
+            // Muncul
+            setTimeout(() => {
+                alertBox.classList.remove('opacity-0', 'translate-y-4');
+            }, 100);
+
+            // Hilang setelah 2 detik
+            setTimeout(() => {
+                alertBox.classList.add('opacity-0', 'translate-y-4');
+            }, 2000);
+
+            // Hapus dari DOM
+            setTimeout(() => {
+                alertBox.remove();
+            }, 2500);
+        }
+    });
+
     function openReview() {
         document.getElementById('reviewOverlay').classList.remove('hidden');
     }

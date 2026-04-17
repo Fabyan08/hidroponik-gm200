@@ -12,5 +12,6 @@ class Review extends Model
         'phone',
         'review',
         'rating',
+        'tampil'
     ];
 }

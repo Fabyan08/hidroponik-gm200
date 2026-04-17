@@ -177,11 +177,16 @@
                         <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
                     </button>
 
+                    @php
+                        $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+                        $message = urlencode('Halo admin, saya ingin bertanya 🙏');
+                    @endphp
 
-                    <button onclick="contactWA()"
+
+                    <a href="https://wa.me/{{ $phone }}?text={{ $message }}"
                         class="h-14 px-6 rounded-2xl bg-white border-2 border-emerald-100 text-emerald-600 font-bold flex items-center justify-center gap-2 hover:border-emerald-500 hover:bg-emerald-50 transition-all">
                         <i class="fa-brands fa-whatsapp text-lg"></i> <span class="hidden sm:inline">Tanya CS</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

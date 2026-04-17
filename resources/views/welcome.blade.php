@@ -196,45 +196,27 @@
                 muka atau kelas online interaktif bersama mentor berpengalaman kami.</p>
 
             <div class="space-y-4">
-                <div
-                    class="glass-card p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 relative overflow-hidden">
-                    <div class="absolute left-0 top-0 bottom-0 w-2 bg-emerald-500"></div>
-                    <div>
-                        <span
-                            class="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full mb-3">Offline
-                            Class</span>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Pelatihan Dasar Hidroponik Skala Rumah
-                        </h4>
-                        <div class="flex items-center gap-4 text-sm text-gray-500">
-                            <span class="flex items-center gap-1"><i
-                                    class="fa-regular fa-calendar text-emerald-500"></i> 25 April 2026</span>
-                            <span class="flex items-center gap-1"><i
-                                    class="fa-solid fa-location-dot text-emerald-500"></i> Jember, Jawa
-                                Timur</span>
+                @foreach ($pelatihan as $item)
+                    <div
+                        class="glass-card p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 relative overflow-hidden">
+                        <div class="absolute left-0 top-0 bottom-0 w-2 bg-emerald-500"></div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">{{ $item->title }}
+                            </h4>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1"><i
+                                        class="fa-regular fa-calendar text-emerald-500"></i>
+                                    {{ \Carbon\Carbon::setLocale('id') }}
+                                    {{ \Carbon\Carbon::parse($item->date)->translatedFormat('l, d F Y') }}</span>
+                                <span class="flex items-center gap-1"><i
+                                        class="fa-solid fa-location-dot text-emerald-500"></i>{{ $item->location }}</span>
+                            </div>
                         </div>
+                        <a href="/pelatihan/{{ $item->id }}"
+                            class="w-full sm:w-auto px-6 py-3 bg-gray-900 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors whitespace-nowrap">Daftar</a>
                     </div>
-                    <button
-                        class="w-full sm:w-auto px-6 py-3 bg-gray-900 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors whitespace-nowrap">Daftar</button>
-                </div>
+                @endforeach
 
-                <div
-                    class="glass-card p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 relative overflow-hidden">
-                    <div class="absolute left-0 top-0 bottom-0 w-2 bg-blue-500"></div>
-                    <div>
-                        <span
-                            class="inline-block px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-bold rounded-full mb-3">Online
-                            Zoom</span>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Masterclass Bisnis Sayur Premium</h4>
-                        <div class="flex items-center gap-4 text-sm text-gray-500">
-                            <span class="flex items-center gap-1"><i
-                                    class="fa-regular fa-calendar text-emerald-500"></i> 10 Mei 2026</span>
-                            <span class="flex items-center gap-1"><i class="fa-solid fa-video text-emerald-500"></i>
-                                Live Webinar</span>
-                        </div>
-                    </div>
-                    <button
-                        class="w-full sm:w-auto px-6 py-3 bg-gray-900 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors whitespace-nowrap">Daftar</button>
-                </div>
             </div>
         </div>
 
@@ -250,59 +232,30 @@
                 <h3 class="text-3xl font-extrabold text-gray-900">Tips & Trik <span
                         class="text-gradient">Pertanian</span></h3>
             </div>
-            <a href="#"
+            <a href="/artikel"
                 class="hidden sm:inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700">Lihat
                 Semua <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer reveal">
-                <div class="h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        alt="Nutrisi">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-emerald-500 mb-3">TUTORIAL • 5 Menit Baca</div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                        Cara Meracik Nutrisi AB Mix yang Benar</h4>
-                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">Takaran yang pas adalah kunci pertumbuhan
-                        maksimal. Pelajari rasio terbaik untuk fase vegetatif...</p>
-                </div>
-            </div>
+            @foreach ($artikel as $item)
+                <a href="/artikel/{{ \Illuminate\Support\Str::slug($item->title) }}"
+                    class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer reveal">
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ asset('storage/' . $item->image) }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="Nutrisi">
+                    </div>
+                    <div class="p-6">
+                        <h4
+                            class="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                            {{ $item->title }}</h4>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                            {{ Str::limit(strip_tags($item->content), 150) }} </p>
+                    </div>
+                </a>
+            @endforeach
 
-            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer reveal"
-                style="transition-delay: 100ms;">
-                <div class="h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1530836369250-ef71a3a5e4b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        alt="Bisnis">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-emerald-500 mb-3">BISNIS • 8 Menit Baca</div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                        Peluang Cuan dari Kebun Sayur di Halaman</h4>
-                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">Banyak yang ragu memulai, padahal
-                        permintaannya tinggi. Simak analisis ROI hidroponik skala kecil...</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer reveal"
-                style="transition-delay: 200ms;">
-                <div class="h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1628157732276-8dc40d6c5c06?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        alt="Hama">
-                </div>
-                <div class="p-6">
-                    <div class="text-xs font-bold text-emerald-500 mb-3">TIPS • 4 Menit Baca</div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                        Cara Alami Mengusir Kutu Daun (Aphids)</h4>
-                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">Tanpa pestisida kimia! Gunakan ramuan neem
-                        oil dan sabun cuci untuk melindungi sayuran Anda...</p>
-                </div>
-            </div>
         </div>
 
         <div class="mt-8 text-center sm:hidden">
@@ -330,88 +283,34 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card p-8 rounded-3xl reveal group cursor-default" style="transition-delay: 0ms;">
-                <div
-                    class="flex text-yellow-400 text-sm mb-6 gap-1 group-hover:scale-105 transform origin-left transition-transform duration-300">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="text-gray-700 italic mb-8 leading-relaxed">"Sayurannya super segar, renyah, dan tahan lama di
-                    kulkas. Anak saya yang tadinya susah makan sayur sekarang jadi suka banget sama selada romaine-nya
-                    GM 200!"</p>
-                <div class="flex items-center gap-4 mt-auto">
-                    <div class="relative">
-                        <div
-                            class="absolute inset-0 bg-emerald-500 rounded-full blur-sm opacity-0 group-hover:opacity-40 transition-opacity">
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-                            alt="Pelanggan"
-                            class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm relative z-10">
-                    </div>
-                    <div>
-                        <div class="text-base font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">
-                            Siti Aminah</div>
-                        <div class="text-xs font-semibold text-gray-500">Ibu Rumah Tangga</div>
-                    </div>
-                </div>
-            </div>
+            @foreach ($review as $item)
+                <div class="glass-card p-8 rounded-3xl reveal group cursor-default" style="transition-delay: 0ms;">
+                    <div
+                        class="flex text-yellow-400 text-sm mb-6 gap-1 group-hover:scale-105 transform origin-left transition-transform duration-300">
 
-            <div class="glass-card p-8 rounded-3xl reveal group cursor-default" style="transition-delay: 150ms;">
-                <div
-                    class="flex text-yellow-400 text-sm mb-6 gap-1 group-hover:scale-105 transform origin-left transition-transform duration-300">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="text-gray-700 italic mb-8 leading-relaxed">"Ikut pelatihan offline GM 200 di Surabaya
-                    benar-benar membuka mata. Mentornya sangat sabar mengajari dari nol sampai saya bisa panen pakcoy
-                    sendiri di balkon apartemen."</p>
-                <div class="flex items-center gap-4 mt-auto">
-                    <div class="relative">
-                        <div
-                            class="absolute inset-0 bg-emerald-500 rounded-full blur-sm opacity-0 group-hover:opacity-40 transition-opacity">
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-                            alt="Peserta"
-                            class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm relative z-10">
-                    </div>
-                    <div>
-                        <div class="text-base font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">
-                            Rendi Saputra</div>
-                        <div class="text-xs font-semibold text-gray-500">Karyawan Swasta (Alumni Kelas)</div>
-                    </div>
-                </div>
-            </div>
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $item->rating)
+                                <i class="fa-solid fa-star"></i>
+                            @else
+                                <i class="fa-regular fa-star"></i>
+                            @endif
+                        @endfor
 
-            <div class="glass-card p-8 rounded-3xl reveal group cursor-default" style="transition-delay: 300ms;">
-                <div
-                    class="flex text-yellow-400 text-sm mb-6 gap-1 group-hover:scale-105 transform origin-left transition-transform duration-300">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                        class="fa-solid fa-star-half-stroke"></i>
-                </div>
-                <p class="text-gray-700 italic mb-8 leading-relaxed">"Nutrisi AB Mix dari GM 200 kualitasnya sangat
-                    stabil. Sangat membantu efisiensi greenhouse saya. Omzet supply ke restoran naik tajam setelah pakai
-                    SOP dari mereka."</p>
-                <div class="flex items-center gap-4 mt-auto">
-                    <div class="relative">
-                        <div
-                            class="absolute inset-0 bg-emerald-500 rounded-full blur-sm opacity-0 group-hover:opacity-40 transition-opacity">
+                    </div>
+                    <p class="text-gray-700 italic mb-8 leading-relaxed">"{{ $item->review }}"</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <div>
+                            <div
+                                class="text-base font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">
+                                {{ $item->name }}</div>
                         </div>
-                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-                            alt="Petani"
-                            class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm relative z-10">
-                    </div>
-                    <div>
-                        <div class="text-base font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">
-                            Desi Anwar</div>
-                        <div class="text-xs font-semibold text-gray-500">Petani Urban Skala Komersial</div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="text-center mt-12 reveal" style="transition-delay: 400ms;">
-            <p class="text-gray-500 font-medium">Berdasarkan 500+ ulasan dari <span class="font-bold text-gray-900"><i
+            <p class="text-gray-500 font-medium">Berdasarkan ulasan dari <span class="font-bold text-gray-900"><i
                         class="text-emerald-500 mr-1"></i>Layanan Kami</span></p>
         </div>
     </div>
@@ -426,14 +325,19 @@
             kebun pertamamu.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
+            <a href="/produk"
                 class="px-8 py-4 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600 shadow-md hover:shadow-lg transition-all">
                 Pesan Sayuran Sekarang
-            </button>
-            <button
+            </a>
+            @php
+                $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+                $message = urlencode('Halo admin, saya ingin bertanya 🙏');
+            @endphp
+
+            <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
                 class="px-8 py-4 rounded-full bg-white text-gray-900 font-bold hover:bg-gray-50 border border-gray-200 shadow-sm transition-all">
-                Tanya Admin Training
-            </button>
+                Tanya Admin
+            </a>
         </div>
     </div>
 </section>

@@ -102,7 +102,7 @@
                     <span class="text-emerald-500 font-extrabold text-xl mb-1 block">2023</span>
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Ekspansi Greenhouse Komersial</h4>
                     <p class="text-gray-600">Permintaan terus melonjak. GM 200 meresmikan greenhouse komersial
-                        seluas 1.000m² di Surabaya, menyuplai lebih dari 20 restoran sehat.</p>
+                        seluas 1.000m² di Jember, menyuplai lebih dari 20 restoran sehat.</p>
                 </div>
             </div>
 
@@ -111,9 +111,9 @@
                 <div
                     class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 group-hover:shadow-md transition-shadow">
                     <span class="text-emerald-500 font-extrabold text-xl mb-1 block">2025 - Sekarang</span>
-                    <h4 class="text-lg font-bold text-gray-900 mb-2">Mendirikan Akademi Pelatihan</h4>
-                    <p class="text-gray-600">Membuka kelas pelatihan offline dan online. Kini, GM 200 bukan hanya
-                        merek sayur, tetapi wadah lahirnya ratusan petani hidroponik baru di Indonesia.</p>
+                    <h4 class="text-lg font-bold text-gray-900 mb-2">Mendirikan Pelatihan</h4>
+                    <p class="text-gray-600">Membuka kelas pelatihan offline. Kini, GM 200 bukan hanya
+                        penyedia sayur hidroponik, tetapi wadah lahirnya ratusan petani hidroponik baru di Indonesia.</p>
                 </div>
             </div>
 
@@ -136,11 +136,11 @@
                 sayur hidroponik? Kami siap mendukung langkah Anda.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="index.html#produk"
+                <a href="/produk"
                     class="px-8 py-4 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
                     Belanja Sayur
                 </a>
-                <a href="index.html#pelatihan"
+                <a href="/pelatihan"
                     class="px-8 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold hover:bg-white hover:text-gray-900 transition-all">
                     Ikut Pelatihan
                 </a>

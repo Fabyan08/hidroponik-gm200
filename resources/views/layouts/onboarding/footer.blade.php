@@ -1,17 +1,24 @@
     <footer class="bg-gray-900 border-t border-gray-800 pt-16 pb-8 px-6 mt-12">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-12 mb-12">
             <div>
                 <a href="#" class="text-2xl font-extrabold flex items-center gap-2 mb-6">
                     <i class="fa-solid fa-leaf text-emerald-500"></i>
                     <span class="text-white">GM <span class="text-emerald-500">200</span></span>
                 </a>
+                @php
+                    $admin = \App\Models\User::where('role', 'admin')->first();
+
+                    $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+                    $message = urlencode('Halo admin, saya ingin bertanya 🙏');
+                @endphp
+
                 <p class="text-gray-400 text-sm mb-6 leading-relaxed">Menyediakan sayuran hidroponik premium dan pusat
                     pelatihan pertanian modern untuk gaya hidup sehat dan mandiri.</p>
                 <div class="flex gap-4">
                     <a href="#"
                         class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-emerald-500 transition-all"><i
                             class="fa-brands fa-instagram"></i></a>
-                    <a href="#"
+                    <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
                         class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-emerald-500 transition-all"><i
                             class="fa-brands fa-whatsapp"></i></a>
                     <a href="#"
@@ -23,25 +30,14 @@
             <div>
                 <h4 class="text-white font-bold mb-6">Navigasi</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="#home" class="hover:text-emerald-400 transition-colors">Beranda</a></li>
-                    <li><a href="#tentang-kami" class="hover:text-emerald-400 transition-colors">Tentang Kami</a></li>
-                    <li><a href="#produk" class="hover:text-emerald-400 transition-colors">Katalog Sayuran</a></li>
-                    <li><a href="#artikel" class="hover:text-emerald-400 transition-colors">Blog & Edukasi</a></li>
+                    <li><a href="/" class="hover:text-emerald-400 transition-colors">Beranda</a></li>
+                    <li><a href="/tentang-kami" class="hover:text-emerald-400 transition-colors">Tentang Kami</a></li>
+                    <li><a href="/produk" class="hover:text-emerald-400 transition-colors">Katalog Sayuran</a></li>
+                    <li><a href="/artikel" class="hover:text-emerald-400 transition-colors">Blog & Edukasi</a></li>
+                    <li><a href="/Pelatihan" class="hover:text-emerald-400 transition-colors">Pelatihan</a></li>
                 </ul>
             </div>
 
-            <div>
-                <h4 class="text-white font-bold mb-6">Layanan</h4>
-                <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="#" class="hover:text-emerald-400 transition-colors">Langganan Sayur (B2C)</a>
-                    </li>
-                    <li><a href="#" class="hover:text-emerald-400 transition-colors">Supply Restoran (B2B)</a>
-                    </li>
-                    <li><a href="#pelatihan" class="hover:text-emerald-400 transition-colors">Pelatihan Offline</a>
-                    </li>
-                    <li><a href="#pelatihan" class="hover:text-emerald-400 transition-colors">Webinar Online</a></li>
-                </ul>
-            </div>
 
             <div id="contact">
                 <h4 class="text-white font-bold mb-6">Kontak Kami</h4>
@@ -54,9 +50,18 @@
                         <i class="fa-solid fa-envelope text-emerald-500"></i>
                         <a href="mailto:halo@gm200.id" class="hover:text-emerald-400">halo@gm200.id</a>
                     </li>
+
                     <li class="flex items-center gap-3">
                         <i class="fa-brands fa-whatsapp text-emerald-500"></i>
-                        <span>+62 812 3456 7890</span>
+
+                        @if ($admin)
+                            <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
+                                class="hover:text-emerald-600 transition">
+                                {{ $admin->phone }}
+                            </a>
+                        @else
+                            <span class="text-gray-400">Admin belum tersedia</span>
+                        @endif
                     </li>
                 </ul>
             </div>

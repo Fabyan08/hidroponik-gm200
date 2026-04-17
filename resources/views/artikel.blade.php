@@ -64,42 +64,10 @@
                 Pencarian</button>
         </div>
 
-        <div class="text-center mt-12" id="loadMoreContainer">
-            <button
-                class="px-8 py-3 rounded-full border-2 border-emerald-500 text-emerald-600 font-bold hover:bg-emerald-50 transition-colors">
-                <i class="fa-solid fa-rotate-right mr-2"></i> Muat Lebih Banyak
-            </button>
-        </div>
+
     </div>
 </section>
 
-<section class="py-20 px-6 -mb-20 bg-emerald-900 relative overflow-hidden">
-    <div
-        class="absolute -top-24 -right-24 w-64 h-64 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50">
-    </div>
-    <div
-        class="absolute -bottom-24 -left-24 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50">
-    </div>
-
-    <div
-        class="max-w-4xl mx-auto text-center relative z-10 bg-white/10 backdrop-blur-md p-10 md:p-16 rounded-[3rem] border border-white/20">
-        <i class="fa-regular fa-envelope-open text-5xl text-emerald-400 mb-6"></i>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Jangan Ketinggalan Info Pertanian Modern!</h2>
-        <p class="text-emerald-100 mb-8 text-lg">Dapatkan artikel terbaru, tips eksklusif, dan promo kelas pelatihan
-            langsung ke inbox email Anda setiap minggunya.</p>
-
-        <form class="flex flex-col sm:flex-row gap-3 justify-center max-w-xl mx-auto"
-            onsubmit="event.preventDefault(); subscribeNewsletter();">
-            <input type="email" placeholder="Masukkan alamat email Anda" required
-                class="flex-1 px-6 py-4 rounded-full bg-white/90 focus:bg-white text-gray-900 outline-none focus:ring-4 focus:ring-emerald-500/50 transition-all font-medium">
-            <button type="submit"
-                class="px-8 py-4 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-400 shadow-lg transition-all whitespace-nowrap">
-                Berlangganan
-            </button>
-        </form>
-        <p class="text-emerald-200/60 text-xs mt-4">Kami menjaga privasi Anda. Tidak ada spam.</p>
-    </div>
-</section>
 
 
 
@@ -109,13 +77,10 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-        // 🔥 CEK: kalau bukan halaman artikel → STOP
         const articleGrid = document.getElementById('articleGrid');
         if (!articleGrid) return;
 
-        // ========================
-        // DATA
-        // ========================
+
         const articlesData = @json($data);
 
         articlesData.forEach(article => {
