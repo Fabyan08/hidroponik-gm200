@@ -147,7 +147,7 @@
                                 <span class="text-xs text-gray-400 block">/ ${product.unit}</span>
                             </div>
 
-                            <button onclick="event.preventDefault(); addToCartFromList(${product.id}, '${product.name}', ${product.price})"
+                            <button onclick="addToCartFromList(${product.id}, '${product.name}', ${product.price}, '${product.image}')"
                                 class="w-12 h-12 rounded-full bg-emerald-50 hover:bg-emerald-500">
                                 <i class="fa-solid fa-cart-plus" style="color:green"></i>
                             </button>
@@ -163,12 +163,13 @@
         // ========================
         // CART
         // ========================
-        window.addToCartFromList = function(id, name, price) {
+        window.addToCartFromList = function(id, name, price, image) {
             window.addToCartGlobal({
                 id: id,
                 name: name,
                 price: price,
-                qty: 1
+                image: image,
+                qty: 1,
             });
 
             const floating = document.getElementById('floatingCart');

@@ -163,7 +163,7 @@
             <!-- FOOTER -->
             <div class="border-t pt-4">
                 <p class="font-bold mb-2">Total: <span id="cartTotal">Rp 0</span></p>
-                <button class="w-full bg-emerald-500 text-white py-3 rounded-xl">
+                <button onclick="goToCheckout()" class="w-full bg-emerald-500 text-white py-3 rounded-xl">
                     Checkout
                 </button>
             </div>
@@ -252,6 +252,17 @@
     </nav>
 
     <script>
+        function goToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                alert('Keranjang masih kosong!');
+                return;
+            }
+
+            // redirect ke halaman checkout
+            window.location.href = "/checkout";
+        }
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
 

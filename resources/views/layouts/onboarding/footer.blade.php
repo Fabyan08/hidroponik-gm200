@@ -117,7 +117,9 @@
                 id: {{ isset($product) ? $product->id : 'null' }},
                 name: "{{ isset($product) ? $product->name : '' }}",
                 price: {{ isset($product) ? $product->price : 0 }},
-                qty: qty
+                qty: qty,
+                image: "{{ isset($product) ? $product->image : '' }}"
+
             };
 
             // 🔥 cegah produk kosong di halaman lain
@@ -288,8 +290,6 @@
                 revealOnScroll.observe(el);
             });
         }
-
-
     </script>
 
     </html>

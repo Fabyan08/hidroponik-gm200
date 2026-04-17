@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ArtikelCustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProdukCustomerController;
 use App\Http\Controllers\ProfileController;
@@ -77,6 +78,12 @@ Route::get('/pelatihan', function () {
 Route::get('/pelatihan/{id}', [TrainingCustomerController::class, 'show'])->name('pelatihan.show');
 
 Route::get('/produk/{id}', [ProdukCustomerController::class, 'show'])->name('produk.show');
+
+// Checkout
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [OrderController::class, 'store']);
+
+
 
 // middleware dashboard owner
 Route::middleware(['auth'])->group(function () {
