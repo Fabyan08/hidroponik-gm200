@@ -1,6 +1,90 @@
 @include('layouts.onboarding.header')
-<main class="pt-32 pb-24 px-6 relative min-h-screen">
+<style>
+    .input-modern {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        background: #f9fafb;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
 
+    .input-modern:focus {
+        outline: none;
+        border-color: #10b981;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+
+    /* ANIMASI */
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .animate-scaleIn {
+        animation: scaleIn 0.25s ease;
+    }
+</style>
+<main class="pt-32 pb-24 px-6 relative min-h-screen">
+    <div id="modalDaftar" class="fixed inset-0 z-[9999] hidden flex items-center justify-center">
+
+        <!-- BACKDROP -->
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm z-10" onclick="closeModal()"></div>
+
+        <!-- MODAL -->
+        <div class="relative z-20 bg-white/90 backdrop-blur-xl w-full max-w-md p-8 rounded-3xl shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                ✕
+            </button>
+            <!-- HEADER -->
+            <div class="mb-6 text-center">
+                <h2 class="text-2xl font-extrabold text-gray-900">Form Pendaftaran</h2>
+                <p class="text-sm text-gray-500 mt-1">Isi data dengan benar ya 👇</p>
+            </div>
+
+            <form id="formPelatihan" class="space-y-4">
+
+                <input type="hidden" id="training_id" value="{{ $data->id }}">
+
+                <!-- INPUT -->
+                <div class="space-y-3">
+
+                    <input type="text" id="nama" placeholder="Nama Lengkap" class="input-modern">
+
+                    <input type="email" id="email" placeholder="Email" class="input-modern">
+
+                    <input type="text" id="phone" placeholder="No HP" class="input-modern">
+
+                    <input type="text" id="pekerjaan" placeholder="Pekerjaan" class="input-modern">
+
+                    <input type="text" id="institusi" placeholder="Institusi" class="input-modern">
+                </div>
+
+                <!-- BUTTON -->
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeModal()"
+                        class="w-1/2 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 font-semibold transition">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="w-1/2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg hover:shadow-xl transition-all">
+                        Daftar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
     <!-- Ambient Light Glows -->
     <div class="glow-blob bg-emerald-100 w-[500px] h-[500px] top-0 left-0"></div>
     <div class="glow-blob bg-teal-50 w-[600px] h-[600px] bottom-0 right-0"></div>
@@ -9,8 +93,8 @@
 
         <!-- Breadcrumb -->
         <div class="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
-            <a href="pelatihan.html" class="hover:text-emerald-600 transition-colors flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Akademi
+            <a href="/pelatihan" class="hover:text-emerald-600 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Kembali
             </a>
             <span class="text-gray-300 hidden sm:inline">/</span>
             <span class="text-gray-900 font-bold truncate hidden sm:inline">{{ $data->title }}</span>
@@ -151,65 +235,49 @@
     </div>
 </main>
 
-<!-- Sticky Bottom Bar untuk Mobile (Tampil saat di-scroll ke bawah pada layar kecil) -->
-<div id="mobileBottomCTA"
-    class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] p-4 z-50 transform translate-y-full transition-transform duration-300">
-    <div class="flex items-center justify-between gap-4 max-w-7xl mx-auto">
-
-        <button onclick="daftarPelatihan()"
-            class="flex-1 py-3 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-md flex justify-center items-center gap-2 whitespace-nowrap">
-            Daftar <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-gray-900 border-t border-gray-800 pt-16 pb-24 lg:pb-8 px-6">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-        <div>
-            <a href="index.html" class="text-2xl font-extrabold flex items-center gap-2 mb-6">
-                <i class="fa-solid fa-leaf text-emerald-500"></i>
-                <span class="text-white">GM <span class="text-emerald-500">200</span></span>
-            </a>
-            <p class="text-gray-400 text-sm mb-6 leading-relaxed">Menyediakan sayuran hidroponik premium dan pusat
-                pelatihan pertanian modern untuk gaya hidup sehat dan mandiri.</p>
-        </div>
-
-        <div>
-            <h4 class="text-white font-bold mb-6">Navigasi</h4>
-            <ul class="space-y-3 text-sm text-gray-400">
-                <li><a href="index.html" class="hover:text-emerald-400 transition-colors">Beranda</a></li>
-                <li><a href="produk.html" class="hover:text-emerald-400 transition-colors">Katalog Sayuran</a></li>
-                <li><a href="artikel.html" class="hover:text-emerald-400 transition-colors">Blog & Edukasi</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="text-white font-bold mb-6">Layanan</h4>
-            <ul class="space-y-3 text-sm text-gray-400">
-                <li><a href="#" class="hover:text-emerald-400 transition-colors">Langganan Sayur</a></li>
-                <li><a href="#" class="hover:text-emerald-400 transition-colors">Supply Restoran</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="text-white font-bold mb-6">Kontak Kami</h4>
-            <ul class="space-y-4 text-sm text-gray-400">
-                <li class="flex items-center gap-3">
-                    <i class="fa-brands fa-whatsapp text-emerald-500"></i>
-                    <span>+62 812 3456 7890</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="max-w-7xl mx-auto border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
-        <p>&copy; 2026 GM 200 Hydroponics. Hak Cipta Dilindungi.</p>
-    </div>
-</footer>
 
 <!-- Toast Container -->
 <div id="toastContainer"
     class="fixed top-24 left-1/2 transform -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+<script>
+    function daftarPelatihan() {
+        document.getElementById("modalDaftar").classList.remove("hidden");
+    }
 
+    function closeModal() {
+        document.getElementById("modalDaftar").classList.add("hidden");
+    }
+
+    document.getElementById("formPelatihan").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const data = {
+            training_id: document.getElementById("training_id").value,
+            name: document.getElementById("nama").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            pekerjaan: document.getElementById("pekerjaan").value,
+            institusi: document.getElementById("institusi").value,
+        };
+
+        fetch("/pelatihan/daftar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert("Berhasil daftar!");
+                closeModal();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error!");
+            });
+    });
+</script>
 
 @include('layouts.onboarding.footer')

@@ -83,7 +83,7 @@ Route::get('/produk/{id}', [ProdukCustomerController::class, 'show'])->name('pro
 Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [OrderController::class, 'store']);
 
-
+Route::post('/pelatihan/daftar', [TrainingCustomerController::class, 'store']);
 
 // middleware dashboard owner
 Route::middleware(['auth'])->group(function () {
