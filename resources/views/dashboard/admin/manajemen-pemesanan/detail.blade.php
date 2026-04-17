@@ -82,7 +82,32 @@
                             <p><b>Tanggal Order:</b><br>
                                 {{ \Carbon\Carbon::parse($order->order_date)->format('d M Y H:i') }}
                             </p>
+                            <div class="mt-4 d-flex flex-column gap-2">
 
+                                <!-- BUTTON STRUK -->
+                                <a href="{{ route('manajemen-pemesanan.invoice', $order->id) }}"
+                                    class="btn btn-dark btn-primary d-flex align-items-center justify-content-center gap-2">
+
+                                    <i class="fas fa-receipt"></i>
+                                    <span>Lihat Struk</span>
+                                </a>
+
+                                <!-- BUTTON WHATSAPP -->
+                                @php
+                                    $phone = preg_replace('/^0/', '62', $order->phone);
+                                    $message = urlencode(
+                                        "Halo {$order->name}, pesanan Anda dengan ID #{$order->id} sedang diproses. Terima kasih 🙏",
+                                    );
+                                @endphp
+
+                                <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
+                                    class="btn btn-success btn-block d-flex align-items-center justify-content-center gap-2">
+
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>Hubungi via WhatsApp</span>
+                                </a>
+
+                            </div>
                         </div>
                     </div>
                 </div>

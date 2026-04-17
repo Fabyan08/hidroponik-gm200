@@ -29,4 +29,11 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui!');
     }
+
+    public function invoice($id)
+    {
+        $order = Order::with('items.product')->findOrFail($id);
+
+        return view('dashboard.admin.manajemen-pemesanan.invoice', compact('order'));
+    }
 }

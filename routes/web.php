@@ -150,6 +150,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/manajemen-pemesanan/{id}/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
 });
 
+Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('manajemen-pemesanan.invoice');
+Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
 
 require __DIR__ . '/auth.php';
 

@@ -199,41 +199,41 @@
                             <li class="menu-header">Admin Menu</li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produksi') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-produksi', 'manajemen-produksi/*') ? 'text-success' : '' }}"
                                     href="/manajemen-produksi">
                                     <i class="fas fa-industry"></i> <span>Manajemen Produksi</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-pemesanan') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-pemesanan','manajemen-pemesanan/*') ? 'text-success' : '' }}"
                                     href="/manajemen-pemesanan">
                                     <i class="fas fa-money-bill"></i> <span>Manajemen Pemesanan</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produk') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-produk','manajemen-produk/*') ? 'text-success' : '' }}"
                                     href="/manajemen-produk">
                                     <i class="fas fa-box"></i> <span>Manajemen Produk</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-artikel') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-artikel','manajemen-artikel/*') ? 'text-success' : '' }}"
                                     href="/manajemen-artikel">
                                     <i class="fas fa-newspaper"></i> <span>Manajemen Artikel</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-pelatihan') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-pelatihan','manajemen-pelatihan/*') ? 'text-success' : '' }}"
                                     href="/manajemen-pelatihan">
                                     <i class="fas fa-chalkboard-teacher"></i> <span>Manajemen Pelatihan</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-review') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-review','manajemen-review/*') ? 'text-success' : '' }}"
                                     href="/manajemen-review">
                                     <i class="fas fa-star"></i> <span>Manajemen Review</span>
                                 </a>
