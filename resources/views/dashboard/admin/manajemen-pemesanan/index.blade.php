@@ -30,6 +30,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Id Order</th>
+                                            <th>Status</th>
                                             <th>Tanggal Order</th>
                                             <th>Nama</th>
                                             <th>No HP</th>
@@ -45,6 +46,14 @@
                                                 <td>{{ $loop->iteration }}</td>
 
                                                 <td>#{{ $item->id }}</td>
+                                                <td> <span
+                                                        class="badge
+    {{ $item->status == 'pending' ? 'badge-warning' : '' }}
+    {{ $item->status == 'dibayar' ? 'badge-info' : '' }}
+    {{ $item->status == 'dikirim' ? 'badge-primary' : '' }}
+    {{ $item->status == 'selesai' ? 'badge-success' : '' }}">
+                                                        {{ ucfirst($item->status) }}
+                                                    </span></td>
 
                                                 <td>{{ \Carbon\Carbon::parse($item->order_date)->format('d M Y H:i') }}
                                                 </td>

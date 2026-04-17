@@ -15,7 +15,18 @@ class OrderController extends Controller
     }
     public function show($id)
     {
-        $order = Order::with('items.product')->findOrFail($id);
-        return view('detail-pemesanan', compact('order'));
+        $order = Order::with(['items.product'])->findOrFail($id);
+
+        return view('dashboard.admin.manajemen-pemesanan.detail', compact('order'));
+    }
+    public function updateStatus(Request $request, $id)
+    {
+
+        $order = Order::findOrFail($id);
+        $order->update([
+            'status' => $request->status
+        ]);
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui!');
     }
 }

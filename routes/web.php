@@ -109,7 +109,7 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
     // Manajemen Artikel
     Route::get('/manajemen-artikel', [ArtikelController::class, 'index'])->name('manajemen-artikel.index');
     Route::get('/manajemen-artikel/tambah', [ArtikelController::class, 'create'])->name('artikel.create');
-    Route::get('/manajemen-artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
+    Route::get('/manajemen-artikel/{id}', [ArtikelController::class, 'show'])->name('manajemen-artikel.show');
     Route::post('/artikel/store', [ArtikelController::class, 'store'])->name('artikel.store');
     Route::put('/artikel/update/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
     Route::get('/manajemen-artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
@@ -147,6 +147,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Manajemen pemesanan
     Route::get('/manajemen-pemesanan', [OrderController::class, 'index'])->name('manajemen-pemesanan.index');
     Route::get('/manajemen-pemesanan/{id}', [OrderController::class, 'show'])->name('manajemen-pemesanan.show');
+    Route::put('/manajemen-pemesanan/{id}/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
 });
 
 

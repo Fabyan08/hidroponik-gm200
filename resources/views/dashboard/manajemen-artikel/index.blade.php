@@ -14,7 +14,7 @@
                         Kamu dapat mengelola data artikel di halaman ini.
                     </p>
                 </div>
-                <a href="{{ route('artikel.create') }}" class="btn btn-primary" >+ Tambah
+                <a href="{{ route('artikel.create') }}" class="btn btn-primary">+ Tambah
                     Data</a>
             </div>
             @if (session('success'))
@@ -53,11 +53,11 @@
 
 
                                                 <td>
-                                                    <img src="{{ asset('storage/' .  $article->image) }}"
-                                                        width="60" class="img-thumbnail">
+                                                    <img src="{{ asset('storage/' . $article->image) }}" width="60"
+                                                        class="img-thumbnail">
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('artikel.show', $article->id) }}"
+                                                    <a href="{{ route('manajemen-artikel.show', $article->id) }}"
                                                         class="btn btn-info btn-sm">Detail</a>
                                                 </td>
 
