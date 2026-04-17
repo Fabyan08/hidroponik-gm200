@@ -10,6 +10,7 @@ class Training extends Model
         'title',
         'description',
         'date',
+        'time',
         'location',
         'quota',
         'image',

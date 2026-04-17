@@ -25,6 +25,7 @@ class TrainingController extends Controller
             'title' => 'required|max:255',
             'description' => 'required',
             'date' => 'required|date',
+            'time' => 'required',
             'location' => 'required',
             'quota' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -40,6 +41,7 @@ class TrainingController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'date' => $request->date,
+            'time' => $request->time,
             'location' => $request->location,
             'quota' => $request->quota,
             'image' => $imagePath,
@@ -56,6 +58,7 @@ class TrainingController extends Controller
             'title' => 'required|max:255',
             'description' => 'required',
             'date' => 'required|date',
+            'time' => 'required',
             'location' => 'required',
             'quota' => 'required|numeric',
             'image' => 'nullable|image',
@@ -69,6 +72,8 @@ class TrainingController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'date' => $request->date,
+            'time' => $request->time,
+
             'location' => $request->location,
             'quota' => $request->quota,
         ]);

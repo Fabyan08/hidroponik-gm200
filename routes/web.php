@@ -10,8 +10,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\TrainingCustomerController;
 use App\Models\Article;
 use App\Models\Product;
+use App\Models\Training;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -65,8 +67,14 @@ Route::get('/artikel', function () {
 Route::get('/artikel/{slug}', [ArtikelCustomerController::class, 'show'])->name('artikel.show');
 
 Route::get('/pelatihan', function () {
-    return view('pelatihan');
+
+    $trainings = Training::where('status', 'Aktif')
+        ->orderBy('id', 'desc')
+        ->get();
+    return view('pelatihan', compact('trainings'));
 })->name('pelatihan');
+
+Route::get('/pelatihan/{id}', [TrainingCustomerController::class, 'show'])->name('pelatihan.show');
 
 Route::get('/produk/{id}', [ProdukCustomerController::class, 'show'])->name('produk.show');
 
@@ -103,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pelatihan/store', [TrainingController::class, 'store'])->name('pelatihan.store');
     Route::put('/pelatihan/update/{id}', [TrainingController::class, 'update'])->name('pelatihan.update');
     Route::delete('/pelatihan/delete/{id}', [TrainingController::class, 'destroy'])->name('pelatihan.destroy');
-    Route::get('/manajemen-pelatihan/{id}', [TrainingController::class, 'show'])->name('pelatihan.show');
+    Route::get('/manajemen-pelatihan/{id}', [TrainingController::class, 'show'])->name('manajemen-pelatihan.show');
 
     // Ubah status pelatihan
     Route::put('/pelatihan/update-status/{id}', [TrainingController::class, 'updateStatus'])->name('pelatihan.updateStatus');

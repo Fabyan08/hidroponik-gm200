@@ -35,6 +35,7 @@
                                             <th>Judul</th>
                                             <th>Deskripsi</th>
                                             <th>Tanggal</th>
+                                            <th>Jam</th>
                                             <th>Lokasi</th>
                                             <th>Kuota</th>
                                             <th>Pendaftar</th>
@@ -58,6 +59,7 @@
                                                 <td>{{ $training->title }}</td>
                                                 <td>{{ Str::limit($training->description, 50) }}</td>
                                                 <td>{{ $training->date }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($training->time)->format('H.i') }} WIB</td>
                                                 <td>{{ $training->location }}</td>
                                                 <td>{{ $training->quota }}</td>
                                                 <td>{{ $training->registrations_count }}</td>
@@ -66,7 +68,7 @@
                                                         width="60">
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('pelatihan.show', $training->id) }}"
+                                                    <a href="{{ route('manajemen-pelatihan.show', $training->id) }}"
                                                         class="btn btn-info btn-sm">
                                                         Detail
                                                     </a>
@@ -142,6 +144,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Waktu</label>
+                        <div class="col-sm-9">
+                            <input type="time" name="time" required
+                                class="form-control @error('time') is-invalid @enderror" value="{{ old('time') }}">
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Lokasi</label>
@@ -221,6 +230,14 @@
                             <div class="col-sm-9">
                                 <input type="date" name="date" class="form-control"
                                     value="{{ old('date', $training->date) }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Waktu</label>
+                            <div class="col-sm-9">
+                                <input type="time" name="time" class="form-control"
+                                    value="{{ old('time', $training->time) }}">
                             </div>
                         </div>
 

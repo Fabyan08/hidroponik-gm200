@@ -65,6 +65,8 @@
                                 <li><strong>📅 Tanggal:</strong> {{ $data->date }}</li>
                                 <li><strong>📍 Lokasi:</strong> {{ $data->location }}</li>
                                 <li><strong>👥 Kuota:</strong> {{ $data->quota }} orang</li>
+                                <li><strong>⏰ Waktu:</strong> {{ \Carbon\Carbon::parse($data->time)->format('H.i') }}
+                                    WIB</li>
                             </ul>
                         </div>
                     </article>
@@ -230,6 +232,13 @@
                         <div class="col-sm-9">
                             <input type="date" name="date" class="form-control"
                                 value="{{ old('date', $data->date) }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Waktu</label>
+                        <div class="col-sm-9">
+                            <input type="time" name="time" class="form-control"
+                                value="{{ old('time', $data->time) }}">
                         </div>
                     </div>
 
