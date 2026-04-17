@@ -204,6 +204,12 @@
                                     <i class="fas fa-industry"></i> <span>Manajemen Produksi</span>
                                 </a>
                             </li>
+                            <li>
+                                <a class="nav-link {{ request()->is('manajemen-pemesanan') ? 'text-success' : '' }}"
+                                    href="/manajemen-pemesanan">
+                                    <i class="fas fa-money-bill"></i> <span>Manajemen Pemesanan</span>
+                                </a>
+                            </li>
 
                             <li>
                                 <a class="nav-link {{ request()->is('manajemen-produk') ? 'text-success' : '' }}"

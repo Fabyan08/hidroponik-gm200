@@ -5,6 +5,7 @@ use App\Http\Controllers\AdmminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ArtikelCustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProdukCustomerController;
 use App\Http\Controllers\ProfileController;
@@ -68,7 +69,6 @@ Route::get('/artikel', function () {
 Route::get('/artikel/{slug}', [ArtikelCustomerController::class, 'show'])->name('artikel.show');
 
 Route::get('/pelatihan', function () {
-
     $trainings = Training::where('status', 'Aktif')
         ->orderBy('id', 'desc')
         ->get();
@@ -86,10 +86,11 @@ Route::post('/checkout', [OrderController::class, 'store']);
 Route::post('/pelatihan/daftar/{id}', [TrainingCustomerController::class, 'store'])->name('pelatihan.daftar');
 
 // middleware dashboard owner
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard/owner', function () {
+Route::middleware(['auth', 'role:owner,admin'])->group(function () {
+    Route::get('/dashboard', function () {
         return view('dashboard/index');
     })->name('dashboard');
+
     // Profile
     Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile.index');
 
@@ -133,4 +134,67 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manajemen-medsos', [SosmedController::class, 'index'])->name('manajemen-medsos.index');
 });
 
+// Middleware dashboard admin (hanya manajemen pemesanan)
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Manajemen Produksi
+    Route::get('/manajemen-produksi', [ProductionController::class, 'index'])->name('manajemen-produksi.index');
+    Route::post('/manajemen-produksi/store', [ProductionController::class, 'store'])->name('manajemen-produksi.store');
+    Route::put('/manajemen-produksi/update/{id}', [ProductionController::class, 'update'])->name('manajemen-produksi.update');
+    Route::delete('/manajemen-produksi/delete/{id}', [ProductionController::class, 'destroy'])->name('manajemen-produksi.destroy');
+
+
+    // Manajemen pemesanan
+    Route::get('/manajemen-pemesanan', [ProdukController::class, 'index'])->name('manajemen-pemesanan.index');
+});
+
+
 require __DIR__ . '/auth.php';
+
+// BACKUP MIDDLEWARE OKE!!!
+// // middleware dashboard owner
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard/owner', function () {
+//         return view('dashboard/index');
+//     })->name('dashboard');
+//     // Profile
+//     Route::get('/dashboard/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+//     Route::get('/manajemen-admin', [AdminController::class, 'index'])->name('manajemen-admin.index');
+//     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+//     Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+//     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
+
+//     // Manajemen produk
+//     Route::get('/manajemen-produk', [ProdukController::class, 'index'])->name('manajemen-produk.index');
+//     Route::post('/produk/store', [ProdukController::class, 'store'])->name('product.store');
+//     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('product.update');
+//     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('product.destroy');
+
+//     // Manajemen Artikel
+//     Route::get('/manajemen-artikel', [ArtikelController::class, 'index'])->name('manajemen-artikel.index');
+//     Route::get('/manajemen-artikel/tambah', [ArtikelController::class, 'create'])->name('artikel.create');
+//     Route::get('/manajemen-artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
+//     Route::post('/artikel/store', [ArtikelController::class, 'store'])->name('artikel.store');
+//     Route::put('/artikel/update/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
+//     Route::get('/manajemen-artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
+//     Route::delete('/artikel/delete/{id}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
+
+//     // Manajemen Pelatihan
+//     Route::get('/manajemen-pelatihan', [TrainingController::class, 'index'])->name('manajemen-pelatihan.index');
+//     Route::post('/pelatihan/store', [TrainingController::class, 'store'])->name('pelatihan.store');
+//     Route::put('/pelatihan/update/{id}', [TrainingController::class, 'update'])->name('pelatihan.update');
+//     Route::delete('/pelatihan/delete/{id}', [TrainingController::class, 'destroy'])->name('pelatihan.destroy');
+//     Route::get('/manajemen-pelatihan/{id}', [TrainingController::class, 'show'])->name('manajemen-pelatihan.show');
+
+//     // Ubah status pelatihan
+//     Route::put('/pelatihan/update-status/{id}', [TrainingController::class, 'updateStatus'])->name('pelatihan.updateStatus');
+
+//     // Pendaftar Pelatihan
+//     Route::delete('/pendaftar/delete/{id}', [TrainingController::class, 'destroyPendaftar'])->name('pendaftar.destroy');
+
+//     // Manajemen Review
+//     Route::get('/manajemen-review', [ReviewController::class, 'index'])->name('manajemen-review.index');
+
+//     // Manajemen Sosmed
+//     Route::get('/manajemen-medsos', [SosmedController::class, 'index'])->name('manajemen-medsos.index');
+// });
