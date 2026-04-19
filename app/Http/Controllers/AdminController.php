@@ -33,7 +33,7 @@ class AdminController extends Controller
             'role' => 'admin',
         ]);
 
-        return redirect()->back()->with('success', 'Admin berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data akun admin berhasil ditambahkan');
     }
 
     public function destroy($id)
@@ -41,7 +41,7 @@ class AdminController extends Controller
         $admin = User::findOrFail($id);
         $admin->delete();
 
-        return redirect()->back()->with('success', 'Admin berhasil dihapus');
+        return redirect()->back()->with('success', 'Data akun admin berhasil dihapus');
     }
 
     public function update(Request $request, $id)
@@ -63,6 +63,6 @@ class AdminController extends Controller
         $admin->phone = $request->phone;
         $admin->save();
 
-        return redirect()->back()->with('success', 'Admin berhasil diperbarui');
+        return redirect()->back()->with('success', 'Data akun admin berhasil diperbarui');
     }
 }

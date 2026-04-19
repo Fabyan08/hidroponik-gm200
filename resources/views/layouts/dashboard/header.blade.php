@@ -58,59 +58,74 @@
 
                 </form>
                 <ul class="navbar-nav navbar-right">
+                    @php
+                        use Illuminate\Support\Facades\DB;
 
+                        $notifTraining = DB::table('training_registrations')
+                            ->join('trainings', 'training_registrations.training_id', '=', 'trainings.id')
+                            ->select(
+                                DB::raw("'training' as type"),
+                                'trainings.title as title',
+                                'training_registrations.name as name',
+                                DB::raw('NULL as phone'),
+                                DB::raw('NULL as total_item'),
+                                'training_registrations.created_at',
+                            )
+                            ->get();
+
+                        $notifOrder = DB::table('orders')
+                            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+                            ->select(
+                                DB::raw("'order' as type"),
+                                DB::raw('NULL as title'),
+                                'orders.name',
+                                'orders.phone',
+                                DB::raw('SUM(order_items.quantity) as total_item'),
+                                'orders.created_at',
+                            )
+                            ->groupBy('orders.id', 'orders.name', 'orders.phone', 'orders.created_at')
+                            ->get();
+
+                        $notifications = $notifTraining->merge($notifOrder)->sortByDesc('created_at');
+                    @endphp
                     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                             class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
                         <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                            <div class="dropdown-header">Notifications
+                            <div class="dropdown-header">Notifikasi
 
                             </div>
                             <div class="dropdown-list-content dropdown-list-icons">
-                                <a href="#" class="dropdown-item dropdown-item-unread">
-                                    <div class="dropdown-item-icon bg-primary text-white">
-                                        <i class="fas fa-code"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Template update is available now!!!!!!
-                                        <div class="time text-primary">2 Min Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-info text-white">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b>You</b> and <b>Dedik Sugiharto</b> are now friends
-                                        <div class="time">10 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-success text-white">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
-                                        <div class="time">12 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-danger text-white">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Low disk space. Let's clean it!
-                                        <div class="time">17 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-info text-white">
-                                        <i class="fas fa-bell"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Welcome to Stisla template!
-                                        <div class="time">Yesterday</div>
-                                    </div>
-                                </a>
+                                @foreach ($notifications as $item)
+                                    @if ($item->type == 'order')
+                                        <a href="{{ auth()->user()->role == 'admin' ? '/manajemen-pemesanan' : '#' }}"
+                                            class="dropdown-item">
+                                            <div class="dropdown-item-icon bg-primary text-white">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </div>
+                                            <div class="dropdown-item-desc">
+                                                <b>{{ $item->name }}</b> ({{ $item->phone }}) pesan
+                                                <b>{{ $item->total_item }} item</b>
+                                                <div class="time">
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endif
+
+                                    @if ($item->type == 'training')
+                                        <a href="/manajemen-pelatihan" class="dropdown-item dropdown-item-unread">
+                                            <div class="dropdown-item-icon bg-success text-white">
+                                                <i class="fas fa-chalkboard-teacher"></i>
+                                            </div>
+                                            <div class="dropdown-item-desc">
+                                                <b>{{ $item->name }}</b> daftar ke <b>{{ $item->title }}</b>
+                                                <div class="time text-primary">
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @endif
+                                @endforeach
                             </div>
 
                         </div>
@@ -205,35 +220,35 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-pemesanan','manajemen-pemesanan/*') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-pemesanan', 'manajemen-pemesanan/*') ? 'text-success' : '' }}"
                                     href="/manajemen-pemesanan">
                                     <i class="fas fa-money-bill"></i> <span>Manajemen Pemesanan</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produk','manajemen-produk/*') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-produk', 'manajemen-produk/*') ? 'text-success' : '' }}"
                                     href="/manajemen-produk">
                                     <i class="fas fa-box"></i> <span>Manajemen Produk</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-artikel','manajemen-artikel/*') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-artikel', 'manajemen-artikel/*') ? 'text-success' : '' }}"
                                     href="/manajemen-artikel">
                                     <i class="fas fa-newspaper"></i> <span>Manajemen Artikel</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-pelatihan','manajemen-pelatihan/*') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-pelatihan', 'manajemen-pelatihan/*') ? 'text-success' : '' }}"
                                     href="/manajemen-pelatihan">
                                     <i class="fas fa-chalkboard-teacher"></i> <span>Manajemen Pelatihan</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-review','manajemen-review/*') ? 'text-success' : '' }}"
+                                <a class="nav-link {{ request()->is('manajemen-review', 'manajemen-review/*') ? 'text-success' : '' }}"
                                     href="/manajemen-review">
                                     <i class="fas fa-star"></i> <span>Manajemen Review</span>
                                 </a>

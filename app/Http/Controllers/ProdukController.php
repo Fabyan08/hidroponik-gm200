@@ -69,7 +69,7 @@ class ProdukController extends Controller
             'unit' => $request->unit,
         ]);
 
-        return back()->with('success', 'Produk berhasil diupdate');
+        return back()->with('success', 'Data produk berhasil diperbarui');
     }
 
     public function destroy($id)

@@ -118,7 +118,7 @@
 
                     <div class="form-group">
                         <label>Nomor HP</label>
-                        <input type="text" name="phone" class="form-control" value="{{ old('phone') }}"
+                        <input type="number" name="phone" class="form-control" value="{{ old('phone') }}"
                             placeholder="Masukkan nomor telepon">
                         <p class="text-danger">{{ $errors->first('phone') }}</p>
                     </div>

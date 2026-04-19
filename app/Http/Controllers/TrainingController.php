@@ -15,7 +15,6 @@ class TrainingController extends Controller
         foreach ($data as $training) {
             $training->registrations_count = TrainingRegistrations::where('training_id', $training->id)->count();
         }
-
         return view('dashboard.manajemen-pelatihan.index', compact('data'));
     }
 
@@ -47,7 +46,7 @@ class TrainingController extends Controller
             'image' => $imagePath,
         ]);
 
-        return back()->with('success', 'Pelatihan berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Pelatihan berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)

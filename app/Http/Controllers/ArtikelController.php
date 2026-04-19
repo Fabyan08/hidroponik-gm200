@@ -35,7 +35,7 @@ class ArtikelController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect('/manajemen-artikel')->with('success', 'Artikel berhasil ditambahkan');
+        return redirect('/manajemen-artikel')->with('success', 'Data artikel berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class ArtikelController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect('/manajemen-artikel')->with('success', 'Artikel berhasil diperbarui');
+        return redirect('/manajemen-artikel')->with('success', 'Data artikel berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -71,7 +71,7 @@ class ArtikelController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect('/manajemen-artikel')->with('success', 'Artikel berhasil dihapus');
+        return redirect('/manajemen-artikel')->with('success', 'Data artikel berhasil dihapus');
     }
 
     public function create()

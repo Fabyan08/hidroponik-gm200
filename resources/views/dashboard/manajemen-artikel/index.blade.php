@@ -61,13 +61,6 @@
                                                         class="btn btn-info btn-sm">Detail</a>
                                                 </td>
 
-                                                {{-- <td class="text-center">
-                                                    <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                        data-target="#modalEdit-{{ $article->id }}">
-                                                        Edit
-                                                    </button>
-                                                </td> --}}
-
                                                 <td class="text-center">
                                                     <form action="{{ route('artikel.destroy', $article->id) }}"
                                                         method="POST" class="d-inline">
