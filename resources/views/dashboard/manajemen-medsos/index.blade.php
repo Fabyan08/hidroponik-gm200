@@ -17,52 +17,79 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <!-- FORM -->
                             <div class="row">
-
-                                <!-- IMAGE -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Upload Gambar</label>
-                                        <input type="file" class="form-control">
+                                        <input type="file" id="imageInput" class="form-control" required
+                                            accept="image/*">
                                     </div>
                                 </div>
 
-                                <!-- CONTENT -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Deskripsi Konten</label>
-                                        <textarea class="form-control" rows="4" placeholder="Contoh: promo selada hidroponik fresh tanpa pestisida"></textarea>
+                                        <textarea id="deskripsiInput" class="form-control" required rows="4"
+                                            placeholder="Contoh: promo selada hidroponik..."></textarea>
                                     </div>
-
-
                                 </div>
 
                                 <div class="col-md-4">
-
                                     <div class="form-group">
                                         <label>Tipe Konten</label>
-                                        <select class="form-control">
-                                            <option>Promo</option>
-                                            <option>Edukasi</option>
-                                            <option>Testimoni</option>
-                                            <option>Tips</option>
+                                        <select id="tipeInput" required class="form-control">
+                                            <option value="Promo">Promo</option>
+                                            <option value="Edukasi">Edukasi</option>
+                                            <option value="Testimoni">Testimoni</option>
+                                            <option value="Tips">Tips</option>
                                         </select>
                                     </div>
-
-
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group text-right">
-                                        <button class="btn btn-success">Generate Rekomendasi AI</button>
+                                        <button id="btnGenerate" class="btn btn-success"
+                                            onclick="generateRekomendasi()">
+                                            Generate Rekomendasi AI
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Hasil Caption (AI)</label>
+                                        <div class="input-group">
+                                            <textarea id="aiCaption" class="form-control" rows="4" placeholder="Hasil caption akan muncul di sini..."></textarea>
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary"
+                                                    onclick="copyText('aiCaption')"><i class="fas fa-copy"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Rekomendasi Jam Tayang</label>
+                                        <div class="input-group">
+                                            <input type="text" id="aiTime" class="form-control"
+                                                placeholder="Jam tayang akan muncul di sini...">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-info"
+                                                    onclick="copyText('aiTime')"><i class="fas fa-copy"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                             <hr class="mb-4">
-                            {{-- di sini tampil jam posting & caption --}}
                             <div class="form-group text-right">
-                                <button class="btn btn-warning">Simpan & Jadwalkan</button>
+                                <button id="btnSave" class="btn btn-warning" onclick="simpanDanJadwalkan()">Simpan &
+                                    Jadwalkan</button>
                             </div>
                         </div>
 
@@ -91,55 +118,40 @@
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
+                                <tbody id="historyTableBody">
+                                    @foreach ($posts as $index => $post)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                <img src="{{ asset('storage/' . $post->image) }}" width="60"
+                                                    style="object-fit: cover; border-radius: 4px;">
+                                            </td>
+                                            <td>{{ str_replace('Konten ', '', explode(' - ', $post->title)[0]) }}</td>
 
-                                <tbody>
+                                            <td class="caption-text">
+                                                {{ \Illuminate\Support\Str::limit($post->ai_caption, 50) }}</td>
 
-                                    <!-- DATA DUMMY -->
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <img src="https://via.placeholder.com/60" width="60">
-                                        </td>
-                                        <td>Promo</td>
-                                        <td>Panen segar langsung dari GM200...</td>
-                                        <td>2026-04-20 07:00</td>
-                                        <td><span class="badge badge-info">Scheduled</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">Copy</button>
-                                            <button class="btn btn-sm btn-warning">Edit</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <img src="https://via.placeholder.com/60" width="60">
-                                        </td>
-                                        <td>Edukasi</td>
-                                        <td>Hidroponik adalah metode tanam tanpa tanah...</td>
-                                        <td>-</td>
-                                        <td><span class="badge badge-warning">Draft</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">Copy</button>
-                                            <button class="btn btn-sm btn-warning">Edit</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            <img src="https://via.placeholder.com/60" width="60">
-                                        </td>
-                                        <td>Testimoni</td>
-                                        <td>Sayurannya fresh banget, recommended!</td>
-                                        <td>2026-04-18 19:00</td>
-                                        <td><span class="badge badge-success">Posted</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">Copy</button>
-                                            <button class="btn btn-sm btn-warning">Edit</button>
-                                        </td>
-                                    </tr>
-
+                                            <td>{{ $post->scheduled_at }}</td>
+                                            <td>
+                                                <span
+                                                    class="badge {{ $post->status == 'Scheduled' ? 'badge-info' : 'badge-success' }}">
+                                                    {{ ucfirst($post->status) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"
+                                                    data-caption="{{ $post->ai_caption }}"
+                                                    onclick="copyRowCaption(this)">
+                                                    <i class="fas fa-copy"></i> Copy
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" data-toggle="modal"
+                                                    data-target="#editStatusModal"
+                                                    onclick="siapkanDataEdit({{ $post->id }}, '{{ strtolower($post->status) }}')">
+                                                    Edit
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -149,9 +161,246 @@
             </div>
         </div>
 
-        </div>
-        </section>
-        </div>
 </div>
+<div class="modal fade" id="editStatusModal" tabindex="-1" role="dialog" aria-labelledby="editStatusModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editStatusModalLabel">Ubah Status Konten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditStatus">
+                    <input type="hidden" id="editPostId">
 
-@extend('dashboard.layouts.footer')
+                    <div class="form-group">
+                        <label>Status Saat Ini</label>
+                        <select class="form-control" id="editStatusSelect">
+                            <option value="draft">Draft</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="posted">Posted</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="simpanStatus()">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<script>
+    // FUNGSI 1: GENERATE CAPTION AI
+    async function generateRekomendasi() {
+        const btn = document.getElementById('btnGenerate');
+        const imageFile = document.getElementById('imageInput').files[0];
+        const deskripsi = document.getElementById('deskripsiInput').value;
+        const tipe = document.getElementById('tipeInput').value;
+
+        if (!imageFile) {
+            alert('Tolong upload gambar terlebih dahulu!');
+            return;
+        }
+
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Sedang Berpikir... <i class="fas fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('deskripsi', deskripsi);
+        formData.append('tipe', tipe);
+
+        try {
+            const response = await fetch("{{ route('manajemen-medsos.generate') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                document.getElementById('aiCaption').value = data.caption;
+                document.getElementById('aiTime').value = data.jam_tayang;
+            } else {
+                alert('Gagal: ' + (data.message || 'Terjadi kesalahan internal.'));
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Koneksi ke server gagal saat generate AI.');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    // FUNGSI 2: SIMPAN & JADWALKAN
+    async function simpanDanJadwalkan() {
+        const btnSave = document.getElementById('btnSave');
+
+        const imageFile = document.getElementById('imageInput').files[0];
+        const deskripsi = document.getElementById('deskripsiInput').value;
+        const tipe = document.getElementById('tipeInput').value;
+        const caption = document.getElementById('aiCaption').value;
+        const jamTayang = document.getElementById('aiTime').value;
+
+        if (!imageFile || !caption) {
+            alert('Gambar dan Hasil Caption tidak boleh kosong!');
+            return;
+        }
+
+        const originalText = btnSave.innerHTML;
+        btnSave.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+        btnSave.disabled = true;
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('deskripsi', deskripsi);
+        formData.append('tipe', tipe);
+        formData.append('caption', caption);
+        formData.append('jam_tayang', jamTayang);
+
+        try {
+            const response = await fetch("{{ route('manajemen-medsos.post') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                alert(data.message);
+
+                const tbody = document.getElementById('historyTableBody');
+                const newRow = document.createElement('tr');
+                const postData = data.data;
+
+                newRow.innerHTML = `
+                <td><span class="badge badge-success">Baru</span></td>
+                <td>
+                    <img src="${postData.image_url}" width="60" style="object-fit: cover; border-radius: 4px;">
+                </td>
+                <td>${postData.tipe}</td>
+                <td class="caption-text">${postData.caption_potong}</td>
+                <td>${postData.jadwal}</td>
+                <td><span class="badge badge-info">${postData.status}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-info" data-caption="${postData.caption_full}" onclick="copyRowCaption(this)">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                   <button class="btn btn-sm btn-warning"
+        data-toggle="modal"
+        data-target="#editStatusModal"
+        onclick="siapkanDataEdit(${postData.id}, '${postData.status.toLowerCase()}')">
+    Edit
+</button>
+                </td>
+            `;
+
+                tbody.insertBefore(newRow, tbody.firstChild);
+
+                // Kosongkan form
+                document.getElementById('deskripsiInput').value = '';
+                document.getElementById('imageInput').value = '';
+                document.getElementById('aiCaption').value = '';
+                document.getElementById('aiTime').value = '';
+
+            } else {
+                alert('Gagal: ' + (data.message || 'Terjadi kesalahan internal.'));
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Koneksi ke server gagal saat menyimpan data.');
+        } finally {
+            btnSave.innerHTML = originalText;
+            btnSave.disabled = false;
+        }
+    }
+
+    // FUNGSI 3: UTILITIES (COPY TEXT)
+    function copyText(elementId) {
+        const el = document.getElementById(elementId);
+        el.select();
+        document.execCommand("copy");
+        alert("Teks disalin!");
+    }
+
+    function copyRowCaption(buttonElement) {
+        const textToCopy = buttonElement.getAttribute('data-caption');
+
+        if (!textToCopy) {
+            alert("Teks caption tidak ditemukan.");
+            return;
+        }
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = buttonElement.innerHTML;
+            buttonElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            buttonElement.classList.replace('btn-info', 'btn-success');
+
+            setTimeout(() => {
+                buttonElement.innerHTML = originalText;
+                buttonElement.classList.replace('btn-success', 'btn-info');
+            }, 2000);
+        }).catch(err => {
+            console.error('Gagal mencopy teks: ', err);
+            alert('Gagal menyalin teks.');
+        });
+    }
+    // FUNGSI 4: MODAL & UPDATE STATUS
+
+    function siapkanDataEdit(id, currentStatus) {
+        document.getElementById('editPostId').value = id;
+        document.getElementById('editStatusSelect').value = currentStatus;
+    }
+
+    async function simpanStatus() {
+        const id = document.getElementById('editPostId').value;
+        const statusBaru = document.getElementById('editStatusSelect').value;
+
+        try {
+            const response = await fetch("{{ route('manajemen-medsos.update-status') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id,
+                    status: statusBaru
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                alert(data.message);
+
+                window.location.reload();
+            } else {
+                alert('Gagal: ' + (data.message || 'Terjadi kesalahan internal.'));
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Koneksi ke server gagal.');
+        }
+    }
+</script>
+
+@include('layouts.dashboard.footer')

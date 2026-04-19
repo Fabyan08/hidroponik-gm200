@@ -171,6 +171,11 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
 
     // Manajemen Sosmed
     Route::get('/manajemen-medsos', [SosmedController::class, 'index'])->name('manajemen-medsos.index');
+
+    Route::post('/generate-ai', [SosmedController::class, 'generate'])->name('manajemen-medsos.generate');
+    Route::post('/save-post', [SosmedController::class, 'store'])->name('manajemen-medsos.post');
+
+    Route::post('/update-status-post', [SosmedController::class, 'updateStatus'])->name('manajemen-medsos.update-status');
 });
 
 // Middleware dashboard admin (hanya manajemen pemesanan)
