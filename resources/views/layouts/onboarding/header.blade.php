@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Hidroponik GM200') }}</title>
+    <title>Hidroponik GM 200}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -48,7 +48,7 @@
             }
         })();
     </script>
-
+    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
