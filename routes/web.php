@@ -138,7 +138,7 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
 
     // Manajemen produk
-    Route::get('/manajemen-produk', [ProdukController::class, 'index'])->name('manajemen-produk.index');
+    Route::get('/data-produk', [ProdukController::class, 'index'])->name('manajemen-produk.index');
     Route::post('/produk/store', [ProdukController::class, 'store'])->name('product.store');
     Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('product.update');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('product.destroy');
