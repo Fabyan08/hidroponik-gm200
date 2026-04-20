@@ -127,10 +127,6 @@
                 <div class="glass-card rounded-3xl overflow-hidden group flex flex-col h-full bg-white relative"
                      style="animation: slideInUp 0.5s ease-out ${index * 50}ms both;">
 
-                    <button onclick="toggleBookmark(${article.id}, this)"
-                        class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
-                        <i class="${bookmarkIcon} fa-bookmark text-lg"></i>
-                    </button>
 
                     <div class="h-56 overflow-hidden relative">
                         <img src="${article.image}" alt="${article.title}"
@@ -166,9 +162,7 @@
             });
         }
 
-        // ========================
-        // SEARCH
-        // ========================
+
         function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
 

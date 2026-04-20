@@ -209,9 +209,9 @@
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produk', 'manajemen-produk/*') ? 'text-success' : '' }}"
-                                    href="/manajemen-produk">
-                                    <i class="fas fa-box"></i> <span>Manajemen Produk</span>
+                                <a class="nav-link {{ request()->is('data-produk', 'data-produk/*') ? 'text-success' : '' }}"
+                                    href="/data-produk">
+                                    <i class="fas fa-box"></i> <span>Data Produk</span>
                                 </a>
                             </li>
 
@@ -263,9 +263,9 @@
                             </li>
 
                             <li>
-                                <a class="nav-link {{ request()->is('manajemen-produk', 'manajemen-produk/*') ? 'text-success' : '' }}"
-                                    href="/manajemen-produk">
-                                    <i class="fas fa-box"></i> <span>Manajemen Produk</span>
+                                <a class="nav-link {{ request()->is('data-produk', 'data-produk/*') ? 'text-success' : '' }}"
+                                    href="/data-produk">
+                                    <i class="fas fa-box"></i> <span>Data Produk</span>
                                 </a>
                             </li>
 
