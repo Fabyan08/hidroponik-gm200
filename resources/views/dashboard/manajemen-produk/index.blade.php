@@ -22,6 +22,15 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul style="margin-bottom: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -110,13 +119,12 @@
                         <span>&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
 
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}">
+                        <input required type="text" name="name"
+                            class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -124,7 +132,7 @@
 
                     <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                        <textarea required name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -132,8 +140,8 @@
 
                     <div class="form-group">
                         <label>Harga</label>
-                        <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
-                            value="{{ old('price') }}">
+                        <input required type="number" name="price"
+                            class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
                         @error('price')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -141,15 +149,16 @@
 
                     <div class="form-group">
                         <label>Stok</label>
-                        <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror"
-                            value="{{ old('stock') }}">
+                        <input required type="number" name="stock"
+                            class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}">
                         @error('stock')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Jenis</label>
-                        <select name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror ">
+                        <select required name="unit" id="unit"
+                            class="form-control @error('unit') is-invalid @enderror ">
                             <option value="ikat">ikat</option>
                             <option value="kg">kg</option>
                             <option value="gram">gram</option>
@@ -165,7 +174,8 @@
 
                     <div class="form-group">
                         <label>Gambar</label>
-                        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                        <input required type="file" name="image"
+                            class="form-control @error('image') is-invalid @enderror">
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -205,29 +215,43 @@
 
                         <div class="form-group">
                             <label>Nama</label>
-                            <input type="text" name="name" class="form-control"
+                            <input required type="text" name="name" class="form-control"
                                 value="{{ old('name', $product->name) }}">
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Deskripsi</label>
-                            <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
+                            <textarea required name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $product->description) }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Harga</label>
-                            <input type="number" name="price" class="form-control"
+                            <input required type="number" name="price"
+                                class="form-control @error('price') is-invalid @enderror"
                                 value="{{ old('price', $product->price) }}">
+                            @error('price')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Stok</label>
-                            <input type="number" name="stock" class="form-control"
+                            <input required type="number" name="stock"
+                                class="form-control @error('stock') is-invalid @enderror"
                                 value="{{ old('stock', $product->stock) }}">
+                            @error('stock')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Jenis</label>
-                            <select name="unit" id="unit" class="form-control">
+                            <select required name="unit" id="unit" class="form-control">
                                 <option value="ikat" {{ $product->unit == 'ikat' ? 'selected' : '' }}>ikat
                                 </option>
                                 <option value="kg" {{ $product->unit == 'kg' ? 'selected' : '' }}>kg</option>
@@ -239,15 +263,21 @@
                                 </option>
                                 <option value="ons" {{ $product->unit == 'ons' ? 'selected' : '' }}>ons</option>
                             </select>
+                            @error('unit')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Gambar</label>
-                            <input type="file" name="image" class="form-control">
+                            <input required type="file" name="image" class="form-control">
 
                             @if ($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" width="80" class="mt-2">
                             @endif
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>

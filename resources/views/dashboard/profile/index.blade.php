@@ -44,6 +44,20 @@
                         </div>
                     </div>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul style="margin-bottom: 0;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="col-12 col-md-12 col-lg-7">
                     <div class="card">
                         <form method="POST" action="{{ route('profile.update') }}">
@@ -80,7 +94,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label>Phone</label>
-                                        <input type="text" name="phone" class="form-control"
+                                        <input type="number" name="phone" class="form-control"
                                             value="{{ old('phone', auth()->user()->phone) }}">
                                     </div>
 

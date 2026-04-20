@@ -26,7 +26,6 @@ class ProdukController extends Controller
         ]);
 
         $imagePath = null;
-
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
         }

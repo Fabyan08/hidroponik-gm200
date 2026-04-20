@@ -10,8 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $data = Order::withCount('items')
-            ->get();
+        $data = Order::withCount('items')->latest()->get();
         return view('dashboard.admin.manajemen-pemesanan.index', compact('data'));
     }
     public function show($id)
