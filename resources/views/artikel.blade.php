@@ -140,9 +140,7 @@
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="flex items-center gap-3 mb-3 text-xs font-bold">
                             <span class="text-emerald-500 bg-emerald-50 px-2 py-1 rounded">${article.categoryLabel}</span>
-                            <span class="text-gray-400">
-                                <i class="fa-regular fa-clock mr-1"></i>${article.readTime}
-                            </span>
+
                         </div>
 
                         <h3 class="text-xl font-bold text-gray-900 mb-2">
