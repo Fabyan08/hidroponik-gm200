@@ -224,7 +224,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Judul</label>
                         <div class="col-sm-9">
-                            <input type="text" name="title" class="form-control"
+                            <input required type="text" name="title" class="form-control"
                                 value="{{ old('title', $data->title) }}">
                         </div>
                     </div>
@@ -232,21 +232,21 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Deskripsi</label>
                         <div class="col-sm-9">
-                            <textarea name="description" class="form-control">{{ old('description', $data->description) }}</textarea>
+                            <textarea required name="description" class="form-control">{{ old('description', $data->description) }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Tanggal</label>
                         <div class="col-sm-9">
-                            <input type="date" name="date" class="form-control"
+                            <input required type="date" name="date" class="form-control"
                                 value="{{ old('date', $data->date) }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Waktu</label>
                         <div class="col-sm-9">
-                            <input type="time" name="time" class="form-control"
+                            <input required type="time" name="time" class="form-control"
                                 value="{{ old('time', $data->time) }}">
                         </div>
                     </div>
@@ -254,7 +254,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Lokasi</label>
                         <div class="col-sm-9">
-                            <input type="text" name="location" class="form-control"
+                            <input required type="text" name="location" class="form-control"
                                 value="{{ old('location', $data->location) }}">
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Kuota</label>
                         <div class="col-sm-9">
-                            <input type="number" name="quota" class="form-control"
+                            <input required type="number" name="quota" class="form-control"
                                 value="{{ old('quota', $data->quota) }}">
                         </div>
                     </div>
