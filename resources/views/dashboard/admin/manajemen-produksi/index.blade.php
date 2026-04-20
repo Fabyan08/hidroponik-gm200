@@ -112,7 +112,7 @@
                     <!-- Nama Tanaman -->
                     <div class="form-group">
                         <label>Nama Tanaman</label>
-                        <input type="text" name="plant_name"
+                        <input required type="text" name="plant_name"
                             class="form-control @error('plant_name') is-invalid @enderror"
                             value="{{ old('plant_name') }}">
 
@@ -124,7 +124,7 @@
                     <!-- Tanggal Tanam -->
                     <div class="form-group">
                         <label>Tanggal Tanam</label>
-                        <input type="date" name="planting_date"
+                        <input required type="date" name="planting_date"
                             class="form-control @error('planting_date') is-invalid @enderror"
                             value="{{ old('planting_date') }}">
 
@@ -136,7 +136,7 @@
                     <!-- Tanggal Panen -->
                     <div class="form-group">
                         <label>Tanggal Panen</label>
-                        <input type="date" name="harvest_date"
+                        <input required type="date" name="harvest_date"
                             class="form-control @error('harvest_date') is-invalid @enderror"
                             value="{{ old('harvest_date') }}">
 
@@ -148,7 +148,7 @@
                     <!-- Jumlah -->
                     <div class="form-group">
                         <label>Jumlah</label>
-                        <input type="number" name="quantity"
+                        <input required type="number" name="quantity"
                             class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}">
 
                         @error('quantity')
@@ -200,28 +200,28 @@
 
                         <div class="form-group">
                             <label>Nama Tanaman</label>
-                            <input type="text" name="plant_name"
+                            <input required type="text" name="plant_name"
                                 class="form-control @error('plant_name') is-invalid @enderror"
                                 value="{{ old('plant_name', $item->plant_name) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Tanggal Tanam</label>
-                            <input type="date" name="planting_date"
+                            <input required type="date" name="planting_date"
                                 class="form-control @error('planting_date') is-invalid @enderror"
                                 value="{{ old('planting_date', $item->planting_date) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Tanggal Panen</label>
-                            <input type="date" name="harvest_date"
+                            <input required type="date" name="harvest_date"
                                 class="form-control @error('harvest_date') is-invalid @enderror"
                                 value="{{ old('harvest_date', $item->harvest_date) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Jumlah</label>
-                            <input type="number" name="quantity"
+                            <input required type="number" name="quantity"
                                 class="form-control @error('quantity') is-invalid @enderror"
                                 value="{{ old('quantity', $item->quantity) }}">
                         </div>

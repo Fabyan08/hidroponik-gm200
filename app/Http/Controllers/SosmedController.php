@@ -88,16 +88,13 @@ class SosmedController extends Controller
             $imagePath = $request->file('image')->store('posts', 'public');
 
             preg_match_all('/#\w+/u', $request->caption, $matches);
-            $hashtags = implode(', ', $matches[0]); // Output: #Hidroponik, #PertanianModern, ...
+            $hashtags = implode(', ', $matches[0]);
 
-            // Konversi format Jam Tayang ke DATETIME MySQL
-            // Misal: "19:00 - 21:00 WIB" -> Ambil "19:00" -> Jadikan "YYYY-MM-DD 19:00:00"
             preg_match('/(\d{2}:\d{2})/', $request->jam_tayang, $timeMatches);
-            $timeString = $timeMatches[1] ?? '12:00'; // Default jam 12 jika AI tidak mengembalikan angka jam
+            $timeString = $timeMatches[1] ?? '12:00';
 
             $scheduledAt = Carbon::now()->format('Y-m-d') . ' ' . $timeString . ':00';
 
-            // Jika jam sudah lewat dari waktu sekarang, jadwalkan untuk besok
             if (Carbon::parse($scheduledAt)->isPast()) {
                 $scheduledAt = Carbon::tomorrow()->format('Y-m-d') . ' ' . $timeString . ':00';
             }
@@ -122,7 +119,7 @@ class SosmedController extends Controller
                 'data' => [
                     'id' => $postId,
                     'tipe' => $request->tipe,
-                    'caption_potong' => \Illuminate\Support\Str::limit($request->caption, 50), 
+                    'caption_potong' => \Illuminate\Support\Str::limit($request->caption, 50),
                     'caption_full' => $request->caption,
                     'image_url' => asset('storage/' . $imagePath),
                     'jadwal' => $scheduledAt,

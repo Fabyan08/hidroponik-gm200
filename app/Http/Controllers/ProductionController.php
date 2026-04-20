@@ -31,6 +31,13 @@ class ProductionController extends Controller
     {
         $item = Production::findOrFail($id);
 
+        $request->validate([
+            'plant_name' => 'required',
+            'planting_date' => 'required|date',
+            'harvest_date' => 'nullable|date',
+            'quantity' => 'required|numeric',
+        ]);
+
         $item->update($request->all());
 
         return back()->with('success', 'Data berhasil diupdate');
