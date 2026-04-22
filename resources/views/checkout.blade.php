@@ -1,6 +1,6 @@
 @include('layouts.onboarding.header')
 <main class="pt-28 pb-24 px-6 relative min-h-screen">
-    <!-- Ambient Light Glows -->
+
     <div class="glow-blob bg-emerald-100 w-[400px] h-[400px] top-0 left-0"></div>
     <div class="glow-blob bg-teal-50 w-[500px] h-[500px] bottom-0 right-0"></div>
 
@@ -27,11 +27,11 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-            <!-- Kolom Kiri: Form Data Pembeli (Sesuai Struktur Database) -->
+
             <div class="lg:col-span-7">
                 <form id="checkoutForm" onsubmit="handleCheckout(event)" class="space-y-8">
 
-                    <!-- Section 1: Informasi Kontak -->
+
                     <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
                         <h3
                             class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
@@ -42,7 +42,7 @@
                         </h3>
 
                         <div class="space-y-5">
-                            <!-- Field: Name -->
+
                             <div>
                                 <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap
                                     <span class="text-red-500">*</span></label>
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <!-- Field: Phone -->
+
                                 <div>
                                     <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">No.
                                         WhatsApp <span class="text-red-500">*</span></label>
@@ -67,13 +67,13 @@
                                             <i
                                                 class="fa-brands fa-whatsapp text-gray-400 input-icon transition-colors"></i>
                                         </div>
-                                        <input type="tel" id="phone" name="phone" required
+                                        <input type="number" id="phone" name="phone" required
                                             placeholder="0812xxxx"
                                             class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
                                     </div>
                                 </div>
 
-                                <!-- Field: Email -->
+
                                 <div>
                                     <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Alamat
                                         Email <span class="text-red-500">*</span></label>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <!-- Section 2: Alamat & Catatan -->
+
                     <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
                         <h3
                             class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
@@ -103,7 +103,7 @@
                         </h3>
 
                         <div class="space-y-5">
-                            <!-- Field: Address (Textarea) -->
+
                             <div>
                                 <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Alamat Lengkap
                                     <span class="text-red-500">*</span></label>
@@ -119,7 +119,7 @@
                                     menghindari kegagalan pengiriman.</p>
                             </div>
 
-                            <!-- Field: Note (Textarea) -->
+
                             <div>
                                 <label for="note" class="block text-sm font-bold text-gray-700 mb-2">Catatan Pesanan
                                     <span class="text-gray-400 font-normal">(Opsional)</span></label>
@@ -136,7 +136,7 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button (Mobile Only - Hidden on Desktop) -->
+
                     <div class="lg:hidden">
                         <button type="submit" form="checkoutForm" id="mobileSubmitBtn"
                             class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
@@ -160,12 +160,12 @@
                     <div class="glass-card rounded-[2rem] p-6 shadow-xl">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Ringkasan Pesanan</h3>
 
-                        <!-- Daftar Item Dummy -->
+
                         <div class="space-y-4 mb-6">
                             <div id="checkoutItems" class="space-y-4 mb-6"></div>
                         </div>
 
-                        <!-- Kalkulasi Harga -->
+
                         <div class="border-t border-gray-100 pt-4 space-y-3 mb-6">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-500">Subtotal</span>
@@ -177,14 +177,14 @@
                             </div>
                         </div>
 
-                        <!-- Payment Info -->
+
                         <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-6 flex gap-3 items-start">
                             <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
                             <p class="text-xs text-blue-800 leading-relaxed">Pembayaran dilakukan melalui WhatsApp
                                 setelah Anda melakukan pembuatan pesanan di bawah ini.</p>
                         </div>
 
-                        <!-- Submit Button (Desktop) -->
+
                         <button type="submit" form="checkoutForm" id="desktopSubmitBtn"
                             class="hidden lg:flex w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 items-center justify-center gap-2">
                             <span class="btnText">Buat Pesanan</span>
@@ -240,15 +240,12 @@
             .then(res => res.json())
             .then(res => {
 
-                // 🔥 tampilkan overlay
                 document.getElementById("successOverlay").classList.remove("hidden");
 
-                // 🔥 kosongkan cart
                 localStorage.removeItem("cart");
 
-                // 🔥 redirect ke WhatsApp setelah delay
                 setTimeout(() => {
-                    const phoneAdmin = "6281234567890"; // ganti nomor WA kamu
+                    const phoneAdmin = "6281234567890";
 
                     const message = encodeURIComponent(
                         `Halo admin, saya telah melakukan pemesanan.\n\nID Order: ${res.order_id}`
