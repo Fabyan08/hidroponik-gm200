@@ -80,44 +80,53 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label>Nama</label>
-                                        <input type="text" name="name" class="form-control"
+                                        <input @if (auth()->user()->role !== 'owner') disabled @endif type="text"
+                                            name="name" class="form-control"
                                             value="{{ old('name', auth()->user()->name) }}" required>
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Email</label>
-                                        <input type="email" name="email" class="form-control"
+                                        <input @if (auth()->user()->role !== 'owner') disabled @endif type="email"
+                                            name="email" class="form-control"
                                             value="{{ old('email', auth()->user()->email) }}" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-12">
+                                    <div
+                                        class="form-group
+@if (auth()->user()->role == 'admin') col-12
+@else
+                                    col-md-6 @endif">
                                         <label>Phone</label>
-                                        <input type="number" name="phone" class="form-control"
+                                        <input @if (auth()->user()->role !== 'owner') disabled @endif type="number"
+                                            name="phone" class="form-control"
                                             value="{{ old('phone', auth()->user()->phone) }}">
                                     </div>
-
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Password (Opsional)</label>
-                                        <input type="password" name="password" class="form-control"
-                                            placeholder="Kosongkan jika tidak diubah">
-                                    </div>
+                                    @if (auth()->user()->role === 'owner')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Password (Opsional)</label>
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="Kosongkan jika tidak diubah">
+                                        </div>
+                                    @endif
                                 </div>
 
-                                {{-- 🔥 TAMBAHAN ALAMAT --}}
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label>Alamat</label>
-                                        <textarea name="address" class="form-control" rows="3" placeholder="Masukkan alamat lengkap">{{ old('address', auth()->user()->address) }}</textarea>
+                                        <textarea @if (auth()->user()->role !== 'owner') disabled @endif name="address" class="form-control" rows="3"
+                                            placeholder="Masukkan alamat lengkap">{{ old('address', auth()->user()->address) }}</textarea>
                                     </div>
                                 </div>
 
                             </div>
-
-                            <div class="card-footer text-right">
-                                <button class="btn btn-primary">Simpan</button>
-                            </div>
+                            @if (auth()->user()->role === 'owner')
+                                <div class="card-footer text-right">
+                                    <button class="btn btn-primary">Simpan</button>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
