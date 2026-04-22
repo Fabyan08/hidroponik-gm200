@@ -7,13 +7,13 @@
 
     <title>Hidroponik GM 200</title>
 
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Styles / Scripts -->
+
 
     {{-- <script src='https://www.noupe.com/embed/019d67390fe879f3aa64ef577c85048ae38c.js'></script> --}}
     <script>
@@ -48,7 +48,7 @@
             }
         })();
     </script>
-    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -167,35 +167,35 @@
 </head>
 
 <body class="antialiased relative">
-    <!-- FLOATING CART -->
+
     <div id="floatingCart"
         class="fixed bottom-6 left-6 w-14 h-14  bg-emerald-500 text-white rounded-full shadow-lg flex items-center justify-center cursor-pointer hidden z-[9999]">
 
         <i class="fas fa-shopping-cart text-lg"></i>
 
-        <!-- badge -->
+
         <span id="cartCount"
             class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
             0
         </span>
     </div>
     <div id="cartBackdrop" class="fixed inset-0 bg-black/40 hidden z-[9997]" onclick="toggleCart()"></div>
-    <!-- OVERLAY CART -->
+
     <div id="cartOverlay"
         class="fixed top-0 left-0 h-full w-0 bg-white z-[9998] shadow-xl overflow-hidden transition-all duration-300">
 
         <div class="p-6 flex flex-col h-full">
 
-            <!-- HEADER -->
+
             <div class="flex justify-between items-center mb-4">
                 <h2 class="font-bold text-lg">Keranjang</h2>
                 <button onclick="toggleCart()" class="text-xl font-bold">✕</button>
             </div>
 
-            <!-- ITEMS -->
+
             <div id="cartItems" class="flex-1 overflow-y-auto space-y-4"></div>
 
-            <!-- FOOTER -->
+
             <div class="border-t pt-4">
                 <p class="font-bold mb-2">Total: <span id="cartTotal">Rp 0</span></p>
                 <button onclick="goToCheckout()" class="w-full bg-emerald-500 text-white py-3 rounded-xl">
@@ -212,7 +212,7 @@
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
 
-            <!-- Logo -->
+
             <a href="/" class="text-xl md:text-2xl font-extrabold flex items-center gap-2">
                 <i class="fa-solid fa-leaf text-emerald-500 text-2xl md:text-3xl"></i>
                 <span class="text-gray-900 tracking-tight">
@@ -220,7 +220,7 @@
                 </span>
             </a>
 
-            <!-- Desktop Menu -->
+
             <div class="hidden md:flex space-x-8 items-center text-sm font-semibold text-gray-600">
                 <a href="/"
                     class="{{ request()->is('/') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
@@ -252,13 +252,13 @@
                 </a>
             </div>
 
-            <!-- Hamburger -->
+
             <button id="menu-btn" class="md:hidden text-gray-900 focus:outline-none">
                 <i class="fa-solid fa-bars text-2xl"></i>
             </button>
         </div>
 
-        <!-- Mobile Menu -->
+
         <div id="mobile-menu"
             class="hidden md:hidden px-6 pb-4 space-y-4 text-sm font-semibold text-gray-700 bg-white/90 backdrop-blur-lg">
 

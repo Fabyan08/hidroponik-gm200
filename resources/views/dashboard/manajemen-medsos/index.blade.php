@@ -332,7 +332,7 @@
         }
     }
 
-    // FUNGSI 3: UTILITIES (COPY TEXT)
+    // FUNGSI 3: COPY TEXT
     function copyText(elementId) {
         const el = document.getElementById(elementId);
         el.select();

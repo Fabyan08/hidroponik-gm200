@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Pesanan | GM 200 Hydroponics</title>
-    <!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -42,12 +42,10 @@
             color: #1F2937;
         }
 
-        /* Dashed border for receipt feel */
         .border-dashed-receipt {
             border-bottom: 2px dashed #E5E7EB;
         }
 
-        /* Hide buttons when printing */
         @media print {
             .no-print {
                 display: none !important;
@@ -78,16 +76,16 @@
             $canEditReview = $created->diffInHours(now()) <= 24;
         }
     @endphp
-    <!-- Background Aksen Atas (Meniru referensi tapi dengan warna Emerald) -->
+
     <div class="absolute top-0 left-0 w-full h-96 bg-emerald-500 rounded-b-full z-0 print-bg-transparent"></div>
 
-    <!-- Container Struk -->
+
     <div class="relative z-10 w-full max-w-lg mx-auto">
 
-        <!-- Kartu Struk -->
+
         <div class="bg-white rounded-3xl shadow-2xl print-shadow-none overflow-hidden pb-8">
 
-            <!-- Header Struk -->
+
             <div class="p-6 sm:p-8 flex justify-between items-start">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-leaf text-emerald-500 text-2xl sm:text-3xl"></i>
@@ -100,7 +98,7 @@
                 <h2 class="text-2xl font-extrabold text-emerald-500 tracking-tight">Invoice</h2>
             </div>
 
-            <!-- Info Nomor & Tanggal -->
+
             <div class="px-6 sm:px-8 text-right mb-6">
                 <p class="text-sm text-gray-600 font-medium">No Nota <span class="font-bold text-gray-900"
                         id="inv-id"> #INV-{{ $order->id }}
@@ -110,7 +108,7 @@
                 </p>
             </div>
 
-            <!-- Sambutan -->
+
             <div class="px-6 sm:px-8 mb-8">
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">GM 200 Hydroponics</h1>
                 <p class="text-gray-600 text-sm leading-relaxed">
@@ -121,9 +119,9 @@
                 </p>
             </div>
 
-            <!-- Info Tagihan & Pembayaran (2 Kolom) -->
+
             <div class="px-6 sm:px-8 grid grid-cols-2 gap-6 mb-8">
-                <!-- Kiri: Billing Info -->
+
                 <div>
                     <h3 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">Billing Information
                     </h3>
@@ -137,7 +135,7 @@
                     <p class="text-xs text-gray-500 mt-2 italic" id="bill-note">Catatan: {{ $order->note ?? '-' }}</p>
                 </div>
 
-                <!-- Kanan: Payment Info -->
+
                 <div class="text-right">
                     <h3 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-2">Payment Method</h3>
                     <p class="text-sm font-bold text-gray-900 mb-1">QRIS</p>
@@ -168,31 +166,31 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
                 <div class="border-dashed-receipt mb-4"></div>
             </div>
 
-            <!-- Tabel Barang -->
+
             <div class="px-6 sm:px-8 mb-6">
-                <!-- Header Tabel -->
+
                 <div class="flex text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
                     <div class="w-1/2">Nama Barang</div>
                     <div class="w-1/6 text-center">Qty</div>
                     <div class="w-1/3 text-right">Harga Total</div>
                 </div>
 
-                <!-- Container Item (Diisi oleh JS) -->
+
                 <div class="space-y-4">
                     @foreach ($order->items as $item)
                         <div class="flex text-sm items-center">
 
-                            <!-- NAMA -->
+
                             <div class="w-1/2 font-semibold text-gray-800">
                                 {{ $item->product->name ?? 'Produk dihapus' }}
                             </div>
 
-                            <!-- QTY -->
+
                             <div class="w-1/6 text-center text-gray-600">
                                 x{{ $item->quantity }}
                             </div>
 
-                            <!-- TOTAL -->
+
                             <div class="w-1/3 text-right font-bold text-gray-900">
                                 Rp {{ number_format($item->price * $item->quantity) }}
                             </div>
@@ -216,7 +214,7 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
                     {{ session('success') }}
                 </div>
             @endif
-            <!-- Total Perhitungan -->
+
             <div class="px-6 sm:px-8 space-y-3 mb-8">
                 <div class="flex justify-end items-center gap-8 text-sm">
                     <span class="text-gray-500 w-24 text-right">Sub Total</span>
@@ -234,7 +232,7 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
                 </div>
             </div>
 
-            <!-- Footer Struk -->
+
             <div class="px-6 sm:px-8 text-center bg-gray-50/50 py-6 mx-4 rounded-2xl">
                 <i class="fa-solid fa-heart text-emerald-500 mb-2"></i>
                 <p class="text-sm font-bold text-gray-900">Terima Kasih!</p>
@@ -247,23 +245,21 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
 
     </div>
 
-    <!-- FLOATING REVIEW BUTTON -->
+
 
     @if (!$review)
-        <!-- BELUM REVIEW -->
         <button onclick="openReview()"
             class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
             <i class="fas fa-star text-xl"></i>
         </button>
     @elseif ($canEditReview)
-        <!-- SUDAH REVIEW (MASIH BISA EDIT) -->
         <button onclick="openReview()"
             class="fixed bottom-6 right-6 bg-yellow-500 hover:bg-yellow-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
             <i class="fas fa-edit text-xl"></i>
         </button>
     @endif
 
-    <!-- REVIEW OVERLAY -->
+
     <div id="reviewOverlay" class="fixed inset-0 bg-black/40 hidden z-50 flex items-center justify-center">
 
         <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl">
@@ -317,17 +313,17 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
         const alertBox = document.getElementById('successAlert');
 
         if (alertBox) {
-            // Muncul
+
             setTimeout(() => {
                 alertBox.classList.remove('opacity-0', 'translate-y-4');
             }, 100);
 
-            // Hilang setelah 2 detik
+
             setTimeout(() => {
                 alertBox.classList.add('opacity-0', 'translate-y-4');
             }, 2000);
 
-            // Hapus dari DOM
+
             setTimeout(() => {
                 alertBox.remove();
             }, 2500);

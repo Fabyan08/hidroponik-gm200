@@ -83,9 +83,7 @@
     </div>
     </body>
     <script>
-        // ========================
-        // START KERANJANG
-        // ========================
+        // keranjang
         let isCartOpen = false;
 
         function getCart() {
@@ -96,7 +94,7 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
-        // UPDATE QTY (DETAIL PAGE)
+        // tambah kuantity
         function updateQty(change) {
             let input = document.getElementById('qtyInput');
             if (!input) return;
@@ -109,7 +107,7 @@
             input.value = value;
         }
 
-        // ADD TO CART
+        // tambah ke keranjang
         function addToCart() {
             let qtyInput = document.getElementById('qtyInput');
             if (!qtyInput) return;
@@ -127,7 +125,7 @@
 
             };
 
-            // 🔥 cegah produk kosong di halaman lain
+            // produk ada di halaman lain
             if (!product.id) return;
 
             let existing = cart.find(item => item.id === product.id);
@@ -142,7 +140,7 @@
             renderCart();
         }
 
-        // FLOATING BUTTON CLICK (AMAN)
+        // floating kiri
         document.addEventListener("DOMContentLoaded", function() {
             renderCart();
 
@@ -178,7 +176,7 @@
             }
         }
 
-        // RENDER CART
+        // tampil keranjang
         function renderCart() {
             let container = document.getElementById('cartItems');
             let countEl = document.getElementById('cartCount');
@@ -227,7 +225,7 @@
             if (totalEl) totalEl.innerText = "Rp " + formatRupiah(total);
         }
 
-        // CHANGE QTY DI CART (FIX BUG)
+        // ubah jumlah di keranjang
         function changeQty(index, change) {
             let cart = getCart();
 
@@ -241,24 +239,15 @@
             renderCart();
         }
 
-        // FORMAT RUPIAH
         function formatRupiah(angka) {
             return angka.toLocaleString('id-ID');
         }
 
-        // INIT (WAJIB!)
         document.addEventListener("DOMContentLoaded", function() {
             renderCart();
         });
 
-        // ========================
-        // END KERANJANG
-        // ========================
 
-
-        // ========================
-        // NAVBAR SCROLL (FIX ERROR)
-        // ========================
         let navbar = document.getElementById('navbar');
         if (navbar) {
             window.addEventListener('scroll', () => {
@@ -271,9 +260,6 @@
             });
         }
 
-        // ========================
-        // REVEAL SCROLL
-        // ========================
         const revealElements = document.querySelectorAll('.reveal');
 
         if (revealElements.length > 0) {

@@ -1,5 +1,5 @@
 @include('layouts.dashboard.header')
-<!-- Main Content -->
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -109,7 +109,7 @@
 
                 <div class="modal-body">
 
-                    <!-- Nama Tanaman -->
+
                     <div class="form-group">
                         <label>Nama Tanaman</label>
                         <input required type="text" name="plant_name"
@@ -121,7 +121,7 @@
                         @enderror
                     </div>
 
-                    <!-- Tanggal Tanam -->
+
                     <div class="form-group">
                         <label>Tanggal Tanam</label>
                         <input required type="date" name="planting_date"
@@ -133,7 +133,7 @@
                         @enderror
                     </div>
 
-                    <!-- Tanggal Panen -->
+
                     <div class="form-group">
                         <label>Tanggal Panen</label>
                         <input required type="date" name="harvest_date"
@@ -145,7 +145,7 @@
                         @enderror
                     </div>
 
-                    <!-- Jumlah -->
+
                     <div class="form-group">
                         <label>Jumlah</label>
                         <input required type="number" name="quantity"
@@ -156,7 +156,7 @@
                         @enderror
                     </div>
 
-                    <!-- Catatan -->
+
                     <div class="form-group">
                         <label>Catatan</label>
                         <textarea name="notes" class="form-control @error('notes') is-invalid @enderror">{{ old('notes') }}</textarea>

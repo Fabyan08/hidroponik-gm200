@@ -101,9 +101,6 @@
         const loadMoreContainer = document.getElementById('loadMoreContainer');
         const searchInput = document.getElementById('searchInput');
 
-        // ========================
-        // RENDER
-        // ========================
         function renderArticles(articles) {
             articleGrid.innerHTML = '';
 
@@ -178,30 +175,13 @@
             searchInput.addEventListener('input', applyFilters);
         }
 
-        // ========================
-        // RESET
-        // ========================
+
         window.resetFilters = function() {
             if (searchInput) searchInput.value = '';
             renderArticles(articlesData);
         }
 
-        // ========================
-        // BOOKMARK
-        // ========================
-        window.toggleBookmark = function(id, btnElement) {
-            const article = articlesData.find(a => a.id === id);
-            article.bookmarked = !article.bookmarked;
 
-            const icon = btnElement.querySelector('i');
-            icon.classList.toggle('fa-solid');
-            icon.classList.toggle('fa-regular');
-            icon.classList.toggle('text-emerald-500');
-        }
-
-        // ========================
-        // INIT
-        // ========================
         renderArticles(articlesData);
 
     });
