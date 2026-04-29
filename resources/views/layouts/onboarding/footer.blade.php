@@ -94,18 +94,7 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
-        // tambah kuantity
-        function updateQty(change) {
-            let input = document.getElementById('qtyInput');
-            if (!input) return;
-
-            let value = parseInt(input.value);
-            value += change;
-
-            if (value < 1) value = 1;
-
-            input.value = value;
-        }
+      
 
         // tambah ke keranjang
         function addToCart() {

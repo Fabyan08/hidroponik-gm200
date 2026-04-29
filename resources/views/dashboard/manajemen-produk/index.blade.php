@@ -44,6 +44,7 @@
                                             <th>Deskripsi</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
+                                            <th>Min. Order</th>
                                             <th>Jenis</th>
                                             <th>Gambar</th>
                                             <th class="text-center">Edit</th>
@@ -63,8 +64,8 @@
                                                 <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
 
                                                 <td>{{ $product->stock }}</td>
+                                                <td>{{ $product->min_order }}</td>
                                                 <td>{{ $product->unit }}</td>
-
                                                 <td>
                                                     @if ($product->image)
                                                         <img src="{{ asset('storage/' . $product->image) }}"
@@ -152,6 +153,15 @@
                         <input required type="number" name="stock"
                             class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}">
                         @error('stock')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Min. Order</label>
+                        <input required type="number" name="min_order"
+                            class="form-control @error('min_order') is-invalid @enderror"
+                            value="{{ old('min_order') }}">
+                        @error('min_order')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -250,6 +260,16 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label>Min. Order</label>
+                            <input required type="number" name="min_order"
+                                class="form-control @error('min_order') is-invalid @enderror"
+                                value="{{ old('min_order', $product->min_order) }}">
+                            @error('min_order')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label>Jenis</label>
                             <select required name="unit" id="unit" class="form-control">
                                 <option value="ikat" {{ $product->unit == 'ikat' ? 'selected' : '' }}>ikat
@@ -270,7 +290,7 @@
 
                         <div class="form-group">
                             <label>Gambar</label>
-                            <input  type="file" name="image" class="form-control">
+                            <input type="file" name="image" class="form-control">
 
                             @if ($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" width="80" class="mt-2">

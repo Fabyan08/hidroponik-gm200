@@ -10,7 +10,9 @@
     <div class="max-w-7xl mx-auto text-center relative z-10">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">Katalog <span
                 class="text-gradient">Produk</span></h1>
-        <p class="text-gray-600 mb-8 max-w-2xl mx-auto text-lg">Pilih sayuran segar harianmu sendiri.</p>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto text-lg">Pilih sayuran segar harianmu sendiri (Hanya di Jember
+            dengan radius 10km dari lokasi GM200). <a href="https://maps.app.goo.gl/3DjiHUAwJ7Ew3i1D9" target="_blank"
+                class="text-emerald-500 hover:text-emerald-600 font-medium">Lokasi</a></p>
 
         <div class="max-w-2xl mx-auto relative group">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">

@@ -18,8 +18,7 @@
                 Sayuran <span class="text-gradient">Hidroponik</span> Terbaik di Jember.
             </h1>
             <p class="text-gray-600 text-lg md:text-xl mb-8 leading-relaxed max-w-lg">
-                Nikmati hasil panen sayuran hidroponik paling segar untuk keluarga Anda, dan pelajari rahasia
-                menanamnya langsung dari para ahli di pelatihan kami.
+                Nikmati hasil panen sayuran hidroponik paling segar untuk keluarga Anda, dan ikuti pelatihan di sini!
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
                 <a href="#produk"

@@ -15,7 +15,7 @@ class Product extends Model
         'price',
         'stock',
         'unit',
-
+        'min_order',
         'image',
     ];
 }

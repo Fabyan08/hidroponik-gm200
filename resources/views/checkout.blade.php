@@ -242,8 +242,32 @@
                 },
                 body: JSON.stringify(data)
             })
-            .then(res => res.json())
-            .then(res => {
+            // .then(res => res.json())
+            // .then(res => {
+
+            //     document.getElementById("successOverlay").classList.remove("hidden");
+
+            //     localStorage.removeItem("cart");
+
+            //     setTimeout(() => {
+            //         const phoneAdmin = "{{ $phone }}";
+
+            //         const message = encodeURIComponent(
+            //             `Halo admin, saya telah melakukan pemesanan.\n\nID Order: ${res.order_id}`
+            //         );
+
+            //         window.location.href = `https://wa.me/${phoneAdmin}?text=${message}`;
+
+
+            //     }, 2000);
+            // })
+            .then(async response => {
+                const res = await response.json();
+
+                if (!response.ok) {
+                    alert(res.error || "Terjadi kesalahan");
+                    return;
+                }
 
                 document.getElementById("successOverlay").classList.remove("hidden");
 
@@ -257,8 +281,6 @@
                     );
 
                     window.location.href = `https://wa.me/${phoneAdmin}?text=${message}`;
-
-
                 }, 2000);
             })
             .catch(err => {

@@ -162,7 +162,7 @@
                             class="w-12 h-full flex items-center justify-center text-gray-500 hover:text-emerald-600 transition-colors">
                             <i class="fa-solid fa-minus"></i>
                         </button>
-                        <input type="number" id="qtyInput" value="1" min="1" max="24"
+                        <input type="number" id="qtyInput" value="{{ $product->min_order }}" min="{{ $product->min_order }}" max="{{ $product->stock }}"
                             class="w-full border-none text-center bg-transparent font-bold text-gray-900 outline-none"
                             readonly>
                         <button onclick="updateQty(1)"
@@ -193,8 +193,6 @@
 
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-gray-100">
-
-
             <div
                 class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
                 <div
@@ -241,5 +239,27 @@
     </div>
 </main>
 
+<script>
+    const maxStock = {{ $product->stock }};
+    const minOrder = {{ $product->min_order }};
+
+    // tambah kuantity
+    function updateQty(change) {
+        let input = document.getElementById('qtyInput');
+        if (!input) return;
+
+        let value = parseInt(input.value) || minOrder;
+        value += (change * minOrder);
+        if (value < minOrder) {
+            value = minOrder;
+        }
+        if (value > maxStock) {
+            alert("Stok tidak mencukupi!");
+            value = maxStock;
+        }
+
+        input.value = value;
+    }
+</script>
 
 @include('layouts.onboarding.footer')

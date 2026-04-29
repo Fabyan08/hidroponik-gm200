@@ -22,6 +22,7 @@ class ProdukController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'image' => 'nullable|image',
+            'min_order' => 'required|numeric',
             'unit' => 'required|string',
         ]);
 
@@ -36,6 +37,7 @@ class ProdukController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'image' => $imagePath,
+            'min_order' => $request->min_order,
             'unit' => $request->unit,
         ]);
 
@@ -52,6 +54,7 @@ class ProdukController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
+            'min_order' => 'required|numeric',
             'image' => 'nullable|image',
             'unit' => 'required|string',
         ]);
@@ -64,6 +67,7 @@ class ProdukController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'min_order' => $request->min_order,
             'stock' => $request->stock,
             'unit' => $request->unit,
         ]);
