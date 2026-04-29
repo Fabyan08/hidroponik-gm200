@@ -204,11 +204,14 @@
                         </div>
 
                     </div>
-
+                    @php
+                        $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+                        $message = urlencode('Halo admin, saya ingin bertanya 🙏');
+                    @endphp
                     <!-- Card Bantuan -->
                     <div class="mt-6 text-center">
                         <p class="text-sm text-gray-500">Ada pertanyaan tentang kelas ini?</p>
-                        <a href="#"
+                        <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
                             class="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700 mt-1">
                             <i class="fa-brands fa-whatsapp"></i> Tanya Admin (CS)
                         </a>
@@ -354,6 +357,7 @@
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Daftar Pelatihan</h3>
                         <!-- Submit Button (Desktop) -->
                         <button type="submit" id="desktopSubmitBtn"
+                            onclick="return confirm('Yakin ingin daftar pelatihan?')"
                             class="hidden lg:flex w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 items-center justify-center gap-2">
                             <span class="btnText">Daftar Pelatihan</span>
                             <i class="fa-solid fa-arrow-right btnIcon"></i>

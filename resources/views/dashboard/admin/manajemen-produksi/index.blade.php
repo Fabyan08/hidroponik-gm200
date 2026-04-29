@@ -63,7 +63,7 @@
                                                 <td>
                                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                                         data-target="#modalEdit-{{ $item->id }}">
-                                                        Edit
+                                                        Edit 
                                                     </button>
                                                 </td>
 
@@ -202,33 +202,33 @@
                             <label>Nama Tanaman</label>
                             <input required type="text" name="plant_name"
                                 class="form-control @error('plant_name') is-invalid @enderror"
-                                value="{{ old('plant_name', $item->plant_name) }}">
+                                value="{{ old('plant_name', $product->plant_name) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Tanggal Tanam</label>
                             <input required type="date" name="planting_date"
                                 class="form-control @error('planting_date') is-invalid @enderror"
-                                value="{{ old('planting_date', $item->planting_date) }}">
+                                value="{{ old('planting_date', $product->planting_date) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Tanggal Panen</label>
                             <input required type="date" name="harvest_date"
                                 class="form-control @error('harvest_date') is-invalid @enderror"
-                                value="{{ old('harvest_date', $item->harvest_date) }}">
+                                value="{{ old('harvest_date', $product->harvest_date) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Jumlah</label>
                             <input required type="number" name="quantity"
                                 class="form-control @error('quantity') is-invalid @enderror"
-                                value="{{ old('quantity', $item->quantity) }}">
+                                value="{{ old('quantity', $product->quantity) }}">
                         </div>
 
                         <div class="form-group">
                             <label>Catatan</label>
-                            <textarea name="notes" class="form-control @error('notes') is-invalid @enderror">{{ old('notes', $item->notes) }}</textarea>
+                            <textarea name="notes" class="form-control @error('notes') is-invalid @enderror">{{ old('notes', $product->notes) }}</textarea>
                         </div>
 
                     </div>

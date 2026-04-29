@@ -19,39 +19,43 @@
         href="{{ asset('assets-stisla/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
 
     {{-- <script src='https://www.noupe.com/embed/019cf57d08947f689e19cc2df0964a947516.js'></script> --}}
-    <script>
-        (function() {
-            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-                window.chatbase = (...arguments) => {
-                    if (!window.chatbase.q) {
-                        window.chatbase.q = []
+    @auth
+        @if (auth()->user()->role === 'admin')
+            <script>
+                (function() {
+                    if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                        window.chatbase = (...arguments) => {
+                            if (!window.chatbase.q) {
+                                window.chatbase.q = []
+                            }
+                            window.chatbase.q.push(arguments)
+                        };
+                        window.chatbase = new Proxy(window.chatbase, {
+                            get(target, prop) {
+                                if (prop === "q") {
+                                    return target.q
+                                }
+                                return (...args) => target(prop, ...args)
+                            }
+                        })
                     }
-                    window.chatbase.q.push(arguments)
-                };
-                window.chatbase = new Proxy(window.chatbase, {
-                    get(target, prop) {
-                        if (prop === "q") {
-                            return target.q
-                        }
-                        return (...args) => target(prop, ...args)
+                    const onLoad = function() {
+                        const script = document.createElement("script");
+                        script.src = "https://www.chatbase.co/embed.min.js";
+                        script.id = "dIu-hsL3wRdb7nj7mzijG";
+                        script.domain = "www.chatbase.co";
+                        document.body.appendChild(script)
+                    };
+                    if (document.readyState === "complete") {
+                        onLoad()
+                    } else {
+                        window.addEventListener("load", onLoad)
                     }
                 })
-            }
-            const onLoad = function() {
-                const script = document.createElement("script");
-                script.src = "https://www.chatbase.co/embed.min.js";
-                script.id = "dIu-hsL3wRdb7nj7mzijG";
-                script.domain = "www.chatbase.co";
-                document.body.appendChild(script)
-            };
-            if (document.readyState === "complete") {
-                onLoad()
-            } else {
-                window.addEventListener("load", onLoad)
-            }
-        })();
-    </script>
-
+                ();
+            </script>
+        @endif
+    @endauth
 
     {{-- Modul Datatable --}}
     <link rel="stylesheet" href="{{ asset('assets-stisla/modules/datatables/datatables.min.css') }}">

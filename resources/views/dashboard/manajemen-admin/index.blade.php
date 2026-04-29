@@ -106,34 +106,35 @@
 
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name') }}"
+                        <input type="text" required name="name" class="form-control" value="{{ old('name') }}"
                             placeholder="Masukkan nama">
                         <p class="text-danger">{{ $errors->first('name') }}</p>
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                        <input type="email" required name="email" class="form-control" value="{{ old('email') }}"
                             placeholder="Masukkan email">
                         <p class="text-danger">{{ $errors->first('email') }}</p>
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                        <input type="password" required name="password" class="form-control" placeholder="Masukkan password">
                         <p class="text-danger">{{ $errors->first('password') }}</p>
                     </div>
 
                     <div class="form-group">
                         <label>Nomor HP</label>
-                        <input type="number" name="phone" class="form-control" value="{{ old('phone') }}"
+                        <input type="number" required name="phone" class="form-control" value="{{ old('phone') }}"
                             placeholder="Masukkan nomor telepon">
                         <p class="text-danger">{{ $errors->first('phone') }}</p>
                     </div>
 
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="address" class="form-control" placeholder="Masukkan alamat">{{ old('address') }}</textarea>
+                        <textarea name="address" required class="form-control" placeholder="Masukkan alamat">{{ old('address') }}</textarea>
+                        <p class="text-danger">{{ $errors->first('address') }}</p>
                     </div>
 
                 </div>

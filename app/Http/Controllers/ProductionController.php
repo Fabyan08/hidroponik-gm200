@@ -36,9 +36,16 @@ class ProductionController extends Controller
             'planting_date' => 'required|date',
             'harvest_date' => 'nullable|date',
             'quantity' => 'required|numeric',
+            'notes' => 'nullable|string',
         ]);
 
-        $item->update($request->all());
+        $item->update([
+            'plant_name' => $request->plant_name,
+            'planting_date' => $request->planting_date,
+            'harvest_date' => $request->harvest_date,
+            'quantity' => $request->quantity,
+            'notes' => $request->notes,
+        ]);
 
         return back()->with('success', 'Data berhasil diupdate');
     }

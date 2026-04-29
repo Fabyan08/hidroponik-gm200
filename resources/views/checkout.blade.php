@@ -139,13 +139,14 @@
 
                     <div class="lg:hidden">
                         <button type="submit" form="checkoutForm" id="mobileSubmitBtn"
+                            onclick="return confirm('Yakin ingin membuat pesanan?')"
                             class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
                             <span class="btnText">Buat Pesanan</span>
                             <i class="fa-solid fa-arrow-right btnIcon"></i>
                             <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor"
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
@@ -209,6 +210,10 @@
         </div>
     </div>
 </main>
+@php
+    $admin = \App\Models\User::where('role', 'admin')->first();
+    $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+@endphp
 <script>
     function handleCheckout(e) {
         e.preventDefault();
@@ -245,13 +250,15 @@
                 localStorage.removeItem("cart");
 
                 setTimeout(() => {
-                    const phoneAdmin = "6281234567890";
+                    const phoneAdmin = "{{ $phone }}";
 
                     const message = encodeURIComponent(
                         `Halo admin, saya telah melakukan pemesanan.\n\nID Order: ${res.order_id}`
                     );
 
                     window.location.href = `https://wa.me/${phoneAdmin}?text=${message}`;
+
+
                 }, 2000);
             })
             .catch(err => {

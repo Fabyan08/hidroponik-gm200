@@ -183,7 +183,7 @@
                     @endphp
 
 
-                    <a href="https://wa.me/{{ $phone }}?text={{ $message }}"
+                    <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
                         class="h-14 px-6 rounded-2xl bg-white border-2 border-emerald-100 text-emerald-600 font-bold flex items-center justify-center gap-2 hover:border-emerald-500 hover:bg-emerald-50 transition-all">
                         <i class="fa-brands fa-whatsapp text-lg"></i> <span class="hidden sm:inline">Tanya CS</span>
                     </a>

@@ -37,8 +37,8 @@
 
                 <div class="col-lg-4">
                     <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-dollar-sign"></i>
+                        <div class="card-icon text-white font-bold text-xl bg-success">
+                            Rp
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">

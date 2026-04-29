@@ -246,7 +246,13 @@
                     class="{{ request()->is('pelatihan', 'pelatihan/*') ? 'text-emerald-500' : 'text-gray-600' }} hover:text-emerald-500">
                     Pelatihan
                 </a>
-                <a href="https://wa.me/6281234567890"
+                @php
+                    $admin = \App\Models\User::where('role', 'admin')->first();
+
+                    $phone = preg_replace('/^0/', '62', $admin->phone ?? '');
+                    $message = urlencode('Halo admin, saya ingin bertanya 🙏');
+                @endphp
+                <a href="https://wa.me/{{ $phone }}?text={{ $message }}" target="_blank"
                     class="block text-center bg-emerald-500 text-white px-5 py-2 rounded-full">
                     Hubungi Kami
                 </a>
