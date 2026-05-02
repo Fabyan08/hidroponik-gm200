@@ -101,9 +101,7 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
         $totalOrder = Order::count();
         $totalRevenue = Order::where('status', '!=', 'dibatalkan')
             ->sum('total_price');
-
         $totalSold = OrderItem::sum('quantity');
-
         $salesData = array_fill(1, 12, 0);
 
         $orders = Order::select(
@@ -116,9 +114,7 @@ Route::middleware(['auth', 'role:owner,admin'])->group(function () {
         foreach ($orders as $o) {
             $salesData[$o->month] = $o->total;
         }
-
         $sales = array_values($salesData);
-
 
         return view('dashboard.index', compact(
             'totalOrder',

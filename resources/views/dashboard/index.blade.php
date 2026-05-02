@@ -7,8 +7,6 @@
         <div class="section-header">
             <h1>Dashboard</h1>
         </div>
-
-
         <div class="section-body">
             <h2 class="section-title">
                 Hi, {{ auth()->user()->name ?? 'Owner GM200' }} 👋
