@@ -242,25 +242,6 @@
                 },
                 body: JSON.stringify(data)
             })
-            // .then(res => res.json())
-            // .then(res => {
-
-            //     document.getElementById("successOverlay").classList.remove("hidden");
-
-            //     localStorage.removeItem("cart");
-
-            //     setTimeout(() => {
-            //         const phoneAdmin = "{{ $phone }}";
-
-            //         const message = encodeURIComponent(
-            //             `Halo admin, saya telah melakukan pemesanan.\n\nID Order: ${res.order_id}`
-            //         );
-
-            //         window.location.href = `https://wa.me/${phoneAdmin}?text=${message}`;
-
-
-            //     }, 2000);
-            // })
             .then(async response => {
                 const res = await response.json();
 
@@ -285,13 +266,42 @@
             })
             .catch(err => {
                 console.error(err);
-                alert("Terjadi error");
+                alert("Terjadi error" + (err.message ? ": " + err.message : ""));
             });
     }
     document.addEventListener("DOMContentLoaded", function() {
 
 
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const desktopBtn = document.getElementById("desktopSubmitBtn");
+        const mobileBtn = document.getElementById("mobileSubmitBtn");
+
+        function toggleCheckoutButton() {
+            if (cart.length === 0) {
+                if (desktopBtn) {
+                    desktopBtn.disabled = true;
+                    desktopBtn.classList.add("opacity-50", "cursor-not-allowed");
+                }
+                if (mobileBtn) {
+                    mobileBtn.disabled = true;
+                    mobileBtn.classList.add("opacity-50", "cursor-not-allowed");
+                }
+            } else {
+                if (desktopBtn) {
+                    desktopBtn.disabled = false;
+                    desktopBtn.classList.remove("opacity-50", "cursor-not-allowed");
+                }
+                if (mobileBtn) {
+                    mobileBtn.disabled = false;
+                    mobileBtn.classList.remove("opacity-50", "cursor-not-allowed");
+                }
+            }
+        }
+
+        toggleCheckoutButton();
+
+
         const container = document.getElementById("checkoutItems");
 
         let subtotal = 0;

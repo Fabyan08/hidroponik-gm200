@@ -15,4 +15,9 @@ class Training extends Model
         'quota',
         'image',
     ];
+
+    public function registrations()
+    {
+        return $this->hasMany(TrainingRegistration::class);
+    }
 }

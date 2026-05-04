@@ -33,9 +33,13 @@ class ReviewController extends Controller
         $request->validate([
             'order_id' => 'required',
             'name' => 'required',
-            'phone' => 'required',
+            'phone'    => ['required', 'string', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
             'review' => 'required',
             'rating' => 'required'
+        ], [
+            'phone.min'   => 'Nomor HP minimal harus 10 angka.',
+            'phone.max'   => 'Nomor HP maksimal tidak boleh lebih dari 13 angka.',
+            'phone.regex' => 'Format nomor HP tidak valid. Harus diawali dengan angka 08.',
         ]);
 
         $existing = Review::where('order_id', $request->order_id)->first();

@@ -18,7 +18,7 @@ class SosmedController extends Controller
     public function generate(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
             'deskripsi' => 'nullable|string',
             'tipe' => 'required|string',
         ]);
@@ -77,7 +77,7 @@ class SosmedController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
             'deskripsi' => 'nullable|string',
             'tipe' => 'required|string',
             'caption' => 'required|string',

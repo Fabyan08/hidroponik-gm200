@@ -77,9 +77,11 @@ Route::get('/artikel', function () {
 Route::get('/artikel/{slug}', [ArtikelCustomerController::class, 'show'])->name('artikel.show');
 
 Route::get('/pelatihan', function () {
-    $trainings = Training::where('status', 'Aktif')
+    $trainings = Training::withCount('registrations')
+        ->where('status', 'Aktif')
         ->orderBy('id', 'desc')
         ->get();
+
     return view('pelatihan', compact('trainings'));
 })->name('pelatihan');
 

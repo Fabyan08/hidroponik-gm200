@@ -21,11 +21,11 @@
                 Nikmati hasil panen sayuran hidroponik paling segar untuk keluarga Anda, dan ikuti pelatihan di sini!
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#produk"
+                <a href="/produk"
                     class="px-8 py-4 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600 hover:shadow-[0_8px_20px_rgba(16,185,129,0.3)] transition-all text-center flex items-center justify-center gap-2">
                     <i class="fa-solid fa-cart-shopping"></i> Beli Sayuran
                 </a>
-                <a href="#pelatihan"
+                <a href="/pelatihan"
                     class="px-8 py-4 rounded-full bg-white border-2 border-emerald-100 text-emerald-600 font-bold hover:border-emerald-500 hover:bg-emerald-50 transition-all text-center flex items-center justify-center gap-2">
                     <i class="fa-solid fa-graduation-cap"></i> Ikuti Pelatihan
                 </a>

@@ -259,15 +259,11 @@
 <script>
     const classesData = @json($trainings);
     classesData.forEach(cls => {
-        cls.price = 100000; // default (karena tidak ada di DB)
-        cls.capacity = cls.quota;
-        cls.booked = 0; // bisa dikembangkan nanti
-        cls.time = '09:00 - Selesai';
-        cls.type = 'offline'; // default
         cls.image = cls.image ? '/storage/' + cls.image : 'https://via.placeholder.com/400';
+
+        if (!cls.type) cls.type = 'offline';
     });
 
-    // Format Rupiah
     const formatRupiah = (number) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -276,28 +272,32 @@
         }).format(number);
     };
 
-    // 2. Render Engine untuk Grid Kelas
     const classGrid = document.getElementById('classGrid');
 
     function renderClasses(type) {
         classGrid.innerHTML = '';
+
         const filteredClasses = classesData.filter(c =>
             c.type === type && c.status === 'Aktif'
         );
+
         filteredClasses.forEach((cls, index) => {
-            const sisaKuota = cls.quota; // sementara (belum ada booked)
-            const progressWidth = ((cls.quota - sisaKuota) / cls.quota) * 100 || 0;
+
+            const booked = cls.registrations_count || 0;
+            const sisaKuota = cls.quota - booked;
+            const safeSisa = Math.max(sisaKuota, 0);
+            const progressWidth = (booked / cls.quota) * 100 || 0;
 
             // warna kuota
             let kuotaColor = 'bg-emerald-500';
-            if (sisaKuota <= 5) kuotaColor = 'bg-red-500';
-            else if (sisaKuota <= 10) kuotaColor = 'bg-yellow-500';
+            if (safeSisa <= 5) kuotaColor = 'bg-red-500';
+            else if (safeSisa <= 10) kuotaColor = 'bg-yellow-500';
 
-            // badge dari status
+            const isFull = safeSisa <= 0;
+
             const badgeHTML = cls.status === 'Aktif' ?
                 `<div class="absolute top-4 right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">AKTIF</div>` :
                 `<div class="absolute top-4 right-4 bg-gray-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">TIDAK AKTIF</div>`;
-
 
             const cardHTML = `
             <a href="/pelatihan/${cls.id}" class="block">
@@ -305,7 +305,6 @@
 <div class="glass-card rounded-3xl overflow-hidden group flex flex-col h-full bg-white relative"
      style="animation: fadeUp 0.5s ease-out ${index * 100}ms both;">
 
-    <!-- IMAGE -->
     <div class="h-52 overflow-hidden relative bg-gray-100 flex items-center justify-center">
         <i class="fa-solid fa-image text-gray-300 text-4xl absolute z-0"></i>
 
@@ -319,20 +318,16 @@
         ${badgeHTML}
     </div>
 
-    <!-- CONTENT -->
     <div class="p-6 flex flex-col flex-grow">
 
-        <!-- TITLE -->
         <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2">
             ${cls.title}
         </h4>
 
-        <!-- DESCRIPTION -->
         <p class="text-sm text-gray-500 mb-4 line-clamp-2">
             ${cls.description ?? ''}
         </p>
 
-        <!-- INFO -->
         <div class="space-y-3 mb-6 flex-grow">
 
             <div class="flex items-center gap-3 text-sm text-gray-600">
@@ -362,8 +357,8 @@
         <div class="mb-6 bg-gray-50 p-3 rounded-xl border border-gray-100">
             <div class="flex justify-between text-xs font-bold mb-2">
                 <span class="text-gray-500">Kuota Tersedia</span>
-                <span class="${sisaKuota <= 5 ? 'text-red-500' : 'text-emerald-600'}">
-                    Sisa ${sisaKuota} kursi
+                <span class="${safeSisa <= 5 ? 'text-red-500' : 'text-emerald-600'}">
+                    Sisa ${safeSisa} kursi
                 </span>
             </div>
 
@@ -382,9 +377,15 @@
                 </span>
             </div>
 
-            <button onclick="daftarKelas('${cls.title}')"
-                class="px-6 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white font-bold text-sm transition-all shadow-sm">
-                Daftar
+            <button
+                ${isFull ? 'disabled' : ''}
+                onclick="daftarKelas('${cls.title}')"
+                class="px-6 py-2.5 rounded-full
+                ${isFull
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white'}
+                font-bold text-sm transition-all shadow-sm">
+                ${isFull ? 'Penuh' : 'Daftar'}
             </button>
 
         </div>
@@ -392,44 +393,36 @@
     </div>
 </div>
 </a>
-
 `;
             classGrid.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
 
-    // 3. Tab Logic
     const tabBtns = document.querySelectorAll('.tab-btn');
     tabBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // Reset active styles
             tabBtns.forEach(b => {
                 b.classList.remove('active', 'bg-emerald-500', 'text-white',
                     'shadow-[0_4px_15px_rgba(16,185,129,0.3)]', 'border-emerald-500');
                 b.classList.add('text-gray-500', 'hover:text-gray-900');
             });
 
-            // Set active style
             const currentBtn = e.currentTarget;
             currentBtn.classList.remove('text-gray-500', 'hover:text-gray-900');
             currentBtn.classList.add('active', 'bg-emerald-500', 'text-white',
                 'shadow-[0_4px_15px_rgba(16,185,129,0.3)]', 'border-emerald-500');
 
-            // Render data
             const target = currentBtn.dataset.target;
             renderClasses(target);
         });
     });
 
-    // Initialize Render (Offline as default)
     renderClasses('offline');
 
-    // 4. Accordion Logic
     window.toggleAccordion = function(button) {
         const item = button.parentElement;
         const content = button.nextElementSibling;
 
-        // Close all others
         document.querySelectorAll('.accordion-item').forEach(otherItem => {
             if (otherItem !== item) {
                 otherItem.classList.remove('open');
@@ -437,14 +430,11 @@
             }
         });
 
-        // Toggle current
         item.classList.toggle('open');
         content.classList.toggle('open');
     }
 
-    // 5. Toast & Interactions
     const toastContainer = document.getElementById('toastContainer');
-
 
     window.contactInstansi = function() {
         showToast(`Membuka WhatsApp B2B Admin...`, 'fa-whatsapp');
@@ -468,7 +458,6 @@
         }, 3000);
     }
 
-    // Navbar Scroll Effect & Reveal Animation
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
@@ -495,4 +484,5 @@
 
     revealElements.forEach(el => revealOnScroll.observe(el));
 </script>
+
 @include('layouts.onboarding.footer')

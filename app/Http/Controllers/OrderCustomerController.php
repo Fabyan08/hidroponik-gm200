@@ -16,6 +16,16 @@ class OrderCustomerController extends Controller
         DB::beginTransaction();
 
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => ['required', 'string', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
+                'email' => 'required|email',
+                'address' => 'required|string',
+            ], [
+                'phone.min'   => 'Nomor HP minimal harus 10 angka.',
+                'phone.max'   => 'Nomor HP maksimal tidak boleh lebih dari 13 angka.',
+                'phone.regex' => 'Format nomor HP tidak valid. Harus diawali dengan angka 08.',
+            ]);
             $total = 0;
 
             foreach ($request->cart as $item) {

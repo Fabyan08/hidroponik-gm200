@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                         <label>Rekomendasi Jam Tayang</label>
                                         <div class="input-group">
-                                            <input type="text" id="aiTime" class="form-control"
+                                            <input type="text"  readonly id="aiTime" class="form-control"
                                                 placeholder="Jam tayang akan muncul di sini...">
                                             <div class="input-group-append">
                                                 <button type="button" class="btn btn-info"

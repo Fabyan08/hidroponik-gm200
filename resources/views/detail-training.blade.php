@@ -219,147 +219,149 @@
 
                 </div>
             </div>
-
         </div>
         @if (session('success'))
             <div class="bg-green-500 text-white p-3 rounded mb-4">
                 {{ session('success') }}
             </div>
         @endif
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-
-            <div class="lg:col-span-7">
-                <form action="{{ route('pelatihan.daftar', $data->id) }}" method="POST" class="space-y-8">
-                    @csrf
-                    <!-- Section 1: Informasi Kontak -->
-                    <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
-                            <span
-                                class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
-                                    class="fa-regular fa-id-badge"></i></span>
-                            Informasi Kontak
-                        </h3>
-
-                        <div class="space-y-5">
-                            <div>
-                                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative input-group">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="fa-regular fa-user text-gray-400 input-icon transition-colors"></i>
-                                    </div>
-                                    <input type="text" id="name" name="name" required
-                                        placeholder="Contoh: Budi Santoso"
-                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <!-- Field: Phone -->
-                                <div>
-                                    <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">No.
-                                        WhatsApp <span class="text-red-500">*</span></label>
-                                    <div class="relative input-group">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <i
-                                                class="fa-brands fa-whatsapp text-gray-400 input-icon transition-colors"></i>
-                                        </div>
-                                        <input type="number" id="phone" name="phone" required
-                                            placeholder="0812xxxx"
-                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
-                                    </div>
-                                </div>
-
-                                <!-- Field: Email -->
-                                <div>
-                                    <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Alamat
-                                        Email <span class="text-red-500">*</span></label>
-                                    <div class="relative input-group">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <i
-                                                class="fa-regular fa-envelope text-gray-400 input-icon transition-colors"></i>
-                                        </div>
-                                        <input type="email" id="email" name="email" required
-                                            placeholder="email@contoh.com"
-                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 2: Alamat & Catatan -->
-                    <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
-                        <h3
-                            class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
-                            <span
-                                class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
-                                    class="fa-solid fa-location-dot"></i></span>
-                            Informasi Diri
-                        </h3>
-
-                        <div class="space-y-5">
-                            <!-- Field: Address (Textarea) -->
-                            <div>
-                                <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Pekerjaan
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative input-group">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i
-                                            class="fa-solid fa-briefcase text-gray-400 input-icon transition-colors"></i>
-                                    </div>
-                                    <input type="text" id="pekerjaan" name="pekerjaan" required
-                                        placeholder="Ibu Rumah Tangga"
-                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
-                                </div>
-                            </div>
-
-                            <!-- Field: Note (Textarea) -->
-                            <div>
-                                <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Institusi
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative input-group">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                        <i class="fa-solid fa-building text-gray-400 input-icon transition-colors"></i>
-                                    </div>
-                                    <input type="text" id="institusi" name="institusi" required
-                                        placeholder="- jika tidak memmiliki"
-                                        class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button (Mobile Only - Hidden on Desktop) -->
-                    <div class="lg:hidden">
-                        <button type="submit" form="checkoutForm" id="mobileSubmitBtn"
-                            class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
-                            <span class="btnText">Daftar Pelatihan</span>
-                            <i class="fa-solid fa-arrow-right btnIcon"></i>
-                            <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10"
-                                    stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
+        @if ($errors->any())
+            <div class="bg-red-500 text-white p-3 rounded mb-4">
+                <ul style="margin-bottom: 0;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
+        @if ($sisa <= 0)
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div class="lg:col-span-7">
+                    <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl">
+                        <p class="font-bold">Kuota Penuh</p>
+                        <p>Maaf, kuota untuk pelatihan ini sudah penuh.</p>
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-            <div class="lg:col-span-5 relative">
-                <div class="lg:sticky lg:top-28">
-                    <div class="glass-card rounded-[2rem] p-6 shadow-xl">
-                        <h3 class="text-xl font-bold text-gray-900 mb-6">Daftar Pelatihan</h3>
-                        @if ($data->date > \Carbon\Carbon::now())
-                            <!-- Submit Button (Desktop) -->
-                            <button type="submit" id="desktopSubmitBtn"
-                                onclick="return confirm('Yakin ingin daftar pelatihan?')"
-                                class="hidden lg:flex w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 items-center justify-center gap-2">
+                <div class="lg:col-span-7">
+                    <form action="{{ route('pelatihan.daftar', $data->id) }}" method="POST" class="space-y-8">
+                        @csrf
+                        <!-- Section 1: Informasi Kontak -->
+                        <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                            <h3
+                                class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
+                                        class="fa-regular fa-id-badge"></i></span>
+                                Informasi Kontak
+                            </h3>
+
+                            <div class="space-y-5">
+                                <div>
+                                    <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nama
+                                        Lengkap
+                                        <span class="text-red-500">*</span></label>
+                                    <div class="relative input-group">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i
+                                                class="fa-regular fa-user text-gray-400 input-icon transition-colors"></i>
+                                        </div>
+                                        <input type="text" value="{{ old('name') }}" id="name"
+                                            name="name" required placeholder="Contoh: Budi Santoso"
+                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <!-- Field: Phone -->
+                                    <div>
+                                        <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">No.
+                                            WhatsApp <span class="text-red-500">*</span></label>
+                                        <div class="relative input-group">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                <i
+                                                    class="fa-brands fa-whatsapp text-gray-400 input-icon transition-colors"></i>
+                                            </div>
+                                            <input type="number" value="{{ old('phone') }}" id="phone"
+                                                name="phone" required placeholder="0812xxxx"
+                                                class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                        </div>
+                                    </div>
+
+                                    <!-- Field: Email -->
+                                    <div>
+                                        <label for="email"
+                                            class="block text-sm font-bold text-gray-700 mb-2">Alamat
+                                            Email <span class="text-red-500">*</span></label>
+                                        <div class="relative input-group">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                <i
+                                                    class="fa-regular fa-envelope text-gray-400 input-icon transition-colors"></i>
+                                            </div>
+                                            <input type="email" value="{{ old('email') }}" id="email"
+                                                name="email" required placeholder="email@contoh.com"
+                                                class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Alamat & Catatan -->
+                        <div class="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
+                            <h3
+                                class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-b border-gray-100 pb-4">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm"><i
+                                        class="fa-solid fa-location-dot"></i></span>
+                                Informasi Diri
+                            </h3>
+
+                            <div class="space-y-5">
+                                <!-- Field: Address (Textarea) -->
+                                <div>
+                                    <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Pekerjaan
+                                        <span class="text-red-500">*</span></label>
+                                    <div class="relative input-group">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i
+                                                class="fa-solid fa-briefcase text-gray-400 input-icon transition-colors"></i>
+                                        </div>
+                                        <input type="text" value="{{ old('pekerjaan') }}" id="pekerjaan"
+                                            name="pekerjaan" required placeholder="Ibu Rumah Tangga"
+                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                    </div>
+                                </div>
+
+                                <!-- Field: Note (Textarea) -->
+                                <div>
+                                    <label for="address" class="block text-sm font-bold text-gray-700 mb-2">Institusi
+                                        <span class="text-red-500">*</span></label>
+                                    <div class="relative input-group">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i
+                                                class="fa-solid fa-building text-gray-400 input-icon transition-colors"></i>
+                                        </div>
+                                        <input type="text" value="{{ old('institusi') }}" id="institusi"
+                                            name="institusi" required placeholder="- jika tidak memmiliki"
+                                            class="input-field w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button (Mobile Only - Hidden on Desktop) -->
+                        <div class="lg:hidden">
+                            <button type="submit" form="checkoutForm" id="mobileSubmitBtn"
+                                class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
                                 <span class="btnText">Daftar Pelatihan</span>
                                 <i class="fa-solid fa-arrow-right btnIcon"></i>
                                 <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
@@ -371,22 +373,47 @@
                                     </path>
                                 </svg>
                             </button>
-                        @else
-                            <button disabled
-                                class="w-full py-4 rounded-xl bg-gray-300 text-gray-600 font-bold cursor-not-allowed flex items-center justify-center gap-2">
-                                <span class="btnText">Pendaftaran Ditutup</span>
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        @endif
-                        </form>
-                        <p class="text-center text-[10px] text-gray-400 mt-4 flex justify-center items-center gap-1">
-                            <i class="fa-solid fa-lock text-emerald-500"></i> Data Anda dilindungi dan dienkripsi.
-                        </p>
+                        </div>
+                </div>
+
+                <div class="lg:col-span-5 relative">
+                    <div class="lg:sticky lg:top-28">
+                        <div class="glass-card rounded-[2rem] p-6 shadow-xl">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6">Daftar Pelatihan</h3>
+                            @if ($data->date > \Carbon\Carbon::now())
+                                <!-- Submit Button (Desktop) -->
+                                <button type="submit" id="desktopSubmitBtn"
+                                    onclick="return confirm('Yakin ingin daftar pelatihan?')"
+                                    class="hidden lg:flex w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 items-center justify-center gap-2">
+                                    <span class="btnText">Daftar Pelatihan</span>
+                                    <i class="fa-solid fa-arrow-right btnIcon"></i>
+                                    <svg class="btnSpinner hidden animate-spin h-5 w-5 text-white"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                            stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            @else
+                                <button disabled
+                                    class="w-full py-4 rounded-xl bg-gray-300 text-gray-600 font-bold cursor-not-allowed flex items-center justify-center gap-2">
+                                    <span class="btnText">Pendaftaran Ditutup</span>
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            @endif
+                            </form>
+                            <p
+                                class="text-center text-[10px] text-gray-400 mt-4 flex justify-center items-center gap-1">
+                                <i class="fa-solid fa-lock text-emerald-500"></i> Data Anda dilindungi dan dienkripsi.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        @endif
     </div>
 
 </main>

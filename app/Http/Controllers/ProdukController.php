@@ -21,7 +21,7 @@ class ProdukController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'image' => 'required|image',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'min_order' => 'required|numeric',
             'unit' => 'required|string',
         ]);
@@ -55,7 +55,7 @@ class ProdukController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'min_order' => 'required|numeric',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'unit' => 'required|string',
         ]);
 

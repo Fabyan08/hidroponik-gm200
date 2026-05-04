@@ -14,7 +14,6 @@ class TrainingCustomerController extends Controller
 
         $data = Training::findOrFail($id);
         $booked = TrainingRegistration::where('training_id', $id)->count();
-
         return view('detail-training', compact('data', 'booked'));
     }
 
@@ -32,9 +31,13 @@ class TrainingCustomerController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required|max:20',
+            'phone'    => ['required', 'string', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
             'pekerjaan' => 'required|max:255',
             'institusi' => 'nullable|max:255',
+        ], [
+            'phone.min'   => 'Nomor HP minimal harus 10 angka.',
+            'phone.max'   => 'Nomor HP maksimal tidak boleh lebih dari 13 angka.',
+            'phone.regex' => 'Format nomor HP tidak valid. Harus diawali dengan angka 08.',
         ]);
 
         TrainingRegistration::create([

@@ -17,13 +17,16 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone' => 'required|string|',
-            'address' => 'required|string',
+            'phone'    => ['required', 'string', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
+            'address'  => 'required|string',
+        ], [
+            'phone.min'   => 'Nomor HP minimal harus 10 angka.',
+            'phone.max'   => 'Nomor HP maksimal tidak boleh lebih dari 13 angka.',
+            'phone.regex' => 'Format nomor HP tidak valid. Harus diawali dengan angka 08.',
         ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -52,8 +55,12 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $admin->id,
             'password' => 'nullable|min:6',
-            'phone' => 'required|string',
+            'phone'    => ['required', 'string', 'min:10', 'max:14', 'regex:/^08[1-9][0-9]+$/'],
             'address' => 'required|string',
+        ], [
+            'phone.min'   => 'Nomor HP minimal harus 10 angka.',
+            'phone.max'   => 'Nomor HP maksimal tidak boleh lebih dari 14 angka.',
+            'phone.regex' => 'Format nomor HP tidak valid. Harus diawali dengan angka 08.',
         ]);
 
         $admin->name = $request->name;

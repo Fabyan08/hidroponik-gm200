@@ -120,7 +120,8 @@
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" required name="password" class="form-control" placeholder="Masukkan password">
+                        <input type="password" required name="password" class="form-control"
+                            placeholder="Masukkan password">
                         <p class="text-danger">{{ $errors->first('password') }}</p>
                     </div>
 
