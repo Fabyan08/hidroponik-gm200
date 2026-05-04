@@ -81,6 +81,10 @@
                                                     onclick="copyText('aiTime')"><i class="fas fa-copy"></i></button>
                                             </div>
                                         </div>
+                                        <small id="timeWarning" class="text-danger d-none mt-1">
+                                            <i class="fas fa-exclamation-circle"></i> Jam awal tidak boleh lebih besar
+                                            atau sama dengan jam akhir!
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -401,6 +405,116 @@
             alert('Koneksi ke server gagal.');
         }
     }
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     const aiTimeInput = document.getElementById('aiTime');
+    //     const timeWarning = document.getElementById('timeWarning'); // Ambil elemen peringatan
+    //     let previousValue = aiTimeInput.value;
+
+    //     aiTimeInput.addEventListener('input', function(e) {
+    //         let cursorStart = this.selectionStart;
+    //         let inputValue = this.value;
+
+    //         // 1. Lacak ada berapa 'angka' di sebelah kiri kursor saat ini
+    //         let digitsBeforeCursor = 0;
+    //         for (let i = 0; i < cursorStart; i++) {
+    //             if (/\d/.test(inputValue[i])) {
+    //                 digitsBeforeCursor++;
+    //             }
+    //         }
+
+    //         // 2. Ambil hanya angkanya saja (maksimal 8 digit)
+    //         let numbers = inputValue.replace(/\D/g, '').substring(0, 8);
+
+    //         // 3. VALIDASI FORMAT ANGKA (TANPA ALERT)
+    //         let isInvalid = false;
+    //         if (numbers.length > 0 && parseInt(numbers[0]) > 2) isInvalid = true;
+    //         if (numbers.length > 1 && numbers[0] === '2' && parseInt(numbers[1]) > 3) isInvalid = true;
+    //         if (numbers.length > 2 && parseInt(numbers[2]) > 5) isInvalid = true;
+    //         if (numbers.length > 4 && parseInt(numbers[4]) > 2) isInvalid = true;
+    //         if (numbers.length > 5 && numbers[4] === '2' && parseInt(numbers[5]) > 3) isInvalid = true;
+    //         if (numbers.length > 6 && parseInt(numbers[6]) > 5) isInvalid = true;
+
+    //         if (isInvalid) {
+    //             this.value = previousValue;
+    //             let prevCursor = Math.max(0, cursorStart - 1);
+    //             this.setSelectionRange(prevCursor, prevCursor);
+    //             return;
+    //         }
+
+    //         // 4. FORMATTING OTOMATIS
+    //         let formatted = '';
+    //         for (let i = 0; i < numbers.length; i++) {
+    //             if (i === 2) formatted += ':';
+    //             if (i === 4) formatted += ' - ';
+    //             if (i === 6) formatted += ':';
+    //             formatted += numbers[i];
+    //         }
+
+    //         if (numbers.length >= 8) {
+    //             formatted += ' WIB';
+    //         }
+
+    //         this.value = formatted;
+    //         previousValue = formatted;
+
+    //         // 5. KEMBALIKAN KURSOR KE POSISI YANG BENAR
+    //         let newCursorPos = 0;
+    //         let digitsFound = 0;
+
+    //         for (let i = 0; i < formatted.length; i++) {
+    //             if (digitsFound === digitsBeforeCursor) {
+    //                 newCursorPos = i;
+    //                 break;
+    //             }
+    //             if (/\d/.test(formatted[i])) {
+    //                 digitsFound++;
+    //             }
+    //         }
+
+    //         if (digitsFound === digitsBeforeCursor && newCursorPos === 0 && digitsBeforeCursor > 0) {
+    //             newCursorPos = formatted.indexOf(' WIB') !== -1 ? formatted.indexOf(' WIB') : formatted
+    //                 .length;
+    //         }
+
+    //         this.setSelectionRange(newCursorPos, newCursorPos);
+
+    //         // 6. VALIDASI LOGIKA JAM (AWAL VS AKHIR)
+    //         // Hanya cek jika angkanya sudah lengkap 8 digit
+    //         if (numbers.length === 8) {
+    //             let startHour = parseInt(numbers.substring(0, 2));
+    //             let startMin = parseInt(numbers.substring(2, 4));
+    //             let endHour = parseInt(numbers.substring(4, 6));
+    //             let endMin = parseInt(numbers.substring(6, 8));
+
+    //             // Konversi ke total menit untuk memudahkan perbandingan
+    //             let totalStartMins = (startHour * 60) + startMin;
+    //             let totalEndMins = (endHour * 60) + endMin;
+
+    //             if (totalStartMins >= totalEndMins) {
+    //                 // Tampilkan pesan merah di bawah input
+    //                 timeWarning.classList.remove('d-none');
+    //                 aiTimeInput.classList.add(
+    //                 'is-invalid'); // Bikin border input jadi merah (opsional, bawaan Bootstrap)
+    //             } else {
+    //                 // Sembunyikan pesan merah
+    //                 timeWarning.classList.add('d-none');
+    //                 aiTimeInput.classList.remove('is-invalid');
+    //             }
+    //         } else {
+    //             // Sembunyikan pesan merah kalau digit belum lengkap (sedang diketik/dihapus)
+    //             timeWarning.classList.add('d-none');
+    //             aiTimeInput.classList.remove('is-invalid');
+    //         }
+    //     });
+
+    //     // Cegah kursor nyasar ke dalam tulisan " WIB"
+    //     aiTimeInput.addEventListener('click', function() {
+    //         if (this.value.includes(' WIB') && this.selectionStart > this.value.length - 4) {
+    //             let target = this.value.length - 4;
+    //             this.setSelectionRange(target, target);
+    //         }
+    //     });
+    // });
 </script>
 
 @include('layouts.dashboard.footer')

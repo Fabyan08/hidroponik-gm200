@@ -138,6 +138,7 @@
         </div>
     </div>
 </section>
+
 <section class="py-24 px-6 bg-white relative">
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16 reveal">
@@ -280,8 +281,9 @@
 
     function renderClasses(type) {
         classGrid.innerHTML = '';
-        const filteredClasses = classesData.filter(c => c.type === type);
-
+        const filteredClasses = classesData.filter(c =>
+            c.type === type && c.status === 'Aktif'
+        );
         filteredClasses.forEach((cls, index) => {
             const sisaKuota = cls.quota; // sementara (belum ada booked)
             const progressWidth = ((cls.quota - sisaKuota) / cls.quota) * 100 || 0;

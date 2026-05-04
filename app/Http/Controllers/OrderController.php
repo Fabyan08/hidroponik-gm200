@@ -85,15 +85,4 @@ class OrderController extends Controller
         return view('dashboard.admin.manajemen-pemesanan.invoice', compact('order', 'review'));
     }
 
-
-    // public function updateStatus(Request $request, $id)
-    // {
-
-    //     $order = Order::findOrFail($id);
-    //     $order->update([
-    //         'status' => $request->status
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Status berhasil diperbarui!');
-    // }
 }

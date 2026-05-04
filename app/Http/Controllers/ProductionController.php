@@ -18,8 +18,9 @@ class ProductionController extends Controller
         $request->validate([
             'plant_name' => 'required',
             'planting_date' => 'required|date',
-            'harvest_date' => 'nullable|date',
+            'harvest_date' => 'required|date',
             'quantity' => 'required|numeric',
+            'notes' => 'nullable|string',
         ]);
 
         Production::create($request->all());
@@ -34,7 +35,7 @@ class ProductionController extends Controller
         $request->validate([
             'plant_name' => 'required',
             'planting_date' => 'required|date',
-            'harvest_date' => 'nullable|date',
+            'harvest_date' => 'required|date',
             'quantity' => 'required|numeric',
             'notes' => 'nullable|string',
         ]);

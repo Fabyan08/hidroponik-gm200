@@ -21,7 +21,7 @@ class ProdukController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'image' => 'nullable|image',
+            'image' => 'required|image',
             'min_order' => 'required|numeric',
             'unit' => 'required|string',
         ]);

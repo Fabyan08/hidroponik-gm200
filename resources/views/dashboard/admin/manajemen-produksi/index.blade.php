@@ -63,7 +63,7 @@
                                                 <td>
                                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                                         data-target="#modalEdit-{{ $item->id }}">
-                                                        Edit 
+                                                        Edit
                                                     </button>
                                                 </td>
 

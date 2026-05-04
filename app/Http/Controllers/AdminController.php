@@ -20,7 +20,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone' => 'required|string',
+            'phone' => 'required|string|',
             'address' => 'required|string',
         ]);
 
@@ -52,7 +52,8 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $admin->id,
             'password' => 'nullable|min:6',
-            'phone' => 'nullable|string',
+            'phone' => 'required|string',
+            'address' => 'required|string',
         ]);
 
         $admin->name = $request->name;
