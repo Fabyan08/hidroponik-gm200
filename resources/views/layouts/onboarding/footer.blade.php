@@ -94,7 +94,7 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
-      
+
 
         // tambah ke keranjang
         function addToCart() {
@@ -102,7 +102,6 @@
             if (!qtyInput) return;
 
             let qty = parseInt(qtyInput.value);
-
             let cart = getCart();
 
             let product = {
@@ -110,8 +109,8 @@
                 name: "{{ isset($product) ? $product->name : '' }}",
                 price: {{ isset($product) ? $product->price : 0 }},
                 qty: qty,
-                image: "{{ isset($product) ? $product->image : '' }}"
-
+                image: "{{ isset($product) ? $product->image : '' }}",
+                min_order: {{ isset($product) ? $product->min_order : 1 }} // <--- TAMBAHKAN BARIS INI
             };
 
             // produk ada di halaman lain
@@ -120,7 +119,8 @@
             let existing = cart.find(item => item.id === product.id);
 
             if (existing) {
-                existing.qty += qty;
+                // Pastikan penambahan juga mengikuti kelipatan jika ditambahkan lagi dari halaman produk
+                existing.qty += product.min_order;
             } else {
                 cart.push(product);
             }
@@ -166,6 +166,7 @@
         }
 
         // tampil keranjang
+        // tampil keranjang
         function renderCart() {
             let container = document.getElementById('cartItems');
             let countEl = document.getElementById('cartCount');
@@ -196,16 +197,21 @@
             cart.forEach((item, index) => {
                 total += item.price * item.qty;
 
+                // ---> PERUBAHAN ADA DI SINI <---
+                // Menambahkan tag <img> dan sedikit penyesuaian tata letak (flex, gap) agar rapi
                 container.innerHTML += `
-            <div class="flex justify-between items-center border-b pb-2">
-                <div>
-                    <p class="font-bold">${item.name}</p>
-                    <p class="text-sm text-gray-500">Rp ${formatRupiah(item.price)}</p>
+            <div class="flex justify-between items-center border-b pb-3 pt-2 gap-2">
+                <div class="flex items-center gap-3">
+                    <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-gray-100">
+                    <div>
+                        <p class="font-bold text-gray-800">${item.name}</p>
+                        <p class="text-sm text-emerald-600 font-semibold">Rp ${formatRupiah(item.price)}</p>
+                    </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button onclick="changeQty(${index}, -1)">-</button>
-                    <span>${item.qty}</span>
-                    <button onclick="changeQty(${index}, 1)">+</button>
+                    <button onclick="changeQty(${index}, -1)" class="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-100 hover:text-red-600 flex items-center justify-center transition-colors font-bold">-</button>
+                    <span class="w-4 text-center font-medium">${item.qty}</span>
+                    <button onclick="changeQty(${index}, 1)" class="w-7 h-7 rounded-full bg-emerald-50 hover:bg-emerald-500 hover:text-white flex items-center justify-center text-emerald-600 transition-colors font-bold">+</button>
                 </div>
             </div>
             `;
@@ -215,12 +221,24 @@
         }
 
         // ubah jumlah di keranjang
-        function changeQty(index, change) {
+        // ubah jumlah di keranjang
+        function changeQty(index, direction) {
             let cart = getCart();
+            let item = cart[index];
 
-            cart[index].qty += change;
+            // Ambil nilai min_order produk, gunakan 1 sebagai fallback jika tidak ada
+            let minOrder = item.min_order || 1;
 
-            if (cart[index].qty <= 0) {
+            // Jika direction 1 (tambah), tambah sebanyak min_order
+            // Jika direction -1 (kurang), kurangi sebanyak min_order
+            if (direction === 1) {
+                item.qty += minOrder;
+            } else if (direction === -1) {
+                item.qty -= minOrder;
+            }
+
+            // Jika qty kurang dari atau sama dengan 0, hapus dari keranjang
+            if (item.qty <= 0) {
                 cart.splice(index, 1);
             }
 

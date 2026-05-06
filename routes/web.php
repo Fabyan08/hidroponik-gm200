@@ -28,7 +28,7 @@ use Illuminate\Support\Str;
 
 Route::get('/', function () {
     $data = Product::latest()->take(4)->get();
-    $pelatihan = Training::latest()->take(2)->get();
+    $pelatihan = Training::latest()->where('status', 'Aktif')->take(2)->get();
     $artikel = Article::latest()->take(3)->get();
 
     $review = Review::where('tampil', 'ya')

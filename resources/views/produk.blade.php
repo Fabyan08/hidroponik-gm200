@@ -64,7 +64,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-        // 🔥 STOP kalau bukan halaman produk
         const productGrid = document.getElementById('productGrid');
         if (!productGrid) return;
 
@@ -80,6 +79,7 @@
                     'unit' => $p->unit,
                     'image' => asset('storage/' . $p->image),
                     'desc' => $p->description,
+                    'min_order' => $p->min_order,
                 ];
             }),
         ) !!};
@@ -149,10 +149,10 @@
                                 <span class="text-xs text-gray-400 block">/ ${product.unit}</span>
                             </div>
 
-                            <button onclick="addToCartFromList(${product.id}, '${product.name}', ${product.price}, '${product.image}')"
-                                class="w-12 h-12 rounded-full bg-emerald-50 hover:bg-emerald-500">
-                                <i class="fa-solid fa-cart-plus" style="color:green"></i>
-                            </button>
+                         <button onclick="addToCartFromList(${product.id}, '${product.name}', ${product.price}, '${product.image}', ${product.min_order})"
+                            class="w-12 h-12 rounded-full bg-emerald-50 hover:bg-emerald-500 group-hover:bg-emerald-500 transition-colors">
+                            <i class="fa-solid fa-cart-plus text-emerald-600 group-hover:text-white transition-colors"></i>
+                        </button>
                         </div>
                     </div>
                 </a>
@@ -165,13 +165,14 @@
         // ========================
         // CART
         // ========================
-        window.addToCartFromList = function(id, name, price, image) {
+        window.addToCartFromList = function(id, name, price, image, minOrder) {
             window.addToCartGlobal({
                 id: id,
                 name: name,
                 price: price,
                 image: image,
-                qty: 1,
+                qty: minOrder,
+                min_order: minOrder
             });
 
             const floating = document.getElementById('floatingCart');

@@ -46,7 +46,7 @@
         <form id="loginForm" method="POST" action="{{ route('login') }}" class="space-y-6">
 
             <div class="space-y-2">
-                <label for="email" class="text-sm font-bold text-gray-700">Email / Username</label>
+                <label for="email" class="text-sm font-bold text-gray-700">Email</label>
                 <div class="relative input-group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <i class="fa-regular fa-envelope text-gray-400 input-icon transition-all duration-300"></i>
