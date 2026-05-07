@@ -97,7 +97,7 @@
                             <div class="mt-4 d-flex flex-column gap-2">
 
                                 <!-- BUTTON STRUK -->
-                                <a href="{{ route('manajemen-pemesanan.invoice', $order->id) }}"
+                                <a href="{{ route('manajemen-pemesanan.invoice', $order->id) }}" target="_blank"
                                     class="btn btn-dark btn-primary d-flex align-items-center justify-content-center gap-2">
 
                                     <i class="fas fa-receipt"></i>
@@ -148,9 +148,7 @@
                                         @foreach ($order->items as $item)
                                             <tr>
                                                 <td>
-                                                    <b>{{ $item->product->name ?? 'Produk dihapus' }}</b>
-                                                </td>
-
+                                                    {{ $item->product->name }} </td>
                                                 <td>
                                                     Rp {{ number_format($item->price) }}
                                                 </td>

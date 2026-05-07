@@ -77,10 +77,12 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3">Content</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea name="content" class="summernote" required>{{ old('content', $article->content) }}</textarea>
-                                        @error('content')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                        <div class="form-group row mb-4">
+                                            <textarea name="content" required class="summernote">{!! old('content', $article->content) !!}</textarea>
+                                            @error('content')
+                                                <div class="text-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 

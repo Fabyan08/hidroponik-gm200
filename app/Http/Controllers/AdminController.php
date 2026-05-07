@@ -20,7 +20,7 @@ class AdminController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone'    => ['required', 'string', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
+            'phone'    => ['required', 'string', 'unique:users,phone', 'min:10', 'max:13', 'regex:/^08[1-9][0-9]+$/'],
             'address'  => 'required|string',
         ], [
             'phone.min'   => 'Nomor HP minimal harus 10 angka.',
@@ -55,7 +55,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $admin->id,
             'password' => 'nullable|min:6',
-            'phone'    => ['required', 'string', 'min:10', 'max:14', 'regex:/^08[1-9][0-9]+$/'],
+            'phone'    => ['required','unique:users,phone,' . $admin->id, 'string', 'min:10', 'max:14', 'regex:/^08[1-9][0-9]+$/'],
             'address' => 'required|string',
         ], [
             'phone.min'   => 'Nomor HP minimal harus 10 angka.',

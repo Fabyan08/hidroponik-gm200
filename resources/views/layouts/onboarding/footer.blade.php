@@ -109,8 +109,8 @@
                 name: "{{ isset($product) ? $product->name : '' }}",
                 price: {{ isset($product) ? $product->price : 0 }},
                 qty: qty,
-                image: "{{ isset($product) ? $product->image : '' }}",
-                min_order: {{ isset($product) ? $product->min_order : 1 }} // <--- TAMBAHKAN BARIS INI
+                image: "{{ isset($product) && $product->image ? asset('storage/' . $product->image) : '' }}",
+                min_order: {{ isset($product) ? $product->min_order : 1 }}
             };
 
             // produk ada di halaman lain

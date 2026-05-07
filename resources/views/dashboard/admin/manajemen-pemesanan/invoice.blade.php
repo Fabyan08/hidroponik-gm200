@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Pesanan | GM 200 Hydroponics</title>
+    <title>Invoice Pesanan | GM 200 Hydroponik</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -110,7 +110,7 @@
 
 
             <div class="px-6 sm:px-8 mb-8">
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">GM 200 Hydroponics</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">GM 200 Hydroponik</h1>
                 <p class="text-gray-600 text-sm leading-relaxed">
                     Halo, <span class="font-bold text-gray-900" id="inv-name"><span class="font-bold text-gray-900">
                             {{ $order->name }}
@@ -182,7 +182,7 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
 
 
                             <div class="w-1/2 font-semibold text-gray-800">
-                                {{ $item->product->name ?? 'Produk dihapus' }}
+                                {{ $item->product->name }}
                             </div>
 
 
@@ -246,17 +246,18 @@ inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider
     </div>
 
 
-
-    @if (!$review)
-        <button onclick="openReview()"
-            class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
-            <i class="fas fa-star text-xl"></i>
-        </button>
-    @elseif ($canEditReview)
-        <button onclick="openReview()"
-            class="fixed bottom-6 right-6 bg-yellow-500 hover:bg-yellow-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
-            <i class="fas fa-edit text-xl"></i>
-        </button>
+    @if ($order->status === 'selesai')
+        @if (!$review)
+            <button onclick="openReview()"
+                class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
+                <i class="fas fa-star text-xl"></i>
+            </button>
+        @elseif ($canEditReview)
+            <button onclick="openReview()"
+                class="fixed bottom-6 right-6 bg-yellow-500 hover:bg-yellow-600 text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-50 transition">
+                <i class="fas fa-edit text-xl"></i>
+            </button>
+        @endif
     @endif
 
 

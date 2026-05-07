@@ -27,7 +27,7 @@ class TrainingController extends Controller
             'time' => 'required',
             'location' => 'required',
             'quota' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $imagePath = null;
@@ -60,7 +60,7 @@ class TrainingController extends Controller
             'time' => 'required',
             'location' => 'required',
             'quota' => 'required|numeric',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('image')) {

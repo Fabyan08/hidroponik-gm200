@@ -16,7 +16,9 @@ class OrderController extends Controller
     }
     public function show($id)
     {
-        $order = Order::with(['items.product'])->findOrFail($id);
+        $order = Order::with(['items.product' => function ($query) {
+            $query->withTrashed();
+        }])->findOrFail($id);
 
         return view('dashboard.admin.manajemen-pemesanan.detail', compact('order'));
     }
@@ -79,10 +81,20 @@ class OrderController extends Controller
 
     public function invoice($id)
     {
-        $order = Order::with('items.product')->findOrFail($id);
+        // $order = Order::with('items.product')->findOrFail($id);
+        // $review = Review::where('order_id', $id)->first();
+        // $orderItems = $order->items;
+        // $namaProduk = $orderItems->map(function ($item) {
+        //     return $item->product;
+        // })->toArray();
+
+        // nama produk
+        $order = Order::with(['items.product' => function ($query) {
+            $query->withTrashed();
+        }])->findOrFail($id);
+
         $review = Review::where('order_id', $id)->first();
 
         return view('dashboard.admin.manajemen-pemesanan.invoice', compact('order', 'review'));
     }
-
 }
